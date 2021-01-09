@@ -1,0 +1,119 @@
+@media (min-width: 992px) and (max-width: 1199px) {
+  input.form-control {
+    width: 100%;
+  }
+
+  .btn-submit {
+    width: 100% !important;
+  }
+
+  .field-icon {
+    margin-right: 10px;
+  }
+
+  .btn-verify {
+    width: 100%;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .form-box {
+    padding: 40px !important;
+  }
+
+  input.form-control {
+    width: 100%;
+  }
+
+  .form-box h3 {
+    font-size: 30px !important;
+  }
+
+  .form-box p {
+    font-size: 13px !important;
+  }
+
+  .needs-validation label {
+    font-size: 14px !important;
+  }
+
+  .lab-password a {
+    font-size: 14px !important;
+  }
+
+  input.form-control {
+    font-size: 14px !important;
+  }
+
+  .form-control {
+    height: 40px !important;
+  }
+
+  .field-icon {
+    margin-right: 5px;
+    margin-top: -30px !important;
+  }
+
+  .form-group span {
+    font-size: 20px !important;
+  }
+
+  .form-check-input {
+    width: 25px !important;
+    height: 25px !important;
+  }
+
+  .check-label {
+    margin-left: 20px !important;
+    margin-top: 7px !important;
+  }
+
+  .btn-submit {
+    width: 100% !important;
+    height: 40px !important;
+  }
+
+  .invalid-feedback {
+    font-size: 12px !important;
+  }
+
+  .btn-verify {
+    width: 100%;
+  }
+}
+
+@media (min-width: 576px) and (max-width: 767px) {
+  input.form-control {
+    width: 100%;
+  }
+
+  .btn-submit {
+    width: 100% !important;
+  }
+
+  .field-icon {
+    margin-right: 10px;
+  }
+
+  .btn-verify {
+    width: 100%;
+  }
+}
+
+@media (max-width: 575px) {
+  input.form-control {
+    width: 100%;
+  }
+
+  .btn-submit {
+    width: 100% !important;
+  }
+
+  .field-icon {
+    margin-right: 5px;
+  }
+
+  .btn-verify {
+    width: 100%;
+  }
+}

@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./css/bootstrap/bootstrap.css" />
+    <link rel="stylesheet" href="./css/responsive.css" />
+    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="stylesheet" href="./fonts/css/font-awesome.css" />
+    <link rel="stylesheet" href="./fonts/fontawesome/css/fontawesome.css" />
+    <link rel="stylesheet" href="./fonts/fontawesome/css/brands.css" />
+    <link rel="stylesheet" href="./fonts/fontawesome/css/solid.css" />
+    <title>Rejected Notes</title>
+  </head>
+  <body>
+    <header>
+      <nav class="navbar white-nav-top navbar-expand-lg fixed-top">
+        <div class="container container-relative">
+          <span id="mobile-nav-open-btn">&#9776;</span>
+          <a href="#home" class="navbar-brand">
+            <img src="./images/login/logo.png" alt="logo" id="user_logo" />
+          </a>
+          <div class="container add-list">
+            <div
+              class="collapse navbar-collapse remove-padding navbar-dropdown"
+            >
+              <ul class="nav ml-auto">
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Dashboard</a>
+                </li>
+                <li class="nav-item direct-hover">
+                  <a class="nav-link" href="" data-toggle="dropdown">Notes</a>
+                  <div class="dropdown">
+                    <div class="dropdown-menu">
+                      <a class="dropdown-item" href="#">Notes Under Review</a>
+                      <a class="dropdown-item" href="#">Published Notes</a>
+                      <a class="dropdown-item" href="#">Download Notes</a>
+                      <a class="dropdown-item" href="#">Rejected Notes</a>
+                    </div>
+                  </div>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Members</a>
+                </li>
+                <li class="nav-item direct-hover">
+                  <a class="nav-link" data-toggle="dropdown" href="#"
+                    >Reports</a
+                  >
+                  <div class="dropdown">
+                    <div class="dropdown-menu">
+                      <a class="dropdown-item" href="#">Spam Reports</a>
+                    </div>
+                  </div>
+                </li>
+                <li class="nav-item direct-hover">
+                  <a class="nav-link" data-toggle="dropdown" href="#"
+                    >Settings</a
+                  >
+                  <div class="dropdown">
+                    <div class="dropdown-menu">
+                      <a class="dropdown-item" href="#"
+                        >Manage System Configuration</a
+                      >
+                      <a class="dropdown-item" href="#">Manage Administrator</a>
+                      <a class="dropdown-item" href="#">Manage Category</a>
+                      <a class="dropdown-item" href="#">Manage Type</a>
+                      <a class="dropdown-item" href="#">Manage Country</a>
+                    </div>
+                  </div>
+                </li>
+                <li class="nav-item direct-hover">
+                  <img
+                    class="image-fluid rounded-circle"
+                    data-toggle="dropdown"
+                    src="./images/home/client-1.jpg"
+                  />
+                  <div class="dropdown">
+                    <div class="dropdown-menu">
+                      <a class="dropdown-item" href="#">Update Profile</a>
+                      <a class="dropdown-item" href="#">Change Password</a>
+                      <a class="dropdown-item change-color" href="#">LOGOUT</a>
+                    </div>
+                  </div>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link btn-logout" href="#" role="button"
+                    >Logout</a
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div id="mobile-nav">
+            <span id="mobile-nav-close-btn">&times;</span>
+            <div id="mobile-nav-content">
+              <ul class="nav navbar-nav">
+                <li class="nav-item">
+                  <a class="nav-link checked" href="./dashboard.html"
+                    >Dashboard</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="" data-toggle="dropdown">Notes</a>
+                  <div class="dropdown">
+                    <div class="dropdown-menu">
+                      <a class="dropdown-item" href="#">Notes Under Review</a>
+                      <a class="dropdown-item" href="#">Published Notes</a>
+                      <a class="dropdown-item" href="#">Download Notes</a>
+                      <a class="dropdown-item" href="#">Rejected Notes</a>
+                    </div>
+                  </div>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Members</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" data-toggle="dropdown" href="#"
+                    >Reports</a
+                  >
+                  <div class="dropdown">
+                    <div class="dropdown-menu">
+                      <a class="dropdown-item" href="#">Spam Reports</a>
+                    </div>
+                  </div>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" data-toggle="dropdown" href="#"
+                    >Settings</a
+                  >
+                  <div class="dropdown">
+                    <div class="dropdown-menu white-space-remove">
+                      <a class="dropdown-item" href="#">Manage Configuration</a>
+                      <a class="dropdown-item" href="#">Manage Administrator</a>
+                      <a class="dropdown-item" href="#">Manage Category</a>
+                      <a class="dropdown-item" href="#">Manage Type</a>
+                      <a class="dropdown-item" href="#">Manage Country</a>
+                    </div>
+                  </div>
+                </li>
+                <li class="nav-item">
+                  <img
+                    class="image-fluid rounded-circle"
+                    data-toggle="dropdown"
+                    src="./images/home/client-1.jpg"
+                  />
+                  <div class="dropdown">
+                    <div class="dropdown-menu">
+                      <a class="dropdown-item" href="#">Update Profile</a>
+                      <a class="dropdown-item" href="#">Change Password</a>
+                      <a class="dropdown-item change-color" href="#">LOGOUT</a>
+                    </div>
+                  </div>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link btn-logout" href="#" role="button"
+                    >Logout</a
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <section id="margin-nav"></section>
+    <section id="administrator-box note-under-box">
+      <div id="content-box">
+        <div class="container">
+          <div class="administrator-box note-under-box">
+            <div class="main-heading">
+              <h2>Rejected Notes</h2>
+            </div>
+            <label for="seller">Seller</label>
+            <div class="row">
+              <div class="col-lg-6 col-12">
+                <div class="form-group note-select">
+                  <select class="form-control" id="name">
+                    <option>Khayati</option>
+                    <option>Dhruvil</option>
+                    <option>Aman</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-lg-6 col-12">
+                <div class="search-form">
+                  <form class="form-inline">
+                    <div class="form-group">
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder=" &#xF002; &nbsp;&nbsp;Search"
+                        id="search"
+                        style="font-family: Open Sans, FontAwesome"
+                      />
+                      <input
+                        type="submit"
+                        class="btn btn-primary"
+                        value="SEARCH"
+                      />
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="note-under-review-table table-responsive-xl">
+            <table class="table">
+              <thead>
+                <tr>
+                  <td align="center">Sr No.</td>
+                  <td>Note Title</td>
+                  <td>Category</td>
+                  <td>Seller</td>
+                  <td></td>
+                  <td>Date Added</td>
+                  <td>Rejected By</td>
+                  <td>Remark</td>
+                  <td align="center"></td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td align="center">1</td>
+                  <td>Software Engineer</td>
+                  <td>IT</td>
+                  <td>Khayati Patel</td>
+                  <td align="center">
+                    <img src="./images/Dashboard/eye.png" />
+                  </td>
+                  <td>09-10-2020,10:10</td>
+                  <td>Raj Sheth</td>
+                  <td>Lorem Ipsum is dummy text printing industry.</td>
+                  <td align="center">
+                    <div class="dropdown">
+                      <button
+                        type="button"
+                        class="dropdown-toggle"
+                        data-toggle="dropdown"
+                      >
+                        <i class="fas fa-ellipsis-v"></i>
+                      </button>
+                      <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">Approve</a>
+                        <a class="dropdown-item" href="#">Download Notes</a>
+                        <a class="dropdown-item" href="#">View More Details</a>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="center">2</td>
+                  <td>Computer Basic</td>
+                  <td>Computer</td>
+                  <td>Khayati Patel</td>
+                  <td align="center">
+                    <img src="./images/Dashboard/eye.png" />
+                  </td>
+                  <td>10-10-2020,11:25</td>
+                  <td>Khayati Patel</td>
+                  <td>Lorem Ipsum is dummy text printing industry.</td>
+                  <td align="center">
+                    <div class="dropdown">
+                      <button
+                        type="button"
+                        class="dropdown-toggle"
+                        data-toggle="dropdown"
+                      >
+                        <i class="fas fa-ellipsis-v"></i>
+                      </button>
+                      <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">Approve</a>
+                        <a class="dropdown-item" href="#">Download Notes</a>
+                        <a class="dropdown-item" href="#">View More Details</a>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="center">3</td>
+                  <td>Human Body</td>
+                  <td>Science</td>
+                  <td>Khayati Patel</td>
+                  <td align="center">
+                    <img src="./images/Dashboard/eye.png" />
+                  </td>
+                  <td>11-10-2020,01:00</td>
+                  <td>Raj Sheth</td>
+                  <td>Lorem Ipsum is dummy text printing industry.</td>
+                  <td align="center">
+                    <div class="dropdown">
+                      <button
+                        type="button"
+                        class="dropdown-toggle"
+                        data-toggle="dropdown"
+                      >
+                        <i class="fas fa-ellipsis-v"></i>
+                      </button>
+                      <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">Approve</a>
+                        <a class="dropdown-item" href="#">Download Notes</a>
+                        <a class="dropdown-item" href="#">View More Details</a>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="center">4</td>
+                  <td>world war z</td>
+                  <td>History</td>
+                  <td>Khayati Patel</td>
+                  <td align="center">
+                    <img src="./images/Dashboard/eye.png" />
+                  </td>
+                  <td>12-10-2020,10:10</td>
+                  <td>Raj Sheth</td>
+                  <td>Lorem Ipsum is dummy text printing industry.</td>
+                  <td align="center">
+                    <div class="dropdown">
+                      <button
+                        type="button"
+                        class="dropdown-toggle"
+                        data-toggle="dropdown"
+                      >
+                        <i class="fas fa-ellipsis-v"></i>
+                      </button>
+                      <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">Approve</a>
+                        <a class="dropdown-item" href="#">Download Notes</a>
+                        <a class="dropdown-item" href="#">View More Details</a>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="center">5</td>
+                  <td>Accounting</td>
+                  <td>Account</td>
+                  <td>Khayati Patel</td>
+                  <td align="center">
+                    <img src="./images/Dashboard/eye.png" />
+                  </td>
+                  <td>13-10-2020,11:25</td>
+                  <td>Niya Patel</td>
+                  <td>Lorem Ipsum is dummy text printing industry.</td>
+                  <td align="center">
+                    <div class="dropdown">
+                      <button
+                        type="button"
+                        class="dropdown-toggle"
+                        data-toggle="dropdown"
+                      >
+                        <i class="fas fa-ellipsis-v"></i>
+                      </button>
+                      <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">Approve</a>
+                        <a class="dropdown-item" href="#">Download Notes</a>
+                        <a class="dropdown-item" href="#">View More Details</a>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="pagination-2">
+      <nav>
+        <ul class="pagination justify-content-center">
+          <li class="page-item">
+            <a class="page-link" href="#" aria-label="Previous">
+              <span aria-hidden="true"
+                ><i class="fa fa-chevron-left" aria-hidden="true"></i
+              ></span>
+            </a>
+          </li>
+          <li class="page-item">
+            <a class="page-link btn-pagination" href="#">1</a>
+          </li>
+          <li class="page-item"><a class="page-link" href="#">2</a></li>
+          <li class="page-item"><a class="page-link" href="#">3</a></li>
+          <li class="page-item"><a class="page-link" href="#">4</a></li>
+          <li class="page-item"><a class="page-link" href="#">5</a></li>
+          <li class="page-item">
+            <a class="page-link" href="#" aria-label="Next">
+              <span aria-hidden="true"
+                ><i class="fa fa-chevron-right" aria-hidden="true"></i
+              ></span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </section>
+    <section id="footer">
+      <hr />
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-3 col-3">
+            <div class="version">
+              <p>Version:1.1.24</p>
+            </div>
+          </div>
+          <div class="col-sm-9 col-9">
+            <div class="copyrigth text-right">
+              <p>Copyright &copy; Tatvasoft All rights reserved.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <script src="./js/jquery.js"></script>
+    <script src="./js/script.js"></script>
+    <script src="./js/popper.min.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
+  </body>
+</html>

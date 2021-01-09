@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/bootstrap/bootstrap.css">
+    <link rel="stylesheet" href="./css/responsive.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./fonts/css/font-awesome.css">
+    <title>
+        Sign Up
+    </title>
+</head>
+
+<body>
+    <section id="home">
+        <div class="container" id="container-box">
+            <div class="row">
+                <div class="col-md-12" align="center">
+                    <img src="./images/login/top-logo.png" alt="Top Photo" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3"></div>
+                <div class="col-md-6 form-box">
+                    <h3>Create an Account</h3>
+                    <p>Enter your details to signup</p>
+                    <p class="success-message"><i class="fa fa-check-circle"></i> Your account has been successfully created.</p>
+                    <form class="needs-validation" novalidate>
+                        <div class="form-group">
+                            <label for="fname">First Name*</label>
+                            <input type="text" class="form-control" id="fname" placeholder="Enter your first name"
+                                name="fname" required>
+                            <div class="invalid-feedback">The first name that you've entered is incorrect.</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="lname" class="margin-label">Last Name*</label>
+                            <input type="text" class="form-control" id="lname" placeholder="Enter your last name" name="lname" required>
+                            <div class="invalid-feedback">The last name that you've entered is incorrect.</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="email" class="margin-label">Email*</label>
+                            <input type="email" class="form-control" id="email" placeholder="Enter your email" name="email" required>
+                            <div class="invalid-feedback">The email that you've entered is incorrect.</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd" class="margin-label">Password</label>
+                            <input id="password-field" type="password" class="form-control" id="pwd"
+                                placeholder="Enter your password" name="pswd" required>
+                            <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+                            <div class="invalid-feedback">The password that you've entered is incorrect.</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd" class="margin-label">Confirm Password</label>
+                            <input id="password-field1" type="password" class="form-control" id="pwd" placeholder="Re-enter your password"
+                                name="repswd" required>
+                            <span toggle="#password-field1" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+                            <div class="invalid-feedback">The password that you've entered is incorrect.</div>
+                        </div>
+                        <input type="submit" class="btn-submit margin-label" value="SIGN UP">
+                    </form>
+                    <div id="sign-up">
+                        <p>Already have an account? <a href="./login.html">Login</a></p>
+                    </div>
+                </div>
+            </div>
+            <div style="padding-bottom: 100px;"></div>
+        </div>
+    </section>
+    <script src="./js/jquery.js"></script>
+    <script src="./js/script.js"></script>
+</body>
+
+</html>

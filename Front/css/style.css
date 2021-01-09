@@ -1,0 +1,241 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#home {
+  background: url("../images/login/banner-with-overlay.jpg");
+  min-height: 100%;
+  width: 100%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#container-box {
+  padding-top: 100px;
+}
+
+.form-box {
+  padding: 50px;
+  margin-top: 25px;
+  background-color: white;
+}
+
+.form-box h3 {
+  font-family: "Open Sans";
+  font-size: 34px;
+  font-weight: 600;
+  line-height: 38px;
+  color: #6255a5;
+  text-align: center;
+}
+
+.form-box > p {
+  font-family: "Open Sans";
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 19px;
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 45px;
+}
+
+.needs-validation label {
+  font-family: "Open Sans";
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 20px;
+  color: #333333;
+  margin-bottom: 10px;
+}
+
+.form-control {
+  border: 1px solid #6255a5;
+  width: 480px;
+  height: 50px;
+  border-radius: 3px;
+}
+
+input.form-control {
+  font-family: "Open Sans";
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 20px;
+  color: #000;
+}
+
+.was-validated .form-control:valid,
+.was-validated .form-control:invalid {
+  background-image: none;
+}
+
+.was-validated .form-control:valid {
+  border-color: #6255a5;
+}
+
+.invalid-feedback {
+  font-family: "Open Sans";
+  font-size: 13px;
+  font-weight: 300;
+  line-height: 20px;
+  color: #ff3636;
+  margin-top: 10px;
+}
+
+.was-validated .form-control:invalid {
+  border-color: #ff5e5e;
+}
+
+.field-icon {
+  float: right;
+  position: relative;
+  z-index: 10;
+  margin-top: -35px;
+}
+
+.form-group span {
+  font-size: 22px;
+  color: #a3a8a5;
+}
+
+.forgot-link {
+  text-align: right;
+  font-family: "Open Sans";
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 20px;
+  color: #6255a5;
+}
+
+.lab-password {
+  margin-top: 30px;
+}
+
+.lab-password a {
+  font-family: "Open Sans";
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 20px;
+  color: #6255a5;
+}
+
+.form-check-input {
+  border: 1px solid #d1d1d1;
+  width: 30px;
+  height: 30px;
+  border-radius: 3px;
+}
+
+.check-label {
+  font-family: "Open Sans";
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 20px;
+  color: #333333;
+  margin-left: 25px;
+  margin-top: 10px;
+}
+
+.btn-submit {
+  background-color: #6255a5;
+  width: 480px;
+  height: 50px;
+  border-radius: 3px;
+  color: #ffffff;
+  font-family: "Open Sans";
+  font-size: 18px;
+  line-height: 22px;
+}
+
+#sign-up p {
+  text-align: center;
+  margin-top: 20px;
+  font-family: "Open Sans";
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 22px;
+  color: #333333;
+}
+
+#sign-up p a {
+  color: #6255a5;
+}
+
+.margin-label {
+  margin-top: 30px;
+}
+
+.success-message {
+  margin-top: 0 !important;
+  margin-bottom: 10px !important;
+  color: #13cf2c;
+}
+
+.success-message i {
+  font-size: 20px;
+  margin-right: 5px;
+}
+
+#email-container {
+  background-color: black;
+  height: 100%;
+}
+
+.email-context {
+  background-color: white;
+  width: auto !important;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 30px;
+}
+
+.email-context img {
+  margin-bottom: 50px;
+}
+
+.email-context h3 {
+  font-family: "Open Sans";
+  font-size: 26px;
+  font-weight: 600;
+  line-height: 30px;
+  color: #6255a5;
+}
+
+.email-context h5 {
+  font-family: "Open Sans";
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 22px;
+  color: #333333;
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+
+.email-context p {
+  font-family: "Open Sans";
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 20px;
+  color: #333333;
+}
+
+.btn-verify {
+  background-color: #6255a5;
+  width: 540px;
+  height: 50px;
+  border-radius: 3px;
+  color: #fff;
+  font-family: "Open Sans";
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 22px;
+  margin-top: 50px;
+}

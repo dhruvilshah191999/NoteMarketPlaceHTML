@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./css/bootstrap/bootstrap.css" />
+    <link rel="stylesheet" href="./css/responsive.css" />
+    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="stylesheet" href="./fonts/css/font-awesome.css" />
+    <link rel="stylesheet" href="./fonts/fontawesome/css/fontawesome.css" />
+    <link rel="stylesheet" href="./fonts/fontawesome/css/brands.css" />
+    <link rel="stylesheet" href="./fonts/fontawesome/css/solid.css" />
+    <title>Note Details</title>
+  </head>
+  <body>
+    <header>
+      <nav class="navbar white-nav-top navbar-expand-lg fixed-top">
+        <div class="container container-relative">
+          <span id="mobile-nav-open-btn">&#9776;</span>
+          <a href="#home" class="navbar-brand">
+            <img src="./images/login/logo.png" alt="logo" id="user_logo" />
+          </a>
+          <div class="container add-list">
+            <div
+              class="collapse navbar-collapse remove-padding navbar-dropdown"
+            >
+              <ul class="nav ml-auto">
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Dashboard</a>
+                </li>
+                <li class="nav-item direct-hover">
+                  <a class="nav-link" href="" data-toggle="dropdown">Notes</a>
+                  <div class="dropdown">
+                    <div class="dropdown-menu">
+                      <a class="dropdown-item" href="#">Notes Under Review</a>
+                      <a class="dropdown-item" href="#">Published Notes</a>
+                      <a class="dropdown-item" href="#">Download Notes</a>
+                      <a class="dropdown-item" href="#">Rejected Notes</a>
+                    </div>
+                  </div>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Members</a>
+                </li>
+                <li class="nav-item direct-hover">
+                  <a class="nav-link" data-toggle="dropdown" href="#"
+                    >Reports</a
+                  >
+                  <div class="dropdown">
+                    <div class="dropdown-menu">
+                      <a class="dropdown-item" href="#">Spam Reports</a>
+                    </div>
+                  </div>
+                </li>
+                <li class="nav-item direct-hover">
+                  <a class="nav-link" data-toggle="dropdown" href="#"
+                    >Settings</a
+                  >
+                  <div class="dropdown">
+                    <div class="dropdown-menu">
+                      <a class="dropdown-item" href="#"
+                        >Manage System Configuration</a
+                      >
+                      <a class="dropdown-item" href="#">Manage Administrator</a>
+                      <a class="dropdown-item" href="#">Manage Category</a>
+                      <a class="dropdown-item" href="#">Manage Type</a>
+                      <a class="dropdown-item" href="#">Manage Country</a>
+                    </div>
+                  </div>
+                </li>
+                <li class="nav-item direct-hover">
+                  <img
+                    class="image-fluid rounded-circle"
+                    data-toggle="dropdown"
+                    src="./images/home/client-1.jpg"
+                  />
+                  <div class="dropdown">
+                    <div class="dropdown-menu">
+                      <a class="dropdown-item" href="#">Update Profile</a>
+                      <a class="dropdown-item" href="#">Change Password</a>
+                      <a class="dropdown-item change-color" href="#">LOGOUT</a>
+                    </div>
+                  </div>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link btn-logout" href="#" role="button"
+                    >Logout</a
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div id="mobile-nav">
+            <span id="mobile-nav-close-btn">&times;</span>
+            <div id="mobile-nav-content">
+              <ul class="nav navbar-nav">
+                <li class="nav-item">
+                  <a class="nav-link checked" href="./dashboard.html"
+                    >Dashboard</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="" data-toggle="dropdown">Notes</a>
+                  <div class="dropdown">
+                    <div class="dropdown-menu">
+                      <a class="dropdown-item" href="#">Notes Under Review</a>
+                      <a class="dropdown-item" href="#">Published Notes</a>
+                      <a class="dropdown-item" href="#">Download Notes</a>
+                      <a class="dropdown-item" href="#">Rejected Notes</a>
+                    </div>
+                  </div>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Members</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" data-toggle="dropdown" href="#"
+                    >Reports</a
+                  >
+                  <div class="dropdown">
+                    <div class="dropdown-menu">
+                      <a class="dropdown-item" href="#">Spam Reports</a>
+                    </div>
+                  </div>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" data-toggle="dropdown" href="#"
+                    >Settings</a
+                  >
+                  <div class="dropdown">
+                    <div class="dropdown-menu white-space-remove">
+                      <a class="dropdown-item" href="#">Manage Configuration</a>
+                      <a class="dropdown-item" href="#">Manage Administrator</a>
+                      <a class="dropdown-item" href="#">Manage Category</a>
+                      <a class="dropdown-item" href="#">Manage Type</a>
+                      <a class="dropdown-item" href="#">Manage Country</a>
+                    </div>
+                  </div>
+                </li>
+                <li class="nav-item">
+                  <img
+                    class="image-fluid rounded-circle"
+                    data-toggle="dropdown"
+                    src="./images/home/client-1.jpg"
+                  />
+                  <div class="dropdown">
+                    <div class="dropdown-menu">
+                      <a class="dropdown-item" href="#">Update Profile</a>
+                      <a class="dropdown-item" href="#">Change Password</a>
+                      <a class="dropdown-item change-color" href="#">LOGOUT</a>
+                    </div>
+                  </div>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link btn-logout" href="#" role="button"
+                    >Logout</a
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <section id="margin-nav"></section>
+    <section id="note_details">
+        <div id="content-box">
+            <div class="container">
+                <div class="notes-heading">
+                    <h4>Notes Details</h4>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6 col-12">
+                        <div class="notes-details-1">
+                            <div class="row">
+                                <div class="col-xl-5 col-lg-5 col-sm-4 col-12">
+                                    <div class="note-image">
+                                        <img src="./images/notesdetails/1.jpg" alt="Image"/>
+                                    </div>
+                                </div>
+                                <div class="col-xl-7 col-lg-7 col-sm-8 col-12">
+                                    <div class="note-names">
+                                        <h3>Computer Science</h3>
+                                        <p>Science</p>
+                                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aperiam dicta nulla iste, quia non maxime laborum maiores officiis quibusdam labore natus beatae iusto hic dolore voluptas consequatur commodi provident. Voluptas?</p>
+                                        <button class="btn btn-primary"  data-toggle="modal" data-target="#myModal">DOWNLOAD / $15</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-12">
+                        <div class="notes-details-2">
+                            <div class="row">
+                                <div class="col-lg-1 "></div>
+                                <div class="col-lg-5 col-sm-6 col-5">
+                                    <div class="note-headings">
+                                        <p>Institution:</p>
+                                        <p>Country:</p>
+                                        <p>Course Name:</p>
+                                        <p>Course Code:</p>
+                                        <p>Professor:</p>
+                                        <p>Number of Pages:</p>
+                                        <p>Approved Date:</p>
+                                        <p>Rating:</p>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-sm-6 col-7">
+                                    <div class="note-headings-details">
+                                        <p>University of California</p>
+                                        <p>United State</p>
+                                        <p>Computer Engineering</p>
+                                        <p>248705</p>
+                                        <p>Mr. Richard Brown</p>
+                                        <p>277</p>
+                                        <p>November 25 2020</p>
+                                        <div class="rate">
+                                            <input type="radio" id="star5" name="rate" value="5"/>
+                                            <label for="star5" title="text">5 stars</label>
+                                            <input type="radio" id="star4" name="rate" value="4" checked/>
+                                            <label for="star4" title="text">4 stars</label>
+                                            <input type="radio" id="star3" name="rate" value="3"/>
+                                            <label for="star3" title="text">3 stars</label>
+                                            <input type="radio" id="star2" name="rate" value="2" />
+                                            <label for="star2" title="text">2 stars</label>
+                                            <input type="radio" id="star1" name="rate" value="1" />
+                                            <label for="star1" title="text">1 star</label>
+                                        </div>
+                                        <p>100 Reviews</p>
+                                    </div>
+                                </div>
+                                <div class="col-lg-1"></div>
+                                <div class="col-11">
+                                    <div class="red-paragraph">
+                                        <p>5 Users marked this note as inappropriate</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="modal fade" id="myModal">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-body">
+                            <button type="button" class="close" data-dismiss="modal">
+                                &times;
+                            </button>
+                            <div class="content-model">
+                                <div class="model-img text-center">
+                                <img
+                                    src="images/notesdetails/SUCCESS.png"
+                                    class="img-fluid"
+                                />
+                                </div>
+                                <div class="model-heading">
+                                <h3>Thank you for purchasing!</h3>
+                                </div>
+                                <div class="model-content">
+                                    <h5>Dear Smith,</h5>
+                                    <p>As this is paid notes-you need to pay seller Rahil Shah offline.We will send him an email that you want to download this note.He may contact you further for payment process completion</p>
+                                    <p>In case, you have urgency,</br>Please Contact us on +9195377345959</p>
+                                    <p>Once he receives the payment and acknowledge us - selected notes you can see over my downloads tab for download.</p>
+                                    <p>Have a good day.</p>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="notes-preview">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-5 col-12">
+                    <div class="notes-heading">
+                        <h4>Notes Preview</h4>
+                    </div>
+                    <div class="notes-previews">
+                        <iframe src="./images/DMBI.pdf" class="responsive-iframe" title="description"><p>Your web browser doesn't have a PDF plugin.Instead you can <a href="./images/Dhruvil_Shah_Resume.pdf">click here to download the PDF file.</a></p></iframe>
+                    </div>
+                </div>
+                <div class="col-lg-7 col-12">
+                     <div class="notes-heading">
+                        <h4>Customer Reviews</h4>
+                    </div>
+                    <div class="customer-reviews">
+                        <div class="customers">
+                            <div class="row">
+                                <div class="col-lg-2 col-2">
+                                    <img class="image-fluid rounded-circle" src="./images/home/client-3.jpg" alt="Image" />
+                                </div>
+                                <div class="col-lg-10 col-10">
+                                    <div class="delete-image">
+                                      <img src="./images/Dashboard/delete.png"/>
+                                    </div>
+                                    <div class="names">
+                                        <h5>Richard Brown</h5>
+                                        <div class="rate">
+                                            <input type="radio" id="star5" name="rate2" value="5"/>
+                                            <label for="star5" title="text">5 stars</label>
+                                            <input type="radio" id="star4" name="rate2" value="4" checked/>
+                                            <label for="star4" title="text">4 stars</label>
+                                            <input type="radio" id="star3" name="rate2" value="3"/>
+                                            <label for="star3" title="text">3 stars</label>
+                                            <input type="radio" id="star2" name="rate2" value="2" />
+                                            <label for="star2" title="text">2 stars</label>
+                                            <input type="radio" id="star1" name="rate2" value="1" />
+                                            <label for="star1" title="text">1 star</label>
+                                        </div>
+                                        <br>
+                                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ut excepturi non, quia quas nihil </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="customers">
+                            <div class="row">
+                                <div class="col-lg-2 col-2">
+                                    <img class="image-fluid rounded-circle" src="./images/home/client-2.jpg" alt="Image" />
+                                </div>
+                                <div class="col-lg-10 col-10">
+                                  <div class="delete-image">
+                                    <img src="./images/Dashboard/delete.png"/>
+                                  </div>
+                                    <div class="names">
+                                        <h5>Alice Ortiaz</h5>
+                                        <div class="rate">
+                                            <input type="radio" id="star5" name="rate3" value="5"/>
+                                            <label for="star5" title="text">5 stars</label>
+                                            <input type="radio" id="star4" name="rate3" value="4" checked/>
+                                            <label for="star4" title="text">4 stars</label>
+                                            <input type="radio" id="star3" name="rate3" value="3"/>
+                                            <label for="star3" title="text">3 stars</label>
+                                            <input type="radio" id="star2" name="rate3" value="2" />
+                                            <label for="star2" title="text">2 stars</label>
+                                            <input type="radio" id="star1" name="rate3" value="1" />
+                                            <label for="star1" title="text">1 star</label>
+                                        </div>
+                                        <br>
+                                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ut excepturi non, quia quas nihil </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="customers">
+                            <div class="row">
+                                <div class="col-lg-2 col-2">
+                                    <img class="image-fluid rounded-circle" src="./images/home/client-1.jpg" alt="Image" />
+                                </div>
+                                <div class="col-lg-10 col-10">
+                                    <div class="delete-image">
+                                      <img src="./images/Dashboard/delete.png"/>
+                                    </div>
+                                    <div class="names">
+                                        <h5>Sara Passmore</h5>
+                                        <div class="rate">
+                                            <input type="radio" id="star5" name="rate4" value="5"/>
+                                            <label for="star5" title="text">5 stars</label>
+                                            <input type="radio" id="star4" name="rate4" value="4" checked/>
+                                            <label for="star4" title="text">4 stars</label>
+                                            <input type="radio" id="star3" name="rate4" value="3"/>
+                                            <label for="star3" title="text">3 stars</label>
+                                            <input type="radio" id="star2" name="rate4" value="2" />
+                                            <label for="star2" title="text">2 stars</label>
+                                            <input type="radio" id="star1" name="rate4" value="1" />
+                                            <label for="star1" title="text">1 star</label>
+                                        </div>
+                                        <br>
+                                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ut excepturi non, quia quas nihil </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="footer">
+      <hr />
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-3 col-3">
+            <div class="version">
+              <p>Version:1.1.24</p>
+            </div>
+          </div>
+          <div class="col-sm-9 col-9">
+            <div class="copyrigth text-right">
+              <p>Copyright &copy; Tatvasoft All rights reserved.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <script src="./js/jquery.js"></script>
+    <script src="./js/script.js"></script>
+    <script src="./js/popper.min.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
+  </body>
+</html>
