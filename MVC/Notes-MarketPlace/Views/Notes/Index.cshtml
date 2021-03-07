@@ -1,0 +1,97 @@
+﻿@model IPagedList<Notes_MarketPlace.Models.Note>
+@using PagedList;
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Dashboard";
+    ViewBag.NavTitle = "Dashboard";
+    Layout = "~/Views/Shared/_MemberLayoutPage.cshtml";
+    int i = Convert.ToInt32(Request.QueryString["i"]);
+}
+
+<section id="margin-nav"></section>
+<section id="dashboard">
+    <div id="content-box">
+        <div class="container">
+            <div class="dashboard-heading">
+                <div class="row">
+                    <div class="col-md-6 col-6">
+                        <div class="main-heading">
+                            <h3>Dashboard</h3>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-6">
+                        <div class="float-right">
+                            <a href="/Notes/Add">
+                                <button type="button" class="btn btn-primary">
+                                    ADD NOTE
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="dashboard-box">
+                <div class="row">
+                    <div class="col-xl-6 col-12">
+                        <div class="dashboard-border">
+                            <div class="box-padding">
+                                <div class="row">
+                                    <div class="col-xl-4 col-4">
+                                        <div class="box-border">
+                                            <div class="box-content">
+                                                <img src="~/images/Dashboard/my-earning.png" />
+                                                <h4>My Earning</h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-4 col-4">
+                                        <div class="box-border2">
+                                            <div class="box-content2">
+                                                <h4>@ViewBag.Sold</h4>
+                                                <p>Number of Notes Sold</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-4 col-4">
+                                        <div class="box-border2">
+                                            <div class="box-content2">
+                                                <h4>$@ViewBag.Money</h4>
+                                                <p>Money Earned</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-4">
+                        <div class="second-box">
+                            <h4>@ViewBag.Download</h4>
+                            <p>My Downloads</p>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-4">
+                        <div class="second-box">
+                            <h4>@ViewBag.Rejected</h4>
+                            <p>My Rejected Notes</p>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-4">
+                        <div class="second-box">
+                            <h4>@ViewBag.Buyer</h4>
+                            <p>Buyer Requests</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+@{
+    Html.RenderAction("Progess", "Notes");
+}
+
+@{
+    Html.RenderAction("Published", "Notes");
+}

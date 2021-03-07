@@ -1,0 +1,73 @@
+﻿@model Notes_MarketPlace.Models.Contactu
+@{
+    ViewBag.Title = "Contact Us";
+    ViewBag.NavTitle = "Contact";
+}
+
+<section id="user-profile">
+    <img src="~/images/home/banner-with-overlay.jpg"
+         id="use-profile-img"
+         alt="Home Image" />
+    <div id="user-profile-content">
+        <div class="user-profile-inner contact-inner">
+            <h2>Contact Us</h2>
+        </div>
+    </div>
+</section>
+<section id="contact-box">
+    <div id="content-box">
+        <div class="container">
+            <div class="contact-heading">
+                <h2>Get in Touch</h2>
+                <p>Let us know how to get back to you</p>
+            </div>
+            <div class="contact-input">
+                <form action="/Home/Contact" method="post">
+                    @Html.ValidationSummary(true)
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.Name)
+                                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter your full name" } })
+                                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "error-message" })
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.Email)
+                                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter your email address" } })
+                                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "error-message" })
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.Subject)
+                                        @Html.EditorFor(model => model.Subject, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter your subject" } })
+                                        @Html.ValidationMessageFor(model => model.Subject, "", new { @class = "error-message" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Comment)
+                                @Html.TextAreaFor(model => model.Comment, new { @class = "form-control input-textarea", placeholder = "Comments...", @height = "100%" })
+                                @Html.ValidationMessageFor(model => model.Comment, "", new { @class = "error-message" })
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="marging-top">
+                                <input type="submit"
+                                       class="btn btn-primary"
+                                       value="SUBMIT" />
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

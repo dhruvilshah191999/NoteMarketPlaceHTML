@@ -1,0 +1,1129 @@
+.container-relative {
+  position: relative !important;
+}
+
+#mobile-nav-open-btn {
+  font-size: 40px;
+  color: white;
+  position: absolute;
+  right: 15px;
+  cursor: pointer;
+  z-index: 2;
+  margin-bottom: 8px;
+  display: none;
+}
+
+#mobile-nav {
+  width: 100%;
+  height: 0%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 3;
+  background-color: rgba(255, 255, 255, 0.9);
+  -webkit-transition: all 300ms linear;
+  transition: all 300ms linear;
+  overflow-y: hidden;
+  -moz-transition: all 300ms linear;
+  -ms-transition: all 300ms linear;
+  -o-transition: all 300ms linear;
+}
+
+#mobile-nav {
+  overflow: scroll;
+}
+
+#mobile-nav-close-btn {
+  font-size: 70px;
+  color: #333333;
+  cursor: pointer;
+  font-weight: 600;
+  position: absolute;
+  right: 5%;
+  top: -9px;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  -moz-transition: 0.3s;
+  -ms-transition: 0.3s;
+  -o-transition: 0.3s;
+}
+
+#mobile-nav-content {
+  text-align: center;
+  width: 100%;
+  margin-top: 30px;
+  position: relative;
+  top: 10%;
+}
+
+#mobile-nav ul li {
+  margin-bottom: 30px;
+}
+
+#mobile-nav a {
+  font-family: "Open Sans", sans-serif;
+  font-size: 20px;
+  color: #333333;
+  font-weight: 400;
+  display: inline;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  -moz-transition: 0.3s;
+  -ms-transition: 0.3s;
+  -o-transition: 0.3s;
+}
+
+#mobile-nav img {
+  width: 60px;
+  height: 60px;
+}
+
+#mobile-nav a:hover,
+#mobile-nav a:focus {
+  color: #6255a5;
+  background: none;
+  background: linear-gradient(#6255a5, #6255a5) bottom no-repeat;
+  background-size: 90% 2px;
+}
+
+.white-nav-top #mobile-nav-open-btn {
+  color: #6255a5;
+  font-weight: 500;
+}
+
+#mobile-nav .btn-login {
+  padding: 10px 25px;
+  margin-left: -5px;
+}
+
+#mobile-nav .btn-logout {
+  padding: 10px 25px;
+  margin-left: -5px;
+}
+
+#mobile-nav .checked {
+  background-size: 100% 2px !important;
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+  #user_logo {
+    width: 90%;
+  }
+
+  .btn-logout {
+    width: 80px !important;
+  }
+
+  .how-content .how-responsive {
+    margin-bottom: 47px;
+  }
+
+  ul.nav > li > a {
+    font-size: 14px !important;
+  }
+
+  .customer-details {
+    margin-left: 10px;
+  }
+
+  .customer-details p {
+    font-size: 14px !important;
+  }
+
+  #filter-form {
+    height: 100% !important;
+  }
+
+  .second-box {
+    margin-top: 20px;
+  }
+
+  .box-padding .col-xl-4 {
+    padding-right: 15px !important;
+    padding-left: 15px !important;
+  }
+
+  .box-content {
+    text-align: center;
+    left: 0% !important;
+  }
+
+  .dashboard-border {
+    border: none !important;
+  }
+
+  .box-border {
+    border: 1px solid #d1d1d1;
+  }
+
+  .box-border2 {
+    border: 1px solid #d1d1dd;
+  }
+
+  .note-image img {
+    width: 100% !important;
+  }
+
+  .note-names h3 {
+    font-size: 28px !important;
+  }
+
+  .note-names {
+    margin-left: 5px !important;
+  }
+
+  .note-headings-details .rate {
+    margin-left: -30px !important;
+  }
+
+  .notes-details-1 .col-lg-5 {
+    padding-right: 0 !important;
+  }
+
+  .buyer_table td i,
+  .my-download-table td i {
+    margin-left: 0px !important;
+  }
+
+  .my-download-table .icons img {
+    margin-right: 10px !important;
+  }
+
+  .faq-inner {
+    left: 30% !important;
+    transform: translateX(-10%) translateY(-90%) !important;
+    -webkit-transform: translateX(-10%) translateY(-90%) !important;
+    -moz-transform: translateX(-10%) translateY(-90%) !important;
+    -ms-transform: translateX(-10%) translateY(-90%) !important;
+    -o-transform: translateX(-10%) translateY(-90%) !important;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  #mobile-nav-open-btn {
+    display: block;
+  }
+
+  #mobile-nav-content {
+    text-align: left;
+    width: 17.3%;
+    left: 45%;
+  }
+
+  #mobile-nav ul li {
+    margin-bottom: 20px;
+    display: inline-block;
+  }
+
+  #mobile-nav a {
+    font-size: 21px;
+    display: inline-flex;
+  }
+
+  #mobile-nav .btn-login {
+    padding: 8px 18px;
+    margin-left: 10px;
+    font-size: 21px;
+  }
+
+  #mobile-nav .btn-logout {
+    padding: 8px 12px;
+    margin-left: 10px;
+    font-size: 20px;
+  }
+
+  .home-inner h2 {
+    font-size: 40px !important;
+  }
+
+  .home-inner p {
+    font-size: 18px !important;
+  }
+
+  .btn-inner {
+    font-size: 16px !important;
+  }
+
+  .about-heading h4 {
+    font-size: 30px !important;
+  }
+
+  .about-paragraph p {
+    font-size: 16px !important;
+  }
+
+  .how-content .how-responsive {
+    margin-bottom: 26px;
+  }
+
+  .customer-box {
+    height: 100% !important;
+    margin-bottom: 0 !important;
+  }
+
+  .customer-box img {
+    width: 80px !important;
+    height: 80px !important;
+  }
+
+  .customer-details {
+    text-align: center;
+  }
+
+  .customer-details h4 {
+    font-size: 20px !important;
+  }
+
+  .customer-details p {
+    font-size: 15px !important;
+  }
+
+  .customer-view p {
+    font-size: 16px !important;
+  }
+
+  .customer-content .col-md-6 {
+    margin-bottom: 30px !important;
+  }
+
+  #filter-form {
+    height: 100% !important;
+  }
+
+  #books .book-photo img {
+    height: 200px !important;
+  }
+
+  .book-heading h5 {
+    font-size: 18px !important;
+    min-height: 130px !important;
+  }
+
+  .rate {
+    margin-left: 12% !important;
+  }
+
+  .rate-label label {
+    margin-left: 18% !important;
+    margin-top: 8px !important;
+  }
+
+  .second-box {
+    margin-top: 20px;
+  }
+
+  .box-padding .col-xl-4 {
+    padding-right: 15px !important;
+    padding-left: 15px !important;
+  }
+
+  .box-content {
+    text-align: center;
+    left: 0% !important;
+  }
+
+  .dashboard-border {
+    border: none !important;
+  }
+
+  .box-border {
+    border: 1px solid #d1d1d1;
+  }
+
+  .box-border2 {
+    border: 1px solid #d1d1dd;
+  }
+
+  .progess-search .form-control {
+    width: 270px !important;
+  }
+
+  .progess-search .btn {
+    width: 100px !important;
+  }
+
+  .progess-search .btn {
+    padding: 10px 18px !important;
+  }
+
+  .notes-details-2 {
+    margin-top: 30px;
+  }
+
+  .note-image img {
+    height: 100% !important;
+  }
+
+  .note-names p:nth-child(3) {
+    line-height: 21px !important;
+  }
+
+  .note-headings-details .rate {
+    margin-left: 80px !important;
+  }
+
+  .customers .rate {
+    margin-left: 0 !important;
+  }
+
+  .customers img {
+    width: 70px !important;
+    height: 70px !important;
+  }
+
+  .notes-previews iframe {
+    height: 350px !important;
+    margin-bottom: 30px;
+  }
+
+  .my-download-table td i {
+    margin-left: 0px !important;
+  }
+
+  .icons img {
+    margin-right: 10px !important;
+  }
+
+  .my-download-table table td:nth-child(8) {
+    padding-right: 30px !important;
+  }
+
+  .my-download-table table td:nth-child(9) {
+    padding-right: 30px !important;
+  }
+
+  .my-download-table table td:nth-child(4) {
+    padding-right: 0px !important;
+  }
+
+  .review-content .rate {
+    margin-left: 0 !important;
+  }
+
+  .faq-inner {
+    left: 28% !important;
+    transform: translateX(-10%) translateY(-90%) !important;
+    -webkit-transform: translateX(-10%) translateY(-90%) !important;
+    -moz-transform: translateX(-10%) translateY(-90%) !important;
+    -ms-transform: translateX(-10%) translateY(-90%) !important;
+    -o-transform: translateX(-10%) translateY(-90%) !important;
+  }
+
+  .faq-inner h2 {
+    font-size: 40px !important;
+  }
+
+  .faq-heading h2 {
+    font-size: 30px !important;
+  }
+}
+
+@media (min-width: 576px) and (max-width: 767px) {
+  #mobile-nav-open-btn {
+    display: block;
+    font-size: 38px;
+  }
+
+  .navbar-brand img {
+    width: 90% !important;
+  }
+
+  #mobile-nav .dropdown-menu {
+    width: 42%;
+    position: relative;
+    left: 40%;
+    top: -7px;
+  }
+
+  #mobile-nav .dropdown-menu a {
+    display: flex;
+    align-items: center;
+  }
+
+  .home-inner h2 {
+    font-size: 35px !important;
+  }
+
+  .home-inner p {
+    font-size: 16px !important;
+  }
+
+  .btn-inner {
+    font-size: 15px !important;
+  }
+
+  .about-paragraph p:nth-child(1) {
+    margin-top: 20px;
+  }
+
+  .about-heading h4 {
+    font-size: 28px !important;
+  }
+
+  .about-paragraph p {
+    font-size: 15px !important;
+  }
+
+  /* .how-content img {
+    margin-top: 40px !important;
+    height: 100px !important;
+    width: 100px !important;
+  } */
+
+  .how-content h4 {
+    font-size: 22px !important;
+  }
+
+  .how-content p {
+    font-size: 16px !important;
+  }
+
+  .btn-work {
+    font-size: 16px !important;
+  }
+
+  .customer-heading {
+    font-size: 30px !important;
+  }
+
+  .customer-box {
+    height: 100% !important;
+  }
+
+  .customer-box .row {
+    text-align: center !important;
+  }
+
+  .customer-content .col-md-6 {
+    margin-bottom: 20px !important;
+  }
+
+  .customer-view p {
+    font-size: 16px !important;
+  }
+
+  .user-profile-heading > h2 {
+    font-size: 30px !important;
+  }
+
+  .mobile-number .form-control {
+    margin-top: 15px !important;
+  }
+
+  .search-inner h2 {
+    font-size: 40px !important;
+  }
+
+  #filter-form {
+    height: 100% !important;
+  }
+
+  #books .book-photo img {
+    width: 100% !important;
+  }
+
+  .filter-heading h4,
+  .search-heading h4 {
+    text-align: center;
+  }
+
+  .book-heading h5 {
+    min-height: auto !important;
+  }
+
+  .contact-heading {
+    text-align: center;
+  }
+
+  .contact-heading h2 {
+    font-size: 30px !important;
+  }
+
+  .second-box {
+    margin-top: 20px;
+  }
+
+  .box-padding .col-xl-4 {
+    padding-right: 15px !important;
+    padding-left: 15px !important;
+  }
+
+  .box-content {
+    text-align: center;
+    left: 0% !important;
+  }
+
+  .dashboard-border {
+    border: none !important;
+  }
+
+  .box-border {
+    border: 1px solid #d1d1d1;
+  }
+
+  .box-border2 {
+    border: 1px solid #d1d1dd;
+  }
+
+  .main-heading h3 {
+    font-size: 30px !important;
+  }
+
+  .dashboard-heading .btn {
+    font-size: 16px !important;
+    padding: 10px 22px !important;
+  }
+
+  .box-content h4 {
+    font-size: 24px !important;
+  }
+
+  .box-content2 h4,
+  .second-box h4 {
+    font-size: 25px !important;
+  }
+
+  .box-content2 p,
+  .second-box p {
+    font-size: 14px !important;
+  }
+
+  .progress-heading h5 {
+    text-align: center;
+    margin-bottom: 25px;
+  }
+
+  .progess-search .form-control {
+    width: 400px !important;
+  }
+
+  .progress-heading .float-right {
+    float: none !important;
+  }
+
+  .progess-search .btn {
+    width: 100px !important;
+  }
+
+  .progess-search .btn {
+    padding: 10px 18px !important;
+  }
+
+  .dashboard-heading .dropdown-menu {
+    left: -30px !important;
+  }
+
+  .notes-details-2 {
+    margin-top: 30px;
+  }
+
+  .note-image img {
+    height: 340px !important;
+    width: 170px !important;
+  }
+
+  .note-headings-details .rate {
+    margin-left: 0px !important;
+  }
+
+  .customers .rate {
+    margin-left: 0 !important;
+  }
+
+  .customers img {
+    width: 50px !important;
+    height: 50px !important;
+  }
+
+  .notes-previews iframe {
+    height: 350px !important;
+    margin-bottom: 30px;
+  }
+
+  .note-names {
+    margin-left: 20px !important;
+  }
+
+  .my-download-table td i {
+    margin-left: 0px !important;
+  }
+
+  .icons img {
+    margin-left: 3px;
+    margin-right: 10px !important;
+  }
+
+
+  .my-download-table table td:nth-child(9) {
+      width:150px !important;
+  }
+
+  .faq-inner {
+    top: 50% !important;
+    left: 55% !important;
+  }
+
+  .faq-inner h2 {
+    font-size: 30px !important;
+  }
+
+  .faq-heading h2 {
+    font-size: 26px !important;
+  }
+
+  .faq-border h5,
+  .faq-second-border h5 {
+    font-size: 16px !important;
+  }
+}
+
+@media (min-width: 576px) and (max-width: 650px) {
+  #mobile-nav .dropdown-menu {
+    width: 45%;
+    position: relative;
+    left: 40%;
+    top: -7px;
+  }
+}
+
+@media (max-width: 575px) {
+  #mobile-nav-open-btn {
+    display: block;
+    font-size: 36px !important;
+  }
+
+  .navbar-brand img {
+    width: 90% !important;
+  }
+
+  #mobile-nav .dropdown-menu {
+    max-width: 58%;
+    position: relative;
+    left: 37%;
+    top: -7px;
+  }
+
+  #mobile-nav .dropdown-menu a {
+    display: flex;
+    align-items: center;
+  }
+
+  .home-inner h2 {
+    font-size: 33px !important;
+  }
+
+  .home-inner p {
+    font-size: 15px !important;
+  }
+
+  .btn-inner {
+    font-size: 15px !important;
+  }
+
+  .about-paragraph p:nth-child(1) {
+    margin-top: 20px;
+  }
+
+  .about-heading {
+    text-align: center !important;
+  }
+
+  .about-heading h4 {
+    font-size: 28px !important;
+  }
+
+  .about-paragraph p {
+    font-size: 15px !important;
+  }
+
+  .how-heading h3 {
+    font-size: 30px !important;
+  }
+
+  .how-content h4 {
+    font-size: 22px !important;
+  }
+
+  .how-content p {
+    font-size: 16px !important;
+  }
+
+  .btn-work {
+    font-size: 16px !important;
+  }
+
+  .customer-heading {
+    font-size: 30px !important;
+  }
+
+  .customer-box {
+    height: 100% !important;
+  }
+
+  .customer-box .row {
+    text-align: center !important;
+  }
+
+  .customer-content .col-md-6 {
+    margin-bottom: 20px !important;
+  }
+
+  .customer-view p {
+    font-size: 16px !important;
+  }
+
+  .user-profile-inner h2 {
+    font-size: 40px !important;
+  }
+
+  .user-profile-heading > h2 {
+    font-size: 30px !important;
+  }
+
+  .mobile-number .form-control {
+    margin-top: 15px !important;
+  }
+
+  .user-input .btn,
+  .contact-input .btn {
+    width: 100px !important;
+    font-size: 16px !important;
+    padding: 10px 20px !important;
+  }
+
+  .search-inner h2 {
+    font-size: 35px !important;
+  }
+
+  #filter-form {
+    height: 100% !important;
+  }
+
+  #books .book-photo img {
+    width: 100% !important;
+  }
+
+  .filter-heading h4,
+  .search-heading h4 {
+    text-align: center;
+  }
+
+  .book-heading h5 {
+    min-height: auto !important;
+  }
+
+  .contact-heading {
+    text-align: center;
+  }
+
+  .contact-heading h2 {
+    font-size: 30px !important;
+  }
+
+  .second-box {
+    margin-top: 20px;
+  }
+
+  .box-padding .col-xl-4 {
+    padding-right: 15px !important;
+    padding-left: 15px !important;
+  }
+
+  .box-content {
+    text-align: center;
+    left: 0% !important;
+  }
+
+  .dashboard-border {
+    border: none !important;
+  }
+
+  .box-border {
+    border: 1px solid #d1d1d1;
+  }
+
+  .box-border2 {
+    border: 1px solid #d1d1dd;
+  }
+
+  .main-heading h3 {
+    font-size: 25px !important;
+  }
+
+  .dashboard-heading .btn {
+    font-size: 14px !important;
+    width: 120px !important;
+    padding: 10px 15px !important;
+  }
+
+  .box-content h4 {
+    font-size: 20px !important;
+  }
+
+  .box-content2 h4,
+  .second-box h4 {
+    font-size: 22px !important;
+  }
+
+  .box-content2 p,
+  .second-box p {
+    font-size: 13px !important;
+  }
+
+  .progress-heading h5 {
+    text-align: center;
+    margin-bottom: 25px;
+  }
+
+  .progess-search .form-control {
+    width: 320px !important;
+    display: inline !important;
+  }
+
+  .progess-search .btn {
+    width: 70px !important;
+    font-size: 14px !important;
+    padding: 10px 7px !important;
+  }
+
+  .progress-table thead,
+  .progress-table tbody {
+    font-size: 12px !important;
+  }
+
+  .progress-table td i {
+    margin-left: 10px !important;
+    top: 7% !important;
+  }
+
+  .dashboard-heading .dropdown-menu {
+    left: -45px !important;
+  }
+
+  .notes-details-2 {
+    margin-top: 60px;
+  }
+
+  .note-image,
+  .notes-heading,
+  .notes-details-1 {
+    text-align: center;
+  }
+  .note-image img {
+    height: 340px !important;
+    width: 250px !important;
+  }
+
+  .note-headings-details .rate {
+    margin-left: 0px !important;
+    margin-top: 0px !important;
+  }
+
+  .customers .rate {
+    margin-left: 0 !important;
+  }
+
+  .customers img {
+    width: 50px !important;
+    height: 50px !important;
+  }
+
+  .notes-previews iframe {
+    height: 350px !important;
+    margin-bottom: 30px;
+  }
+
+  .note-names {
+    margin-left: 0px !important;
+    margin-top: 20px;
+  }
+
+  .note-names h3 {
+    font-size: 28px !important;
+  }
+
+  .note-names p:nth-child(3) {
+    font-size: 16px !important;
+    line-height: 21px !important;
+    text-align: justify;
+  }
+
+  .note-names .btn {
+    line-height: 18px !important;
+    width: 170px !important;
+    font-size: 14px !important;
+    padding: 0 !important;
+  }
+
+  .note-headings p {
+    font-size: 16px !important;
+    line-height: 30px !important;
+  }
+
+  .note-headings-details p {
+    font-size: 16px !important;
+    line-height: 30px !important;
+  }
+
+  .customers .names p {
+    font-size: 14px !important;
+  }
+
+  .notes-heading h2 {
+    font-size: 30px !important;
+  }
+
+  .my-download-table td i {
+    margin-left: 0px !important;
+  }
+
+  .icons img {
+    margin-left: 3px;
+    margin-right: 10px !important;
+  }
+
+  .my-download-table table td:nth-child(8) {
+    padding-right: 40px !important;
+  }
+
+  .my-download-table table td:nth-child(9) {
+    padding-right: 40px !important;
+  }
+
+  .progess-search .btn {
+    margin-top: -7px !important;
+  }
+
+  .faq-inner {
+    left: 52% !important;
+    top: 47% !important;
+  }
+
+  .faq-inner h2 {
+    font-size: 28px !important;
+  }
+
+  .faq-heading h2 {
+    font-size: 26px !important;
+  }
+
+  .faq-border h5,
+  .faq-second-border h5 {
+    font-size: 16px !important;
+  }
+}
+
+@media (max-width: 451px) {
+  #mobile-nav .dropdown-menu {
+    max-width: 75%;
+    position: relative;
+    left: 35%;
+    top: -7px;
+  }
+
+  ul.social-list li a {
+    width: 30px !important;
+    height: 30px !important;
+  }
+
+  .footer-text {
+    margin-top: 0 !important;
+  }
+
+  .user-profile-inner h2 {
+    font-size: 35px !important;
+  }
+
+  .user-profile-inner {
+    position: absolute;
+    top: 43% !important;
+    left: 40% !important;
+    transform: translateX(-30%) translateY(-90%) !important;
+    -webkit-transform: translateX(-30%) translateY(-90%) !important;
+    -moz-transform: translateX(-30%) translateY(-90%) !important;
+    -ms-transform: translateX(-30%) translateY(-90%) !important;
+    -o-transform: translateX(-30%) translateY(-90%) !important;
+  }
+
+  .progess-search .form-control {
+    width: 200px !important;
+    display: inline !important;
+  }
+
+  .progess-search .btn {
+    width: 70px !important;
+    font-size: 12px !important;
+    padding: 10px 2px !important;
+  }
+
+  .box-content2 h4,
+  .second-box h4 {
+    font-size: 18px !important;
+  }
+
+  .note-headings p {
+    font-size: 14px !important;
+    line-height: normal !important;
+  }
+
+  .note-headings-details {
+    text-align: left !important;
+  }
+
+  .note-headings-details p {
+    font-size: 14px !important;
+    line-height: normal !important;
+  }
+
+  .note-headings-details p:nth-child(9) {
+    margin-top: 40px !important;
+    margin-left: 17px !important;
+  }
+
+  .customers .rate,
+  .customers h5,
+  .customers p {
+    margin-left: 10px !important;
+  }
+
+  .notes-input .btn {
+    width: 130px !important;
+  }
+
+  .progress-heading .float-right {
+    float: left !important;
+  }
+
+  .progress-heading .progess-search {
+    margin-left: 10%;
+  }
+
+  .review-content .rate:not(:checked) > label {
+    font-size: 35px !important;
+    width: 35px !important;
+  }
+
+  .faq-inner {
+    left: 43% !important;
+    top: 43% !important;
+  }
+
+  .faq-inner h2 {
+    font-size: 26px !important;
+  }
+
+  .faq-heading h2 {
+    font-size: 24px !important;
+  }
+
+  .faq-border h5,
+  .faq-second-border h5 {
+    font-size: 16px !important;
+  }
+}
+
+@media (max-width: 370px) {
+  .search-inner h2 {
+    font-size: 28px !important;
+  }
+}

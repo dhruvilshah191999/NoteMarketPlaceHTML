@@ -1,0 +1,1062 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl" Alias="Self" Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012">
+        <EntityType Name="Admin">
+          <Key>
+            <PropertyRef Name="AdminId" />
+          </Key>
+          <Property Name="AdminId" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="FirstName" Nullable="false" MaxLength="50" Type="varchar" />
+          <Property Name="LastName" Nullable="false" MaxLength="50" Type="varchar" />
+          <Property Name="Email" Nullable="false" MaxLength="100" Type="varchar" />
+          <Property Name="Password" Nullable="false" MaxLength="24" Type="varchar" />
+          <Property Name="Type" Nullable="false" MaxLength="20" Type="varchar" />
+          <Property Name="ProfilePicture" Type="varchar(max)" />
+          <Property Name="CreatedDate" Nullable="false" Type="datetime" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="ModifiedDate" Type="datetime" />
+          <Property Name="ModifiedBy" Type="int" />
+          <Property Name="IsActive" Nullable="false" Type="bit" />
+        </EntityType>
+        <EntityType Name="Buyer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="NoteId" Nullable="false" Type="int" />
+          <Property Name="OwnerId" Nullable="false" Type="int" />
+          <Property Name="MemberId" Nullable="false" Type="int" />
+          <Property Name="Status" Nullable="false" Type="bit" />
+          <Property Name="AttachmentPath" Type="varchar(max)" />
+          <Property Name="IsPaid" Nullable="false" Type="bit" />
+          <Property Name="Price" Nullable="false" Type="int" />
+          <Property Name="NoteTitle" Nullable="false" MaxLength="100" Type="varchar" />
+          <Property Name="NoteCategory" Nullable="false" MaxLength="100" Type="varchar" />
+          <Property Name="RequestDate" Nullable="false" Type="datetime" />
+          <Property Name="ApprovedDate" Nullable="false" Type="datetime" />
+          <Property Name="IsActive" Nullable="false" Type="bit" />
+        </EntityType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="Name" Nullable="false" MaxLength="100" Type="varchar" />
+          <Property Name="Description" Nullable="false" Type="varchar(max)" />
+          <Property Name="CreatedDate" Nullable="false" Type="datetime" />
+          <Property Name="CreatedBy" Nullable="false" Type="int" />
+          <Property Name="ModifiedDate" Type="datetime" />
+          <Property Name="ModifiedBy" Type="int" />
+          <Property Name="IsActive" Nullable="false" Type="bit" />
+        </EntityType>
+        <EntityType Name="Contactus">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="Name" Nullable="false" MaxLength="100" Type="varchar" />
+          <Property Name="Email" Nullable="false" MaxLength="100" Type="varchar" />
+          <Property Name="Subject" Nullable="false" MaxLength="100" Type="varchar" />
+          <Property Name="Comment" Nullable="false" Type="varchar(max)" />
+          <Property Name="SubmitDate" Nullable="false" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Country">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="CountryName" Nullable="false" MaxLength="100" Type="varchar" />
+          <Property Name="CountryCode" Nullable="false" Type="int" />
+          <Property Name="CreatedDate" Nullable="false" Type="datetime" />
+          <Property Name="CreatedBy" Nullable="false" Type="int" />
+          <Property Name="ModifiedDate" Type="datetime" />
+          <Property Name="ModifiedBy" Type="int" />
+          <Property Name="IsActive" Nullable="false" Type="bit" />
+        </EntityType>
+        <EntityType Name="Inappropriate">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="NoteId" Nullable="false" Type="int" />
+          <Property Name="OwnerId" Nullable="false" Type="int" />
+          <Property Name="MemberId" Nullable="false" Type="int" />
+          <Property Name="Remarks" Nullable="false" Type="varchar(max)" />
+          <Property Name="Date" Nullable="false" Type="datetime" />
+          <Property Name="DeactivateDate" Type="datetime" />
+          <Property Name="DeactivateBy" Type="int" />
+          <Property Name="IsActive" Nullable="false" Type="bit" />
+        </EntityType>
+        <EntityType Name="ManageSystem">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="SupportEmail" Nullable="false" MaxLength="100" Type="varchar" />
+          <Property Name="SupportContactNumber" Nullable="false" MaxLength="20" Type="varchar" />
+          <Property Name="EmailAddress" Nullable="false" MaxLength="100" Type="varchar" />
+          <Property Name="NoteDisplayPicture" Type="varchar(max)" />
+          <Property Name="MemberDisplayPicture" Type="varchar(max)" />
+          <Property Name="FacebookLink" MaxLength="100" Type="varchar" />
+          <Property Name="TwitterLink" MaxLength="100" Type="varchar" />
+          <Property Name="LinkedlnLink" MaxLength="100" Type="varchar" />
+          <Property Name="ModifiedDate" Type="datetime" />
+          <Property Name="ModifiedBy" Type="int" />
+        </EntityType>
+        <EntityType Name="Member">
+          <Key>
+            <PropertyRef Name="MemberId" />
+          </Key>
+          <Property Name="MemberId" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="FirstName" Nullable="false" MaxLength="50" Type="varchar" />
+          <Property Name="LastName" Nullable="false" MaxLength="50" Type="varchar" />
+          <Property Name="Email" Nullable="false" MaxLength="100" Type="varchar" />
+          <Property Name="EmailVerified" Nullable="false" Type="bit" />
+          <Property Name="Password" Nullable="false" MaxLength="24" Type="varchar" />
+          <Property Name="CreatedDate" Nullable="false" Type="datetime" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="ModifiedDate" Type="datetime" />
+          <Property Name="ModifiedBy" Type="int" />
+          <Property Name="DeactivateDate" Type="datetime" />
+          <Property Name="DeactivateBy" Type="int" />
+          <Property Name="IsActive" Nullable="false" Type="bit" />
+        </EntityType>
+        <EntityType Name="MemberProfile">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="MemberId" Nullable="false" Type="int" />
+          <Property Name="BirthDate" Type="date" />
+          <Property Name="Gender" MaxLength="20" Type="varchar" />
+          <Property Name="CountryCode" Nullable="false" MaxLength="10" Type="varchar" />
+          <Property Name="PhoneNumber" Nullable="false" MaxLength="20" Type="varchar" />
+          <Property Name="ProfilePicture" Type="varchar(max)" />
+          <Property Name="AddressLine1" Nullable="false" MaxLength="100" Type="varchar" />
+          <Property Name="AddressLine2" Nullable="false" MaxLength="100" Type="varchar" />
+          <Property Name="City" Nullable="false" MaxLength="50" Type="varchar" />
+          <Property Name="State" Nullable="false" MaxLength="50" Type="varchar" />
+          <Property Name="Zipcode" Nullable="false" Type="int" />
+          <Property Name="Country" Nullable="false" MaxLength="50" Type="varchar" />
+          <Property Name="University" MaxLength="100" Type="varchar" />
+          <Property Name="College" MaxLength="100" Type="varchar" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="ModifiedDate" Type="datetime" />
+          <Property Name="ModifiedBy" Type="int" />
+        </EntityType>
+        <EntityType Name="Notes">
+          <Key>
+            <PropertyRef Name="NoteId" />
+          </Key>
+          <Property Name="NoteId" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="OwnerId" Nullable="false" Type="int" />
+          <Property Name="NoteTitle" Nullable="false" MaxLength="100" Type="varchar" />
+          <Property Name="Category" Nullable="false" MaxLength="50" Type="varchar" />
+          <Property Name="DisplayPicture" Type="varchar(max)" />
+          <Property Name="UploadNotes" Nullable="false" Type="varchar(max)" />
+          <Property Name="Type" MaxLength="50" Type="varchar" />
+          <Property Name="TotalPages" Type="int" />
+          <Property Name="Description" Nullable="false" Type="varchar(max)" />
+          <Property Name="Country" MaxLength="50" Type="varchar" />
+          <Property Name="InstitutionName" MaxLength="200" Type="varchar" />
+          <Property Name="CourseName" MaxLength="100" Type="varchar" />
+          <Property Name="CourseCode" Type="int" />
+          <Property Name="Professor" MaxLength="100" Type="varchar" />
+          <Property Name="SellType" Nullable="false" MaxLength="20" Type="varchar" />
+          <Property Name="SellPrice" Nullable="false" Type="int" />
+          <Property Name="NotePreview" Nullable="false" Type="varchar(max)" />
+          <Property Name="Status" Nullable="false" MaxLength="100" Type="varchar" />
+          <Property Name="AdminRemarks" Type="varchar(max)" />
+          <Property Name="CreatedDate" Nullable="false" Type="datetime" />
+          <Property Name="ApprovedDate" Type="datetime" />
+          <Property Name="ApprovedBy" Type="int" />
+          <Property Name="ModifiedDate" Type="datetime" />
+          <Property Name="ModifiedBy" Type="int" />
+          <Property Name="IsActive" Nullable="false" Type="bit" />
+        </EntityType>
+        <EntityType Name="Review">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="NoteId" Nullable="false" Type="int" />
+          <Property Name="OwnerId" Nullable="false" Type="int" />
+          <Property Name="MemberId" Nullable="false" Type="int" />
+          <Property Name="Rate" Nullable="false" Type="int" />
+          <Property Name="Description" Nullable="false" Type="varchar(max)" />
+          <Property Name="CreatedDate" Nullable="false" Type="datetime" />
+          <Property Name="ModifiedDate" Type="datetime" />
+          <Property Name="ModifiedBy" Type="int" />
+          <Property Name="IsActive" Nullable="false" Type="bit" />
+        </EntityType>
+        <EntityType Name="Type">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="Name" Nullable="false" MaxLength="100" Type="varchar" />
+          <Property Name="Description" Nullable="false" Type="varchar(max)" />
+          <Property Name="CreatedDate" Nullable="false" Type="datetime" />
+          <Property Name="CreatedBy" Nullable="false" Type="int" />
+          <Property Name="ModifiedDate" Type="datetime" />
+          <Property Name="ModifiedBy" Type="int" />
+          <Property Name="IsActive" Nullable="false" Type="bit" />
+        </EntityType>
+        <Association Name="FK_Buyer_Member">
+          <End Type="Self.Member" Multiplicity="1" Role="Member" />
+          <End Type="Self.Buyer" Multiplicity="*" Role="Buyer" />
+          <ReferentialConstraint>
+            <Principal Role="Member">
+              <PropertyRef Name="MemberId" />
+            </Principal>
+            <Dependent Role="Buyer">
+              <PropertyRef Name="OwnerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Buyer_Member1">
+          <End Type="Self.Member" Multiplicity="1" Role="Member" />
+          <End Type="Self.Buyer" Multiplicity="*" Role="Buyer" />
+          <ReferentialConstraint>
+            <Principal Role="Member">
+              <PropertyRef Name="MemberId" />
+            </Principal>
+            <Dependent Role="Buyer">
+              <PropertyRef Name="MemberId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Buyer_Notes">
+          <End Type="Self.Notes" Multiplicity="1" Role="Notes" />
+          <End Type="Self.Buyer" Multiplicity="*" Role="Buyer" />
+          <ReferentialConstraint>
+            <Principal Role="Notes">
+              <PropertyRef Name="NoteId" />
+            </Principal>
+            <Dependent Role="Buyer">
+              <PropertyRef Name="NoteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Inappropriate_Member">
+          <End Type="Self.Member" Multiplicity="1" Role="Member" />
+          <End Type="Self.Inappropriate" Multiplicity="*" Role="Inappropriate" />
+          <ReferentialConstraint>
+            <Principal Role="Member">
+              <PropertyRef Name="MemberId" />
+            </Principal>
+            <Dependent Role="Inappropriate">
+              <PropertyRef Name="OwnerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Inappropriate_Member1">
+          <End Type="Self.Member" Multiplicity="1" Role="Member" />
+          <End Type="Self.Inappropriate" Multiplicity="*" Role="Inappropriate" />
+          <ReferentialConstraint>
+            <Principal Role="Member">
+              <PropertyRef Name="MemberId" />
+            </Principal>
+            <Dependent Role="Inappropriate">
+              <PropertyRef Name="MemberId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Inappropriate_Notes">
+          <End Type="Self.Notes" Multiplicity="1" Role="Notes" />
+          <End Type="Self.Inappropriate" Multiplicity="*" Role="Inappropriate" />
+          <ReferentialConstraint>
+            <Principal Role="Notes">
+              <PropertyRef Name="NoteId" />
+            </Principal>
+            <Dependent Role="Inappropriate">
+              <PropertyRef Name="NoteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MemberProfile_Member">
+          <End Type="Self.Member" Multiplicity="1" Role="Member" />
+          <End Type="Self.MemberProfile" Multiplicity="*" Role="MemberProfile" />
+          <ReferentialConstraint>
+            <Principal Role="Member">
+              <PropertyRef Name="MemberId" />
+            </Principal>
+            <Dependent Role="MemberProfile">
+              <PropertyRef Name="MemberId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Notes_Member">
+          <End Type="Self.Member" Multiplicity="1" Role="Member" />
+          <End Type="Self.Notes" Multiplicity="*" Role="Notes" />
+          <ReferentialConstraint>
+            <Principal Role="Member">
+              <PropertyRef Name="MemberId" />
+            </Principal>
+            <Dependent Role="Notes">
+              <PropertyRef Name="OwnerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Review_Member">
+          <End Type="Self.Member" Multiplicity="1" Role="Member" />
+          <End Type="Self.Review" Multiplicity="*" Role="Review" />
+          <ReferentialConstraint>
+            <Principal Role="Member">
+              <PropertyRef Name="MemberId" />
+            </Principal>
+            <Dependent Role="Review">
+              <PropertyRef Name="OwnerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Review_Member1">
+          <End Type="Self.Member" Multiplicity="1" Role="Member" />
+          <End Type="Self.Review" Multiplicity="*" Role="Review" />
+          <ReferentialConstraint>
+            <Principal Role="Member">
+              <PropertyRef Name="MemberId" />
+            </Principal>
+            <Dependent Role="Review">
+              <PropertyRef Name="MemberId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Review_Notes">
+          <End Type="Self.Notes" Multiplicity="1" Role="Notes" />
+          <End Type="Self.Review" Multiplicity="*" Role="Review" />
+          <ReferentialConstraint>
+            <Principal Role="Notes">
+              <PropertyRef Name="NoteId" />
+            </Principal>
+            <Dependent Role="Review">
+              <PropertyRef Name="NoteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ModelStoreContainer">
+          <EntitySet Name="Admin" EntityType="Self.Admin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Buyer" EntityType="Self.Buyer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Contactus" EntityType="Self.Contactus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Country" EntityType="Self.Country" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Inappropriate" EntityType="Self.Inappropriate" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ManageSystem" EntityType="Self.ManageSystem" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Member" EntityType="Self.Member" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MemberProfile" EntityType="Self.MemberProfile" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Notes" EntityType="Self.Notes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Review" EntityType="Self.Review" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Type" EntityType="Self.Type" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Buyer_Member" Association="Self.FK_Buyer_Member">
+            <End EntitySet="Member" Role="Member" />
+            <End EntitySet="Buyer" Role="Buyer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Buyer_Member1" Association="Self.FK_Buyer_Member1">
+            <End EntitySet="Member" Role="Member" />
+            <End EntitySet="Buyer" Role="Buyer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Buyer_Notes" Association="Self.FK_Buyer_Notes">
+            <End EntitySet="Notes" Role="Notes" />
+            <End EntitySet="Buyer" Role="Buyer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Inappropriate_Member" Association="Self.FK_Inappropriate_Member">
+            <End EntitySet="Member" Role="Member" />
+            <End EntitySet="Inappropriate" Role="Inappropriate" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Inappropriate_Member1" Association="Self.FK_Inappropriate_Member1">
+            <End EntitySet="Member" Role="Member" />
+            <End EntitySet="Inappropriate" Role="Inappropriate" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Inappropriate_Notes" Association="Self.FK_Inappropriate_Notes">
+            <End EntitySet="Notes" Role="Notes" />
+            <End EntitySet="Inappropriate" Role="Inappropriate" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MemberProfile_Member" Association="Self.FK_MemberProfile_Member">
+            <End EntitySet="Member" Role="Member" />
+            <End EntitySet="MemberProfile" Role="MemberProfile" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Notes_Member" Association="Self.FK_Notes_Member">
+            <End EntitySet="Member" Role="Member" />
+            <End EntitySet="Notes" Role="Notes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Review_Member" Association="Self.FK_Review_Member">
+            <End EntitySet="Member" Role="Member" />
+            <End EntitySet="Review" Role="Review" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Review_Member1" Association="Self.FK_Review_Member1">
+            <End EntitySet="Member" Role="Member" />
+            <End EntitySet="Review" Role="Review" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Review_Notes" Association="Self.FK_Review_Notes">
+            <End EntitySet="Notes" Role="Notes" />
+            <End EntitySet="Review" Role="Review" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Admin">
+          <Key>
+            <PropertyRef Name="AdminId" />
+          </Key>
+          <Property Name="AdminId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="24" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Type" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ProfilePicture" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedBy" Type="Int32" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Buyer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NoteId" Type="Int32" Nullable="false" />
+          <Property Name="OwnerId" Type="Int32" Nullable="false" />
+          <Property Name="MemberId" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="Boolean" Nullable="false" />
+          <Property Name="AttachmentPath" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="IsPaid" Type="Boolean" Nullable="false" />
+          <Property Name="Price" Type="Int32" Nullable="false" />
+          <Property Name="NoteTitle" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NoteCategory" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="RequestDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ApprovedDate" Type="DateTime" Precision="3" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Member" Relationship="Self.FK_Buyer_Member" FromRole="Buyer" ToRole="Member" />
+          <NavigationProperty Name="Member1" Relationship="Self.FK_Buyer_Member1" FromRole="Buyer" ToRole="Member" />
+          <NavigationProperty Name="Note" Relationship="Self.FK_Buyer_Notes" FromRole="Buyer" ToRole="Notes" />
+        </EntityType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedBy" Type="Int32" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Contactu">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Subject" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SubmitDate" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="Country">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CountryName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CountryCode" Type="Int32" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedBy" Type="Int32" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Inappropriate">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NoteId" Type="Int32" Nullable="false" />
+          <Property Name="OwnerId" Type="Int32" Nullable="false" />
+          <Property Name="MemberId" Type="Int32" Nullable="false" />
+          <Property Name="Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DeactivateDate" Type="DateTime" Precision="3" />
+          <Property Name="DeactivateBy" Type="Int32" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Member" Relationship="Self.FK_Inappropriate_Member" FromRole="Inappropriate" ToRole="Member" />
+          <NavigationProperty Name="Member1" Relationship="Self.FK_Inappropriate_Member1" FromRole="Inappropriate" ToRole="Member" />
+          <NavigationProperty Name="Note" Relationship="Self.FK_Inappropriate_Notes" FromRole="Inappropriate" ToRole="Notes" />
+        </EntityType>
+        <EntityType Name="ManageSystem">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SupportEmail" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SupportContactNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EmailAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NoteDisplayPicture" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="MemberDisplayPicture" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="FacebookLink" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="TwitterLink" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="LinkedlnLink" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedBy" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Member">
+          <Key>
+            <PropertyRef Name="MemberId" />
+          </Key>
+          <Property Name="MemberId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EmailVerified" Type="Boolean" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="24" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedBy" Type="Int32" />
+          <Property Name="DeactivateDate" Type="DateTime" Precision="3" />
+          <Property Name="DeactivateBy" Type="Int32" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Buyers" Relationship="Self.FK_Buyer_Member" FromRole="Member" ToRole="Buyer" />
+          <NavigationProperty Name="Buyers1" Relationship="Self.FK_Buyer_Member1" FromRole="Member" ToRole="Buyer" />
+          <NavigationProperty Name="Inappropriates" Relationship="Self.FK_Inappropriate_Member" FromRole="Member" ToRole="Inappropriate" />
+          <NavigationProperty Name="Inappropriates1" Relationship="Self.FK_Inappropriate_Member1" FromRole="Member" ToRole="Inappropriate" />
+          <NavigationProperty Name="MemberProfiles" Relationship="Self.FK_MemberProfile_Member" FromRole="Member" ToRole="MemberProfile" />
+          <NavigationProperty Name="Notes" Relationship="Self.FK_Notes_Member" FromRole="Member" ToRole="Notes" />
+          <NavigationProperty Name="Reviews" Relationship="Self.FK_Review_Member" FromRole="Member" ToRole="Review" />
+          <NavigationProperty Name="Reviews1" Relationship="Self.FK_Review_Member1" FromRole="Member" ToRole="Review" />
+        </EntityType>
+        <EntityType Name="MemberProfile">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MemberId" Type="Int32" Nullable="false" />
+          <Property Name="BirthDate" Type="DateTime" Precision="0" />
+          <Property Name="Gender" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CountryCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ProfilePicture" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="AddressLine1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AddressLine2" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="State" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Zipcode" Type="Int32" Nullable="false" />
+          <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="University" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="College" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedBy" Type="Int32" />
+          <NavigationProperty Name="Member" Relationship="Self.FK_MemberProfile_Member" FromRole="MemberProfile" ToRole="Member" />
+        </EntityType>
+        <EntityType Name="Note">
+          <Key>
+            <PropertyRef Name="NoteId" />
+          </Key>
+          <Property Name="NoteId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OwnerId" Type="Int32" Nullable="false" />
+          <Property Name="NoteTitle" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Category" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DisplayPicture" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="UploadNotes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TotalPages" Type="Int32" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="InstitutionName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="CourseName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CourseCode" Type="Int32" />
+          <Property Name="Professor" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="SellType" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SellPrice" Type="Int32" Nullable="false" />
+          <Property Name="NotePreview" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Status" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AdminRemarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ApprovedDate" Type="DateTime" Precision="3" />
+          <Property Name="ApprovedBy" Type="Int32" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedBy" Type="Int32" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Buyers" Relationship="Self.FK_Buyer_Notes" FromRole="Notes" ToRole="Buyer" />
+          <NavigationProperty Name="Inappropriates" Relationship="Self.FK_Inappropriate_Notes" FromRole="Notes" ToRole="Inappropriate" />
+          <NavigationProperty Name="Member" Relationship="Self.FK_Notes_Member" FromRole="Notes" ToRole="Member" />
+          <NavigationProperty Name="Reviews" Relationship="Self.FK_Review_Notes" FromRole="Notes" ToRole="Review" />
+        </EntityType>
+        <EntityType Name="Review">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NoteId" Type="Int32" Nullable="false" />
+          <Property Name="OwnerId" Type="Int32" Nullable="false" />
+          <Property Name="MemberId" Type="Int32" Nullable="false" />
+          <Property Name="Rate" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedBy" Type="Int32" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Member" Relationship="Self.FK_Review_Member" FromRole="Review" ToRole="Member" />
+          <NavigationProperty Name="Member1" Relationship="Self.FK_Review_Member1" FromRole="Review" ToRole="Member" />
+          <NavigationProperty Name="Note" Relationship="Self.FK_Review_Notes" FromRole="Review" ToRole="Notes" />
+        </EntityType>
+        <EntityType Name="Type">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedBy" Type="Int32" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Buyer_Member">
+          <End Role="Member" Type="Self.Member" Multiplicity="1" />
+          <End Role="Buyer" Type="Self.Buyer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Member">
+              <PropertyRef Name="MemberId" />
+            </Principal>
+            <Dependent Role="Buyer">
+              <PropertyRef Name="OwnerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Buyer_Member1">
+          <End Role="Member" Type="Self.Member" Multiplicity="1" />
+          <End Role="Buyer" Type="Self.Buyer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Member">
+              <PropertyRef Name="MemberId" />
+            </Principal>
+            <Dependent Role="Buyer">
+              <PropertyRef Name="MemberId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Buyer_Notes">
+          <End Role="Notes" Type="Self.Note" Multiplicity="1" />
+          <End Role="Buyer" Type="Self.Buyer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Notes">
+              <PropertyRef Name="NoteId" />
+            </Principal>
+            <Dependent Role="Buyer">
+              <PropertyRef Name="NoteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Inappropriate_Member">
+          <End Role="Member" Type="Self.Member" Multiplicity="1" />
+          <End Role="Inappropriate" Type="Self.Inappropriate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Member">
+              <PropertyRef Name="MemberId" />
+            </Principal>
+            <Dependent Role="Inappropriate">
+              <PropertyRef Name="OwnerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Inappropriate_Member1">
+          <End Role="Member" Type="Self.Member" Multiplicity="1" />
+          <End Role="Inappropriate" Type="Self.Inappropriate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Member">
+              <PropertyRef Name="MemberId" />
+            </Principal>
+            <Dependent Role="Inappropriate">
+              <PropertyRef Name="MemberId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Inappropriate_Notes">
+          <End Role="Notes" Type="Self.Note" Multiplicity="1" />
+          <End Role="Inappropriate" Type="Self.Inappropriate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Notes">
+              <PropertyRef Name="NoteId" />
+            </Principal>
+            <Dependent Role="Inappropriate">
+              <PropertyRef Name="NoteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MemberProfile_Member">
+          <End Role="Member" Type="Self.Member" Multiplicity="1" />
+          <End Role="MemberProfile" Type="Self.MemberProfile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Member">
+              <PropertyRef Name="MemberId" />
+            </Principal>
+            <Dependent Role="MemberProfile">
+              <PropertyRef Name="MemberId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Notes_Member">
+          <End Role="Member" Type="Self.Member" Multiplicity="1" />
+          <End Role="Notes" Type="Self.Note" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Member">
+              <PropertyRef Name="MemberId" />
+            </Principal>
+            <Dependent Role="Notes">
+              <PropertyRef Name="OwnerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Review_Member">
+          <End Role="Member" Type="Self.Member" Multiplicity="1" />
+          <End Role="Review" Type="Self.Review" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Member">
+              <PropertyRef Name="MemberId" />
+            </Principal>
+            <Dependent Role="Review">
+              <PropertyRef Name="OwnerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Review_Member1">
+          <End Role="Member" Type="Self.Member" Multiplicity="1" />
+          <End Role="Review" Type="Self.Review" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Member">
+              <PropertyRef Name="MemberId" />
+            </Principal>
+            <Dependent Role="Review">
+              <PropertyRef Name="MemberId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Review_Notes">
+          <End Role="Notes" Type="Self.Note" Multiplicity="1" />
+          <End Role="Review" Type="Self.Review" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Notes">
+              <PropertyRef Name="NoteId" />
+            </Principal>
+            <Dependent Role="Review">
+              <PropertyRef Name="NoteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Admins" EntityType="Self.Admin" />
+          <EntitySet Name="Buyers" EntityType="Self.Buyer" />
+          <EntitySet Name="Categories" EntityType="Self.Category" />
+          <EntitySet Name="Contactus" EntityType="Self.Contactu" />
+          <EntitySet Name="Countries" EntityType="Self.Country" />
+          <EntitySet Name="Inappropriates" EntityType="Self.Inappropriate" />
+          <EntitySet Name="ManageSystems" EntityType="Self.ManageSystem" />
+          <EntitySet Name="Members" EntityType="Self.Member" />
+          <EntitySet Name="MemberProfiles" EntityType="Self.MemberProfile" />
+          <EntitySet Name="Notes" EntityType="Self.Note" />
+          <EntitySet Name="Reviews" EntityType="Self.Review" />
+          <EntitySet Name="Types" EntityType="Self.Type" />
+          <AssociationSet Name="FK_Buyer_Member" Association="Self.FK_Buyer_Member">
+            <End Role="Member" EntitySet="Members" />
+            <End Role="Buyer" EntitySet="Buyers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Buyer_Member1" Association="Self.FK_Buyer_Member1">
+            <End Role="Member" EntitySet="Members" />
+            <End Role="Buyer" EntitySet="Buyers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Buyer_Notes" Association="Self.FK_Buyer_Notes">
+            <End Role="Notes" EntitySet="Notes" />
+            <End Role="Buyer" EntitySet="Buyers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Inappropriate_Member" Association="Self.FK_Inappropriate_Member">
+            <End Role="Member" EntitySet="Members" />
+            <End Role="Inappropriate" EntitySet="Inappropriates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Inappropriate_Member1" Association="Self.FK_Inappropriate_Member1">
+            <End Role="Member" EntitySet="Members" />
+            <End Role="Inappropriate" EntitySet="Inappropriates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Inappropriate_Notes" Association="Self.FK_Inappropriate_Notes">
+            <End Role="Notes" EntitySet="Notes" />
+            <End Role="Inappropriate" EntitySet="Inappropriates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MemberProfile_Member" Association="Self.FK_MemberProfile_Member">
+            <End Role="Member" EntitySet="Members" />
+            <End Role="MemberProfile" EntitySet="MemberProfiles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Notes_Member" Association="Self.FK_Notes_Member">
+            <End Role="Member" EntitySet="Members" />
+            <End Role="Notes" EntitySet="Notes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Review_Member" Association="Self.FK_Review_Member">
+            <End Role="Member" EntitySet="Members" />
+            <End Role="Review" EntitySet="Reviews" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Review_Member1" Association="Self.FK_Review_Member1">
+            <End Role="Member" EntitySet="Members" />
+            <End Role="Review" EntitySet="Reviews" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Review_Notes" Association="Self.FK_Review_Notes">
+            <End Role="Notes" EntitySet="Notes" />
+            <End Role="Review" EntitySet="Reviews" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="DBEntities">
+          <EntitySetMapping Name="Admins">
+            <EntityTypeMapping TypeName="Model.Admin">
+              <MappingFragment StoreEntitySet="Admin">
+                <ScalarProperty Name="AdminId" ColumnName="AdminId" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="ProfilePicture" ColumnName="ProfilePicture" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Buyers">
+            <EntityTypeMapping TypeName="Model.Buyer">
+              <MappingFragment StoreEntitySet="Buyer">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="NoteId" ColumnName="NoteId" />
+                <ScalarProperty Name="OwnerId" ColumnName="OwnerId" />
+                <ScalarProperty Name="MemberId" ColumnName="MemberId" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="AttachmentPath" ColumnName="AttachmentPath" />
+                <ScalarProperty Name="IsPaid" ColumnName="IsPaid" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="NoteTitle" ColumnName="NoteTitle" />
+                <ScalarProperty Name="NoteCategory" ColumnName="NoteCategory" />
+                <ScalarProperty Name="RequestDate" ColumnName="RequestDate" />
+                <ScalarProperty Name="ApprovedDate" ColumnName="ApprovedDate" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Categories">
+            <EntityTypeMapping TypeName="Model.Category">
+              <MappingFragment StoreEntitySet="Category">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Contactus">
+            <EntityTypeMapping TypeName="Model.Contactu">
+              <MappingFragment StoreEntitySet="Contactus">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="SubmitDate" ColumnName="SubmitDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Countries">
+            <EntityTypeMapping TypeName="Model.Country">
+              <MappingFragment StoreEntitySet="Country">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CountryName" ColumnName="CountryName" />
+                <ScalarProperty Name="CountryCode" ColumnName="CountryCode" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Inappropriates">
+            <EntityTypeMapping TypeName="Model.Inappropriate">
+              <MappingFragment StoreEntitySet="Inappropriate">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="NoteId" ColumnName="NoteId" />
+                <ScalarProperty Name="OwnerId" ColumnName="OwnerId" />
+                <ScalarProperty Name="MemberId" ColumnName="MemberId" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="DeactivateDate" ColumnName="DeactivateDate" />
+                <ScalarProperty Name="DeactivateBy" ColumnName="DeactivateBy" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ManageSystems">
+            <EntityTypeMapping TypeName="Model.ManageSystem">
+              <MappingFragment StoreEntitySet="ManageSystem">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="SupportEmail" ColumnName="SupportEmail" />
+                <ScalarProperty Name="SupportContactNumber" ColumnName="SupportContactNumber" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="NoteDisplayPicture" ColumnName="NoteDisplayPicture" />
+                <ScalarProperty Name="MemberDisplayPicture" ColumnName="MemberDisplayPicture" />
+                <ScalarProperty Name="FacebookLink" ColumnName="FacebookLink" />
+                <ScalarProperty Name="TwitterLink" ColumnName="TwitterLink" />
+                <ScalarProperty Name="LinkedlnLink" ColumnName="LinkedlnLink" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Members">
+            <EntityTypeMapping TypeName="Model.Member">
+              <MappingFragment StoreEntitySet="Member">
+                <ScalarProperty Name="MemberId" ColumnName="MemberId" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="EmailVerified" ColumnName="EmailVerified" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="DeactivateDate" ColumnName="DeactivateDate" />
+                <ScalarProperty Name="DeactivateBy" ColumnName="DeactivateBy" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MemberProfiles">
+            <EntityTypeMapping TypeName="Model.MemberProfile">
+              <MappingFragment StoreEntitySet="MemberProfile">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="MemberId" ColumnName="MemberId" />
+                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="CountryCode" ColumnName="CountryCode" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="ProfilePicture" ColumnName="ProfilePicture" />
+                <ScalarProperty Name="AddressLine1" ColumnName="AddressLine1" />
+                <ScalarProperty Name="AddressLine2" ColumnName="AddressLine2" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Zipcode" ColumnName="Zipcode" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="University" ColumnName="University" />
+                <ScalarProperty Name="College" ColumnName="College" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Notes">
+            <EntityTypeMapping TypeName="Model.Note">
+              <MappingFragment StoreEntitySet="Notes">
+                <ScalarProperty Name="NoteId" ColumnName="NoteId" />
+                <ScalarProperty Name="OwnerId" ColumnName="OwnerId" />
+                <ScalarProperty Name="NoteTitle" ColumnName="NoteTitle" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="DisplayPicture" ColumnName="DisplayPicture" />
+                <ScalarProperty Name="UploadNotes" ColumnName="UploadNotes" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="TotalPages" ColumnName="TotalPages" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="InstitutionName" ColumnName="InstitutionName" />
+                <ScalarProperty Name="CourseName" ColumnName="CourseName" />
+                <ScalarProperty Name="CourseCode" ColumnName="CourseCode" />
+                <ScalarProperty Name="Professor" ColumnName="Professor" />
+                <ScalarProperty Name="SellType" ColumnName="SellType" />
+                <ScalarProperty Name="SellPrice" ColumnName="SellPrice" />
+                <ScalarProperty Name="NotePreview" ColumnName="NotePreview" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="AdminRemarks" ColumnName="AdminRemarks" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ApprovedDate" ColumnName="ApprovedDate" />
+                <ScalarProperty Name="ApprovedBy" ColumnName="ApprovedBy" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reviews">
+            <EntityTypeMapping TypeName="Model.Review">
+              <MappingFragment StoreEntitySet="Review">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="NoteId" ColumnName="NoteId" />
+                <ScalarProperty Name="OwnerId" ColumnName="OwnerId" />
+                <ScalarProperty Name="MemberId" ColumnName="MemberId" />
+                <ScalarProperty Name="Rate" ColumnName="Rate" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Types">
+            <EntityTypeMapping TypeName="Model.Type">
+              <MappingFragment StoreEntitySet="Type">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

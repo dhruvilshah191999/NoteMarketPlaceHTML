@@ -1,0 +1,225 @@
+﻿@{ 
+    if (Session["MemberId"] == null)
+    {
+        Response.Redirect("/Auth/Index");
+    }
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap"
+          rel="stylesheet" />
+    <link rel="stylesheet" href="~/Content/Custom/bootstrap/bootstrap.css" />
+    <link rel="stylesheet" href="~/Content/Custom/responsive2.css" />
+    <link rel="stylesheet" href="~/Content/Custom/style2.css" />
+    <link rel="stylesheet" href="~/fonts/Custom/css/font-awesome.css" />
+    <link rel="stylesheet" href="~/fonts/Custom/fontawesome/css/fontawesome.css" />
+    <link rel="stylesheet" href="~/fonts/Custom/fontawesome/css/brands.css" />
+    <link rel="stylesheet" href="~/fonts/Custom/fontawesome/css/solid.css" />
+    <script src="~/Scripts/Custom/jquery.js"></script>
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <header>
+        <nav class="navbar white-nav-top navbar-expand-lg fixed-top">
+            <div class="container container-relative">
+                <span id="mobile-nav-open-btn">&#9776;</span>
+                <a href="/Home/" class="navbar-brand">
+                    <img src="~/images/login/logo.png" alt="logo" id="user_logo" />
+                </a>
+                <div class="container add-list">
+                    <div class="collapse navbar-collapse remove-padding navbar-dropdown">
+                        <ul class="nav ml-auto">
+                            <li class="nav-item">
+                                @if (ViewBag.NavTitle == "Search")
+                                {
+                                    @Html.ActionLink("Search Notes", "Search", "Home", null, new { @class = "nav-link checked" })
+                                }
+                                else
+                                {
+                                    @Html.ActionLink("Search Notes", "Search", "Home", null, new { @class = "nav-link" })
+                                }
+                            </li>
+                            <li class="nav-item">
+                                @if (ViewBag.NavTitle == "Dashboard")
+                                {
+                                    @Html.ActionLink("Sell Your Notes", "Index", "Notes", null, new { @class = "nav-link checked" })
+                                }
+                                else
+                                {
+                                    @Html.ActionLink("Sell Your Notes", "Index", "Notes", null, new { @class = "nav-link" })
+                                }
+                            </li>
+                            <li class="nav-item">
+                                @if (ViewBag.NavTitle == "BuyerRequest")
+                                {
+                                    @Html.ActionLink("Buyer Requests", "BuyerRequest", "Notes", null, new { @class = "nav-link checked" })
+                                }
+                                else
+                                {
+                                    @Html.ActionLink("Buyer Requests", "BuyerRequest", "Notes", null, new { @class = "nav-link" })
+                                }
+                            </li>
+                            <li class="nav-item">
+                                @if (ViewBag.NavTitle == "FAQ")
+                                {
+                                    @Html.ActionLink("FAQ", "FAQ", "Home", null, new { @class = "nav-link checked" })
+                                }
+                                else
+                                {
+                                    @Html.ActionLink("FAQ", "FAQ", "Home", null, new { @class = "nav-link" })
+                                }
+                            </li>
+                            <li class="nav-item">
+                                @if (ViewBag.NavTitle == "Contact")
+                                {
+                                    @Html.ActionLink("Contact Us", "Contact", "Home", null, new { @class = "nav-link checked" })
+                                }
+                                else
+                                {
+                                    @Html.ActionLink("Contact Us", "Contact", "Home", null, new { @class = "nav-link" })
+                                }
+                            </li>
+                            <li class="nav-item direct-hover">
+                                @if(Session["Profile"] == null)
+                                {
+
+                                }
+                                else
+                                {
+                                    <img class="image-fluid rounded-circle"
+                                         data-toggle="dropdown"
+                                         src="../../UploadFiles/MemberProfile/@Session["Profile"].ToString()" />
+                                }
+                                
+
+                                <div class="dropdown">
+                                    <div class="dropdown-menu">
+                                        @Html.ActionLink("My Profile", "Index", "Profile", null, new { @class = "dropdown-item" })
+                                        <a class="dropdown-item" href="#">My Downloads</a>
+                                        <a class="dropdown-item" href="#">My Sold Notes</a>
+                                        @Html.ActionLink("My Rejected Notes", "Rejected", "Profile", null, new { @class = "dropdown-item" })
+                                        <a class="dropdown-item" href="#">Change Password</a>
+                                        @Html.ActionLink("LOGOUT", "Logout", "Auth", null, new { @class = "dropdown-item change-color"})
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="nav-item">
+                                @Html.ActionLink("Logout", "Logout", "Auth", null, new { @class = "nav-link btn-logout", role="button" })
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div id="mobile-nav">
+                    <span id="mobile-nav-close-btn">&times;</span>
+                    <div id="mobile-nav-content">
+                        <ul class="nav navbar-nav">
+                            <li class="nav-item">
+                                @if (ViewBag.NavTitle == "Search")
+                                {
+                                    @Html.ActionLink("Search Notes", "Search", "Home", null, new { @class = "nav-link checked" })
+                                }
+                                else
+                                {
+                                    @Html.ActionLink("Search Notes", "Search", "Home", null, new { @class = "nav-link" })
+                                }
+                            </li>
+                            <li class="nav-item">
+                                @if (ViewBag.NavTitle == "Dashboard")
+                                {
+                                    @Html.ActionLink("Sell Your Notes", "Index", "Notes", null, new { @class = "nav-link checked" })
+                                }
+                                else
+                                {
+                                    @Html.ActionLink("Sell Your Notes", "Index", "Notes", null, new { @class = "nav-link" })
+                                }
+                            </li>
+                            <li class="nav-item">
+                                @if (ViewBag.NavTitle == "BuyerRequest")
+                                {
+                                    @Html.ActionLink("Buyer Requests", "BuyerRequest", "Notes", null, new { @class = "nav-link checked" })
+                                }
+                                else
+                                {
+                                    @Html.ActionLink("Buyer Requests", "BuyerRequest", "Notes", null, new { @class = "nav-link" })
+                                }
+                            </li>
+                            <li class="nav-item">
+                                @if (ViewBag.NavTitle == "FAQ")
+                                {
+                                    @Html.ActionLink("FAQ", "FAQ", "Home", null, new { @class = "nav-link checked" })
+                                }
+                                else
+                                {
+                                    @Html.ActionLink("FAQ", "FAQ", "Home", null, new { @class = "nav-link" })
+                                }
+                            </li>
+                            <li class="nav-item">
+                                @if (ViewBag.NavTitle == "Contact")
+                                {
+                                    @Html.ActionLink("Contact Us", "Contact", "Home", null, new { @class = "nav-link checked" })
+                                }
+                                else
+                                {
+                                    @Html.ActionLink("Contact Us", "Contact", "Home", null, new { @class = "nav-link" })
+                                }
+                            </li>
+                            <li class="nav-item direct-hover">
+                                <img class="image-fluid rounded-circle"
+                                     data-toggle="dropdown"
+                                     src="../../UploadFiles/MemberProfile/@Session["Profile"].ToString()" />
+                                <div class="dropdown">
+                                    <div class="dropdown-menu">
+                                        @Html.ActionLink("My Profile", "Index", "Profile", null, new { @class = "dropdown-item" })
+                                        <a class="dropdown-item" href="">My Downloads</a>
+                                        <a class="dropdown-item" href="#">My Sold Notes</a>
+                                        <a class="dropdown-item" href="#">My Rejected Notes</a>
+                                        <a class="dropdown-item" href="#">Change Password</a>
+                                        <a class="dropdown-item change-color" href="#">LOGOUT</a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="nav-item">
+                                @Html.ActionLink("Logout", "Logout", "Auth", null, new { @class = "nav-link btn-logout", role = "button" })
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    @RenderBody()
+
+    <section class="footer">
+        <hr>
+        <div class="home-footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 col-sm-8 col-6">
+                        <div class="footer-text">
+                            <p>Copyright &copy; Tatvasoft All rights reserved.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-4 col-6">
+                        <ul class="social-list">
+                            <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                            <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                            <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="~/Scripts/Custom/jquery.js"></script>
+    <script src="~/Scripts/Custom/popper.min.js"></script>
+    <script src="~/Scripts/Custom/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/Custom/script3.js"></script>
+</body>
+</html>

@@ -1,0 +1,74 @@
+﻿@model IPagedList<Notes_MarketPlace.Models.Note>
+@using PagedList;
+@using PagedList.Mvc;
+
+<section id="published-notes">
+    <div id="content-box">
+        <div class="container">
+            <div class="progress-heading">
+                <div class="row">
+                    <div class="col-md-4 col-12">
+                        <h5>Published Notes</h5>
+                    </div>
+                    <div class="col-md-8 col-12">
+                        <div class="progess-search float-right">
+                            <form action="/Notes/Index" method="get" class="form-inline ml-auto">
+                                <div class="form-group ">
+                                    <input type="text"
+                                           class="form-control"
+                                           placeholder=" &#xF002; &nbsp;&nbsp;Search"
+                                           id="search"
+                                           name="search2"
+                                           style="font-family: Open Sans,FontAwesome" />
+                                    <input type="submit" class="btn btn-primary " value="SUBMIT" />
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="progress-table table-responsive-sm">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <td>Added Date</td>
+                        <td>@Html.ActionLink("Title", "Index", new { sortBy2 = ViewBag.SortTitle, search = Request.QueryString["search"], i = Request.QueryString["i"], search2 = Request.QueryString["search2"], i2 = Request.QueryString["i2"], sortBy = Request.QueryString["sortBy"] })</td>
+                        <td>@Html.ActionLink("Category", "Index", new { sortBy2 = ViewBag.SortCategory, search = Request.QueryString["search"], i = Request.QueryString["i"], search2 = Request.QueryString["search2"], i2 = Request.QueryString["i2"], sortBy = Request.QueryString["sortBy"] })</td>
+                        <td>@Html.ActionLink("Sell Type", "Index", new { sortBy2 = ViewBag.SortType, search = Request.QueryString["search"], i = Request.QueryString["i"], search2 = Request.QueryString["search2"], i2 = Request.QueryString["i2"], sortBy = Request.QueryString["sortBy"] })</td>
+                        <td>@Html.ActionLink("Price", "Index", new { sortBy2 = ViewBag.SortPrice, search = Request.QueryString["search"], i = Request.QueryString["i"], search2 = Request.QueryString["search2"], i2 = Request.QueryString["i2"], sortBy = Request.QueryString["sortBy"] })</td>
+                        <td align="center">Actions</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var notes in Model)
+                    {
+                        <tr>
+                            <td>@notes.CreatedDate.ToString("dd/MM/yyyy")</td>
+                            <td>@notes.NoteTitle</td>
+                            <td>@notes.Category</td>
+                            <td>@notes.SellType</td>
+                            <td>@notes.SellPrice</td>
+                            <td align="center"><img src="~/images/Dashboard/eye.png" style="cursor:pointer" onclick="window.open('/UploadFiles/Notes/@notes.OwnerId/@notes.UploadNotes', '_blank');"/></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    </div>
+    <section id="pagination">
+        @Html.PagedListPager(Model, i2 => Url.Action("Index", "Notes", new { i2, search2 = Request.QueryString["search2"], search = Request.QueryString["search"], i = Request.QueryString["i"] , sortBy = Request.QueryString["sortBy"], sortBy2 = Request.QueryString["sortBy2"] }), new PagedList.Mvc.PagedListRenderOptions
+   {
+       ContainerDivClasses = null,
+       LiElementClasses = new string[] { "page-item1" },
+       UlElementClasses = new string[] { "pagination justify-content-center" },
+       LinkToNextPageFormat = "<i class='fa fa-chevron-right'></i>",
+       LinkToPreviousPageFormat = "<i class='fa fa-chevron-left'></i>",
+       MaximumPageNumbersToDisplay = 5,
+       DisplayEllipsesWhenNotShowingAllPageNumbers = false,
+       DisplayLinkToFirstPage = PagedListDisplayMode.Never,
+       DisplayLinkToLastPage = PagedListDisplayMode.Never
+
+   })
+    </section>
+</section>

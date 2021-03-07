@@ -1,0 +1,111 @@
+﻿@model IPagedList<Notes_MarketPlace.Models.Note>
+@using PagedList;
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "My Rejected Notes";
+    Layout = "~/Views/Shared/_MemberLayoutPage.cshtml";
+    int total = ViewBag.Viewpage;
+    int number = Convert.ToInt32(Request.QueryString["i"]);
+    if (number == 0)
+    {
+        number = 1;
+    }
+    int count = total * number;
+    int sub;
+
+    string Base64EncodingMethod(string Data)
+    {
+        byte[] toEncodeAsBytes = System.Text.Encoding.UTF32.GetBytes(Data);
+        string sReturnValues = System.Convert.ToBase64String(toEncodeAsBytes);
+        return sReturnValues;
+    }
+}
+<section id="margin-nav"></section>
+<section id="my_download">
+    <div id="content-box">
+        <div class="container">
+            <div class="progress-heading my_download_heading">
+                <div class="row">
+                    <div class="col-md-4 col-12">
+                        <h5>My Rejected Notes</h5>
+                    </div>
+                    <div class="col-md-8 col-12">
+                        <div class="progess-search float-right">
+                            <form action="/Profile/Rejected" method="get" class="form-inline ml-auto">
+                                <div class="form-group ">
+                                    <input type="text"
+                                           class="form-control"
+                                           placeholder=" &#xF002; &nbsp;&nbsp;Search"
+                                           id="search"
+                                           name="search"
+                                           style="font-family: Open Sans,FontAwesome" />
+                                    <input type="submit" class="btn btn-primary " value="SEARCH" />
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="rejected-note-table my-download-table table-responsive-sm">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <td>Sr No.</td>
+                        <td>@Html.ActionLink("Note Title","Rejected",new { sortBy = ViewBag.SortTitle, search = Request.QueryString["search"] , i = Request.QueryString["i"] })</td>
+                        <td>@Html.ActionLink("Category", "Rejected", new { sortBy = ViewBag.SortCategory, search = Request.QueryString["search"], i = Request.QueryString["i"] })</td>
+                        <td>Remarks</td>
+                        <td>Clone</td>
+                        <td></td>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var notes in Model)
+                    {
+                        {
+                            sub = count - total + 1;
+                        }
+                        <tr>
+                            <td>@sub</td>
+                            <td><a href="/Notes/Notedetails?note=@Base64EncodingMethod(notes.NoteId.ToString())" style="text-decoration:none;color:#6255a5;">@notes.NoteTitle</a></td>
+                            <td>@notes.Category</td>
+                            <td>Lorem Ipsum is simply dummy test</td>
+                            <td>Clone</td>
+                            <td align="center">
+                                <div class="dropdown dropleftt">
+                                    <button type="button" class="dropdown-toggle" data-toggle="dropdown">
+                                        <i class="fas fa-ellipsis-v"></i>
+                                    </button>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" target="_blank" href="~/UploadFiles/Notes/@notes.OwnerId/@notes.UploadNotes">Download Note</a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        {
+                            total = total - 1;
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    </div>
+    </div>
+    <section id="pagination">
+        @Html.PagedListPager(Model, i => Url.Action("Rejected", "Profile", new { i, search = Request.QueryString["search"],sortBy=Request.QueryString["sortBy"] }), new PagedList.Mvc.PagedListRenderOptions
+        {
+           ContainerDivClasses = null,
+           LiElementClasses = new string[] { "page-item1" },
+           UlElementClasses = new string[] { "pagination justify-content-center" },
+           LinkToNextPageFormat = "<i class='fa fa-chevron-right'></i>",
+           LinkToPreviousPageFormat = "<i class='fa fa-chevron-left'></i>",
+           MaximumPageNumbersToDisplay = 5,
+           DisplayEllipsesWhenNotShowingAllPageNumbers = false,
+           DisplayLinkToFirstPage = PagedListDisplayMode.Never,
+           DisplayLinkToLastPage = PagedListDisplayMode.Never
+
+        })
+    </section>
+</section>

@@ -1,0 +1,11 @@
+﻿@{
+    if (Session["MemberId"] == null)
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+    else if(Session["MemberId"] != null)
+    {
+        Layout = "~/Views/Shared/_MemberLayoutPage.cshtml";
+    }
+
+}

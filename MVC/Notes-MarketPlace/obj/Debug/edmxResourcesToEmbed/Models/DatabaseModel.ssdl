@@ -1,0 +1,395 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl" Alias="Self" Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012">
+  <EntityType Name="Admin">
+    <Key>
+      <PropertyRef Name="AdminId" />
+    </Key>
+    <Property Name="AdminId" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+    <Property Name="FirstName" Nullable="false" MaxLength="50" Type="varchar" />
+    <Property Name="LastName" Nullable="false" MaxLength="50" Type="varchar" />
+    <Property Name="Email" Nullable="false" MaxLength="100" Type="varchar" />
+    <Property Name="Password" Nullable="false" MaxLength="24" Type="varchar" />
+    <Property Name="Type" Nullable="false" MaxLength="20" Type="varchar" />
+    <Property Name="ProfilePicture" Type="varchar(max)" />
+    <Property Name="CreatedDate" Nullable="false" Type="datetime" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="ModifiedDate" Type="datetime" />
+    <Property Name="ModifiedBy" Type="int" />
+    <Property Name="IsActive" Nullable="false" Type="bit" />
+  </EntityType>
+  <EntityType Name="Buyer">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+    <Property Name="NoteId" Nullable="false" Type="int" />
+    <Property Name="OwnerId" Nullable="false" Type="int" />
+    <Property Name="MemberId" Nullable="false" Type="int" />
+    <Property Name="Status" Nullable="false" Type="bit" />
+    <Property Name="AttachmentPath" Type="varchar(max)" />
+    <Property Name="IsPaid" Nullable="false" Type="bit" />
+    <Property Name="Price" Nullable="false" Type="int" />
+    <Property Name="NoteTitle" Nullable="false" MaxLength="100" Type="varchar" />
+    <Property Name="NoteCategory" Nullable="false" MaxLength="100" Type="varchar" />
+    <Property Name="RequestDate" Nullable="false" Type="datetime" />
+    <Property Name="ApprovedDate" Nullable="false" Type="datetime" />
+    <Property Name="IsActive" Nullable="false" Type="bit" />
+  </EntityType>
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+    <Property Name="Name" Nullable="false" MaxLength="100" Type="varchar" />
+    <Property Name="Description" Nullable="false" Type="varchar(max)" />
+    <Property Name="CreatedDate" Nullable="false" Type="datetime" />
+    <Property Name="CreatedBy" Nullable="false" Type="int" />
+    <Property Name="ModifiedDate" Type="datetime" />
+    <Property Name="ModifiedBy" Type="int" />
+    <Property Name="IsActive" Nullable="false" Type="bit" />
+  </EntityType>
+  <EntityType Name="Contactus">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+    <Property Name="Name" Nullable="false" MaxLength="100" Type="varchar" />
+    <Property Name="Email" Nullable="false" MaxLength="100" Type="varchar" />
+    <Property Name="Subject" Nullable="false" MaxLength="100" Type="varchar" />
+    <Property Name="Comment" Nullable="false" Type="varchar(max)" />
+    <Property Name="SubmitDate" Nullable="false" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Country">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+    <Property Name="CountryName" Nullable="false" MaxLength="100" Type="varchar" />
+    <Property Name="CountryCode" Nullable="false" Type="int" />
+    <Property Name="CreatedDate" Nullable="false" Type="datetime" />
+    <Property Name="CreatedBy" Nullable="false" Type="int" />
+    <Property Name="ModifiedDate" Type="datetime" />
+    <Property Name="ModifiedBy" Type="int" />
+    <Property Name="IsActive" Nullable="false" Type="bit" />
+  </EntityType>
+  <EntityType Name="Inappropriate">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+    <Property Name="NoteId" Nullable="false" Type="int" />
+    <Property Name="OwnerId" Nullable="false" Type="int" />
+    <Property Name="MemberId" Nullable="false" Type="int" />
+    <Property Name="Remarks" Nullable="false" Type="varchar(max)" />
+    <Property Name="Date" Nullable="false" Type="datetime" />
+    <Property Name="DeactivateDate" Type="datetime" />
+    <Property Name="DeactivateBy" Type="int" />
+    <Property Name="IsActive" Nullable="false" Type="bit" />
+  </EntityType>
+  <EntityType Name="ManageSystem">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+    <Property Name="SupportEmail" Nullable="false" MaxLength="100" Type="varchar" />
+    <Property Name="SupportContactNumber" Nullable="false" MaxLength="20" Type="varchar" />
+    <Property Name="EmailAddress" Nullable="false" MaxLength="100" Type="varchar" />
+    <Property Name="NoteDisplayPicture" Type="varchar(max)" />
+    <Property Name="MemberDisplayPicture" Type="varchar(max)" />
+    <Property Name="FacebookLink" MaxLength="100" Type="varchar" />
+    <Property Name="TwitterLink" MaxLength="100" Type="varchar" />
+    <Property Name="LinkedlnLink" MaxLength="100" Type="varchar" />
+    <Property Name="ModifiedDate" Type="datetime" />
+    <Property Name="ModifiedBy" Type="int" />
+  </EntityType>
+  <EntityType Name="Member">
+    <Key>
+      <PropertyRef Name="MemberId" />
+    </Key>
+    <Property Name="MemberId" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+    <Property Name="FirstName" Nullable="false" MaxLength="50" Type="varchar" />
+    <Property Name="LastName" Nullable="false" MaxLength="50" Type="varchar" />
+    <Property Name="Email" Nullable="false" MaxLength="100" Type="varchar" />
+    <Property Name="EmailVerified" Nullable="false" Type="bit" />
+    <Property Name="Password" Nullable="false" MaxLength="24" Type="varchar" />
+    <Property Name="CreatedDate" Nullable="false" Type="datetime" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="ModifiedDate" Type="datetime" />
+    <Property Name="ModifiedBy" Type="int" />
+    <Property Name="DeactivateDate" Type="datetime" />
+    <Property Name="DeactivateBy" Type="int" />
+    <Property Name="IsActive" Nullable="false" Type="bit" />
+  </EntityType>
+  <EntityType Name="MemberProfile">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+    <Property Name="MemberId" Nullable="false" Type="int" />
+    <Property Name="BirthDate" Type="date" />
+    <Property Name="Gender" MaxLength="20" Type="varchar" />
+    <Property Name="CountryCode" Nullable="false" MaxLength="10" Type="varchar" />
+    <Property Name="PhoneNumber" Nullable="false" MaxLength="20" Type="varchar" />
+    <Property Name="ProfilePicture" Type="varchar(max)" />
+    <Property Name="AddressLine1" Nullable="false" MaxLength="100" Type="varchar" />
+    <Property Name="AddressLine2" Nullable="false" MaxLength="100" Type="varchar" />
+    <Property Name="City" Nullable="false" MaxLength="50" Type="varchar" />
+    <Property Name="State" Nullable="false" MaxLength="50" Type="varchar" />
+    <Property Name="Zipcode" Nullable="false" Type="int" />
+    <Property Name="Country" Nullable="false" MaxLength="50" Type="varchar" />
+    <Property Name="University" MaxLength="100" Type="varchar" />
+    <Property Name="College" MaxLength="100" Type="varchar" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="ModifiedDate" Type="datetime" />
+    <Property Name="ModifiedBy" Type="int" />
+  </EntityType>
+  <EntityType Name="Notes">
+    <Key>
+      <PropertyRef Name="NoteId" />
+    </Key>
+    <Property Name="NoteId" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+    <Property Name="OwnerId" Nullable="false" Type="int" />
+    <Property Name="NoteTitle" Nullable="false" MaxLength="100" Type="varchar" />
+    <Property Name="Category" Nullable="false" MaxLength="50" Type="varchar" />
+    <Property Name="DisplayPicture" Type="varchar(max)" />
+    <Property Name="UploadNotes" Nullable="false" Type="varchar(max)" />
+    <Property Name="Type" MaxLength="50" Type="varchar" />
+    <Property Name="TotalPages" Type="int" />
+    <Property Name="Description" Nullable="false" Type="varchar(max)" />
+    <Property Name="Country" MaxLength="50" Type="varchar" />
+    <Property Name="InstitutionName" MaxLength="200" Type="varchar" />
+    <Property Name="CourseName" MaxLength="100" Type="varchar" />
+    <Property Name="CourseCode" Type="int" />
+    <Property Name="Professor" MaxLength="100" Type="varchar" />
+    <Property Name="SellType" Nullable="false" MaxLength="20" Type="varchar" />
+    <Property Name="SellPrice" Nullable="false" Type="int" />
+    <Property Name="NotePreview" Nullable="false" Type="varchar(max)" />
+    <Property Name="Status" Nullable="false" MaxLength="100" Type="varchar" />
+    <Property Name="AdminRemarks" Type="varchar(max)" />
+    <Property Name="CreatedDate" Nullable="false" Type="datetime" />
+    <Property Name="ApprovedDate" Type="datetime" />
+    <Property Name="ApprovedBy" Type="int" />
+    <Property Name="ModifiedDate" Type="datetime" />
+    <Property Name="ModifiedBy" Type="int" />
+    <Property Name="IsActive" Nullable="false" Type="bit" />
+  </EntityType>
+  <EntityType Name="Review">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+    <Property Name="NoteId" Nullable="false" Type="int" />
+    <Property Name="OwnerId" Nullable="false" Type="int" />
+    <Property Name="MemberId" Nullable="false" Type="int" />
+    <Property Name="Rate" Nullable="false" Type="int" />
+    <Property Name="Description" Nullable="false" Type="varchar(max)" />
+    <Property Name="CreatedDate" Nullable="false" Type="datetime" />
+    <Property Name="ModifiedDate" Type="datetime" />
+    <Property Name="ModifiedBy" Type="int" />
+    <Property Name="IsActive" Nullable="false" Type="bit" />
+  </EntityType>
+  <EntityType Name="Type">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+    <Property Name="Name" Nullable="false" MaxLength="100" Type="varchar" />
+    <Property Name="Description" Nullable="false" Type="varchar(max)" />
+    <Property Name="CreatedDate" Nullable="false" Type="datetime" />
+    <Property Name="CreatedBy" Nullable="false" Type="int" />
+    <Property Name="ModifiedDate" Type="datetime" />
+    <Property Name="ModifiedBy" Type="int" />
+    <Property Name="IsActive" Nullable="false" Type="bit" />
+  </EntityType>
+  <Association Name="FK_Buyer_Member">
+    <End Type="Self.Member" Multiplicity="1" Role="Member" />
+    <End Type="Self.Buyer" Multiplicity="*" Role="Buyer" />
+    <ReferentialConstraint>
+      <Principal Role="Member">
+        <PropertyRef Name="MemberId" />
+      </Principal>
+      <Dependent Role="Buyer">
+        <PropertyRef Name="OwnerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Buyer_Member1">
+    <End Type="Self.Member" Multiplicity="1" Role="Member" />
+    <End Type="Self.Buyer" Multiplicity="*" Role="Buyer" />
+    <ReferentialConstraint>
+      <Principal Role="Member">
+        <PropertyRef Name="MemberId" />
+      </Principal>
+      <Dependent Role="Buyer">
+        <PropertyRef Name="MemberId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Buyer_Notes">
+    <End Type="Self.Notes" Multiplicity="1" Role="Notes" />
+    <End Type="Self.Buyer" Multiplicity="*" Role="Buyer" />
+    <ReferentialConstraint>
+      <Principal Role="Notes">
+        <PropertyRef Name="NoteId" />
+      </Principal>
+      <Dependent Role="Buyer">
+        <PropertyRef Name="NoteId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Inappropriate_Member">
+    <End Type="Self.Member" Multiplicity="1" Role="Member" />
+    <End Type="Self.Inappropriate" Multiplicity="*" Role="Inappropriate" />
+    <ReferentialConstraint>
+      <Principal Role="Member">
+        <PropertyRef Name="MemberId" />
+      </Principal>
+      <Dependent Role="Inappropriate">
+        <PropertyRef Name="OwnerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Inappropriate_Member1">
+    <End Type="Self.Member" Multiplicity="1" Role="Member" />
+    <End Type="Self.Inappropriate" Multiplicity="*" Role="Inappropriate" />
+    <ReferentialConstraint>
+      <Principal Role="Member">
+        <PropertyRef Name="MemberId" />
+      </Principal>
+      <Dependent Role="Inappropriate">
+        <PropertyRef Name="MemberId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Inappropriate_Notes">
+    <End Type="Self.Notes" Multiplicity="1" Role="Notes" />
+    <End Type="Self.Inappropriate" Multiplicity="*" Role="Inappropriate" />
+    <ReferentialConstraint>
+      <Principal Role="Notes">
+        <PropertyRef Name="NoteId" />
+      </Principal>
+      <Dependent Role="Inappropriate">
+        <PropertyRef Name="NoteId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MemberProfile_Member">
+    <End Type="Self.Member" Multiplicity="1" Role="Member" />
+    <End Type="Self.MemberProfile" Multiplicity="*" Role="MemberProfile" />
+    <ReferentialConstraint>
+      <Principal Role="Member">
+        <PropertyRef Name="MemberId" />
+      </Principal>
+      <Dependent Role="MemberProfile">
+        <PropertyRef Name="MemberId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Notes_Member">
+    <End Type="Self.Member" Multiplicity="1" Role="Member" />
+    <End Type="Self.Notes" Multiplicity="*" Role="Notes" />
+    <ReferentialConstraint>
+      <Principal Role="Member">
+        <PropertyRef Name="MemberId" />
+      </Principal>
+      <Dependent Role="Notes">
+        <PropertyRef Name="OwnerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Review_Member">
+    <End Type="Self.Member" Multiplicity="1" Role="Member" />
+    <End Type="Self.Review" Multiplicity="*" Role="Review" />
+    <ReferentialConstraint>
+      <Principal Role="Member">
+        <PropertyRef Name="MemberId" />
+      </Principal>
+      <Dependent Role="Review">
+        <PropertyRef Name="OwnerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Review_Member1">
+    <End Type="Self.Member" Multiplicity="1" Role="Member" />
+    <End Type="Self.Review" Multiplicity="*" Role="Review" />
+    <ReferentialConstraint>
+      <Principal Role="Member">
+        <PropertyRef Name="MemberId" />
+      </Principal>
+      <Dependent Role="Review">
+        <PropertyRef Name="MemberId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Review_Notes">
+    <End Type="Self.Notes" Multiplicity="1" Role="Notes" />
+    <End Type="Self.Review" Multiplicity="*" Role="Review" />
+    <ReferentialConstraint>
+      <Principal Role="Notes">
+        <PropertyRef Name="NoteId" />
+      </Principal>
+      <Dependent Role="Review">
+        <PropertyRef Name="NoteId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ModelStoreContainer">
+    <EntitySet Name="Admin" EntityType="Self.Admin" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Buyer" EntityType="Self.Buyer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Contactus" EntityType="Self.Contactus" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Country" EntityType="Self.Country" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Inappropriate" EntityType="Self.Inappropriate" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ManageSystem" EntityType="Self.ManageSystem" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Member" EntityType="Self.Member" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MemberProfile" EntityType="Self.MemberProfile" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Notes" EntityType="Self.Notes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Review" EntityType="Self.Review" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Type" EntityType="Self.Type" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Buyer_Member" Association="Self.FK_Buyer_Member">
+      <End EntitySet="Member" Role="Member" />
+      <End EntitySet="Buyer" Role="Buyer" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Buyer_Member1" Association="Self.FK_Buyer_Member1">
+      <End EntitySet="Member" Role="Member" />
+      <End EntitySet="Buyer" Role="Buyer" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Buyer_Notes" Association="Self.FK_Buyer_Notes">
+      <End EntitySet="Notes" Role="Notes" />
+      <End EntitySet="Buyer" Role="Buyer" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Inappropriate_Member" Association="Self.FK_Inappropriate_Member">
+      <End EntitySet="Member" Role="Member" />
+      <End EntitySet="Inappropriate" Role="Inappropriate" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Inappropriate_Member1" Association="Self.FK_Inappropriate_Member1">
+      <End EntitySet="Member" Role="Member" />
+      <End EntitySet="Inappropriate" Role="Inappropriate" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Inappropriate_Notes" Association="Self.FK_Inappropriate_Notes">
+      <End EntitySet="Notes" Role="Notes" />
+      <End EntitySet="Inappropriate" Role="Inappropriate" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MemberProfile_Member" Association="Self.FK_MemberProfile_Member">
+      <End EntitySet="Member" Role="Member" />
+      <End EntitySet="MemberProfile" Role="MemberProfile" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Notes_Member" Association="Self.FK_Notes_Member">
+      <End EntitySet="Member" Role="Member" />
+      <End EntitySet="Notes" Role="Notes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Review_Member" Association="Self.FK_Review_Member">
+      <End EntitySet="Member" Role="Member" />
+      <End EntitySet="Review" Role="Review" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Review_Member1" Association="Self.FK_Review_Member1">
+      <End EntitySet="Member" Role="Member" />
+      <End EntitySet="Review" Role="Review" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Review_Notes" Association="Self.FK_Review_Notes">
+      <End EntitySet="Notes" Role="Notes" />
+      <End EntitySet="Review" Role="Review" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

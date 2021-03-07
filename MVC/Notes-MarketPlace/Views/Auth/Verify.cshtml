@@ -1,0 +1,23 @@
+﻿@model Notes_MarketPlace.Models.Member
+@{
+    ViewBag.Title = "Verify";
+    Layout = "~/Views/Shared/_AuthLayoutPage.cshtml";
+}
+<div id="email-container">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6 email-context">
+                <img src="~/images/login/logo.png" alt="Top Logo">
+                <h3>Email Verification</h3>
+                <h5>Dear @Model.FirstName @Model.LastName</h5>
+                <p>Thanks for signing up!</p>
+                <p>Simply click below for email verification.</p>
+                <form action="/Auth/Verify" method="post">
+                    @Html.HiddenFor(model => model.MemberId);
+                    <input type="submit" class="btn-verify" value="VERIFY EMAIL ADDRESS">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

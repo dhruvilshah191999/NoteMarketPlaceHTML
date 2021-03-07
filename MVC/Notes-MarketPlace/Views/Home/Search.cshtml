@@ -1,0 +1,263 @@
+﻿@model IPagedList<Notes_MarketPlace.Models.Note>
+@using PagedList;
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Search";
+    ViewBag.NavTitle = "Search";
+    int count = 2;
+    IEnumerable<Notes_MarketPlace.Models.Category> category = ViewData["Category"] as IEnumerable<Notes_MarketPlace.Models.Category>;
+    IEnumerable<Notes_MarketPlace.Models.Country> country = ViewData["Country"] as IEnumerable<Notes_MarketPlace.Models.Country>;
+    IEnumerable<Notes_MarketPlace.Models.Type> type = ViewData["Type"] as IEnumerable<Notes_MarketPlace.Models.Type>;
+    var university = ViewData["University"] as List<String>;
+    var course = ViewData["Course"] as List<String>;
+
+    string Base64EncodingMethod(string Data)
+    {
+        byte[] toEncodeAsBytes = System.Text.Encoding.UTF32.GetBytes(Data);
+        string sReturnValues = System.Convert.ToBase64String(toEncodeAsBytes);
+        return sReturnValues;
+    }
+}
+<section id="user-profile">
+    <img src="~/images/home/banner-with-overlay.jpg"
+         id="use-profile-img"
+         alt="Home Image" />
+    <div id="user-profile-content">
+        <div class="user-profile-inner search-inner">
+            <h2>Search Notes</h2>
+        </div>
+    </div>
+</section>
+<section id="filter-box">
+    <div id="content-box">
+        <div class="container">
+            <div class="filter-heading">
+                <h4>Search and Filter notes</h4>
+            </div>
+            <div id="filter-form">
+                <div id="content-sm-box">
+                    <form id="search_from" method="get">
+                        <div class="filter-input">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <input onchange="submit()" type="text"
+                                               class="form-control"
+                                               placeholder=" &#xF002; &nbsp;&nbsp;Search notes here..."
+                                               id="search"
+                                               name="search"
+                                               value="@Request.QueryString["search"]"
+                                               style="font-family: Open Sans, FontAwesome" />
+                                    </div>
+                                </div>
+                                <div class="col-xl-2 col-md-4">
+                                    <div class="form-group">
+                                        <select onchange="submit()" class="form-control" id="type" name="type">
+                                            <option value="">Select type</option>
+                                            @foreach (Notes_MarketPlace.Models.Type type1 in type)
+                                            {
+                                                <option value="@type1.Name">@type1.Name</option>
+                                            }
+                                        </select>
+                                        <script>
+                                            $("#type").val("@Request.QueryString["type"]");
+                                        </script>
+                                    </div>
+                                </div>
+                                <div class="col-xl-2 col-md-4">
+                                    <div class="form-group">
+                                        <select onchange="submit()" class="form-control" id="category" name="category">
+                                            <option value="">Select category</option>
+                                            @foreach (Notes_MarketPlace.Models.Category category1 in category)
+                                            {
+                                                <option value="@category1.Name">@category1.Name</option>
+                                            }
+                                        </select>
+                                        <script>
+                                            $("#category").val("@Request.QueryString["category"]");
+                                        </script>
+                                    </div>
+                                </div>
+                                <div class="col-xl-2 col-md-4">
+                                    <div class="form-group">
+                                        <select onchange="submit()" class="form-control" id="university" name="university">
+                                            <option value="">Select university</option>
+                                            @foreach (var univercity1 in university)
+                                            {
+                                                <option value="@univercity1">@univercity1</option>
+                                            }
+                                        </select>
+                                        <script>
+                                            $("#university").val("@Request.QueryString["university"]");
+                                        </script>
+                                    </div>
+                                </div>
+                                <div class="col-xl-2 col-md-4">
+                                    <div class="form-group">
+                                        <select onchange="submit()" class="form-control" id="course" name="course">
+                                            <option value="">Select course</option>
+                                            @foreach (var course1 in course)
+                                            {
+                                                <option value="@course1.Trim()">@course1.Trim()</option>
+                                            }
+                                        </select>
+                                        <script>
+                                            $("#course").val("@Request.QueryString["course"]");
+                                        </script>
+                                    </div>
+                                </div>
+                                <div class="col-xl-2 col-md-4">
+                                    <div class="form-group">
+                                        <select onchange="submit()" class="form-control" id="country" name="country">
+                                            <option value="">Select country</option>
+                                            @foreach (Notes_MarketPlace.Models.Country country1 in country)
+                                            {
+                                                <option value="@country1.CountryName">@country1.CountryName</option>
+                                            }
+                                        </select>
+                                        <script>
+                                            $("#country").val("@Request.QueryString["country"]");
+                                        </script>
+                                    </div>
+                                </div>
+                                <div class="col-xl-2 col-md-4">
+                                    <div class="form-group">
+                                        <select onchange="submit()" class="form-control" id="rating" name="rating">
+                                            <option value="@null">Select rating</option>
+                                            <option value="5">5</option>
+                                            <option value="4">4</option>
+                                            <option value="3">3</option>
+                                            <option value="2">2</option>
+                                            <option value="1">1</option>
+                                        </select>
+                                        <script>
+                                            $("#rating option").each(function () {
+                                                if ($(this).html() ==@Request.QueryString["rating"]) {
+                                                    $(this).attr("selected", "selected");
+                                                    return;
+                                                }
+                                            });
+                                        </script>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section id="search-records">
+    <div class="container">
+        <div class="search-heading" style="margin-top: 5px;">
+            <h4>Total @ViewBag.NodeCount notes</h4>
+        </div>
+        <div id="books">
+            <div class="row">
+                @foreach (Notes_MarketPlace.Models.Note notes in Model)
+                {
+                    <div class="col-md-4">
+                        <div class="book-photo">
+                            @if (notes.DisplayPicture == null)
+                            {
+                                <img src="~/UploadFiles/Notes/@ViewBag.Photo" alt="Image"  class="img-fluid"/>
+                            }
+                            else
+                            {
+                                <img src="~/UploadFiles/Notes/@notes.OwnerId/@notes.DisplayPicture"
+                                 alt="Book 1"
+                                 class="img-fluid" />
+                            }
+                            
+                        </div>
+                        <div class="book-details" style="cursor:pointer" onclick="@("window.location.href='" + @Url.Action("Notedetails", "Notes",new {note=Base64EncodingMethod(notes.NoteId.ToString())}) + "'");">
+                            <div class="book-heading">
+                                <h5>
+                                    @notes.NoteTitle
+                                </h5>
+                            </div>
+                            <div class="book-detail">
+                                @if (notes.InstitutionName != null && notes.Country != null)
+                                {
+                                    <p><i class='fas fa-university'></i>@notes.InstitutionName,@notes.Country</p>
+                                }
+                                else if (notes.InstitutionName == null && notes.Country != null)
+                                {
+                                    <p><i class='fas fa-university'></i>Note MarketPlace,@notes.Country</p>
+                                }
+                                else if (notes.InstitutionName != null && notes.Country == null)
+                                {
+                                    <p><i class='fas fa-university'></i>@notes.InstitutionName</p>
+                                }
+                                else
+                                {
+                                    <p><i class='fas fa-university'></i>Note MarketPlace,India</p>
+                                }
+                                <p><i class="fas fa-book-open"></i> @notes.TotalPages Pages</p>
+                                <p><i class="fas fa-calendar-alt"></i>@notes.CreatedDate.ToString("ddd, MMM d yyyy")</p>
+                                <p><i class="fas fa-flag"></i>5 Users marked this note as inappropriate</p>
+                            </div>
+                            <div class="rate">
+                                <input type="radio" id="@count star5" name="rate @count" value="5" />
+                                <label for="@count star5" title="text">5 stars</label>
+                                <input type="radio" id="@count star4" name="rate @count" value="4" />
+                                <label for="@count star4" title="text">4 stars</label>
+                                <input type="radio" id="@count star3" name="rate @count" value="3" />
+                                <label for="@count star3" title="text">3 stars</label>
+                                <input type="radio" id="@count star2" name="rate @count" value="2" />
+                                <label for="@count star2" title="text">2 stars</label>
+                                <input type="radio" id="@count star1" name="rate @count" value="1" />
+                                <label for="@count star1" title="text">1 star</label>
+                                <script>
+                                    var value1 =@notes.Avgrate;
+                                    if (value1 == 0)
+                                        value1 = 5;
+                                    for (var i = 1; i <= 5; i++) {
+                                        var input = document.getElementById(@count +" star" + i).value;
+
+                                        if (value1 == input) {
+                                            console.log(input);
+                                            document.getElementById(@count +" star" + i).checked = true;
+                                        }
+                                    }
+                                </script>
+                            </div>
+                            @if (@notes.Avgrate == 5)
+                            {
+                                <div class="rate-label"><label>0 reviews</label></div>
+                            }
+                            else
+                            {
+                                <div class="rate-label"><label>@notes.Avgrate reviews</label></div>
+                            }
+                        </div>
+                    </div>
+                    {
+                        count = count + 1;
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</section>
+<section id="pagination">
+    @Html.PagedListPager(Model, i => Url.Action("Search", "Home", new { i,search = Request.QueryString["search"], rating = Request.QueryString["rating"], country = Request.QueryString["country"], category = Request.QueryString["category"], type = Request.QueryString["type"], university = Request.QueryString["university"], course = Request.QueryString["course"] }), new PagedList.Mvc.PagedListRenderOptions
+    {
+        ContainerDivClasses = null,
+        LiElementClasses = new string[] { "page-item1" },
+        UlElementClasses = new string[] { "pagination justify-content-center" },
+        LinkToNextPageFormat = "<i class='fa fa-chevron-right'></i>",
+        LinkToPreviousPageFormat = "<i class='fa fa-chevron-left'></i>",
+        MaximumPageNumbersToDisplay = 5,
+        DisplayEllipsesWhenNotShowingAllPageNumbers = false,
+        DisplayLinkToFirstPage = PagedListDisplayMode.Never,
+        DisplayLinkToLastPage = PagedListDisplayMode.Never
+    })
+</section>
+
+<script>
+    function submit() {
+        document.getElementById('search_from').submit();
+    }
+</script>
