@@ -254,12 +254,15 @@ namespace Notes_MarketPlace.Controllers
                     {
                         try
                         {
+                            var verifyUrl = "/Auth/Verify?Email=" + loginModel.Email;
+                            var link = Request.Url.AbsoluteUri.Replace(Request.Url.PathAndQuery, verifyUrl); 
+
                             db.Members.Add(loginModel);
                             db.SaveChanges();
                             ManageSystem ms = GetManageData.GetData();
                             MailMessage mm = new MailMessage(ms.SupportEmail, loginModel.Email);
                             mm.Subject = "Note Marketplace -Email Verification";
-                            mm.Body = "Hello " + loginModel.FirstName + " " + loginModel.LastName + "<br/><br/>Thank you for signing up with us. Please click on below link to verify your email address and to do login.<br/><br/>Link:<a href='https://localhost:44354/Auth/Verify?Email=" + loginModel.Email + "'>https://localhost:44354/Auth/Verify?Email=" + loginModel.Email + "</a><br/><br/>Regards,<br>Notes Marketplace";
+                            mm.Body = "Hello " + loginModel.FirstName + " " + loginModel.LastName + "<br/><br/>Thank you for signing up with us. Please click on below link to verify your email address and to do login.<br/><br/>Link:<a href='" + link + "'>" + link + "</a><br/><br/>Regards,<br>Notes Marketplace";
                             mm.IsBodyHtml = true;
 
                             SmtpClient smtp = new SmtpClient();

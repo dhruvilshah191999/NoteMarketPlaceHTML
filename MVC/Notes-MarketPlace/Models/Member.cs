@@ -27,6 +27,8 @@ namespace Notes_MarketPlace.Models
             this.Notes = new HashSet<Note>();
             this.Reviews = new HashSet<Review>();
             this.Reviews1 = new HashSet<Review>();
+            this.CreatedDate = DateTime.Now;
+            this.IsActive = true;
         }
     
         public int MemberId { get; set; }
