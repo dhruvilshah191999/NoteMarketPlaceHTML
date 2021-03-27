@@ -92,6 +92,16 @@ input.form-control {
   color: #a3a8a5;
 }
 
+.form-group span:last-child {
+    font-family: "Open Sans";
+    font-size: 13px !important;
+    font-weight: 300 !important;
+    line-height: 20px !important;
+    color: #ff3636 !important;
+    margin-top: 10px !important;
+    display:block;
+}
+
 .forgot-link {
   text-align: right;
   font-family: "Open Sans";

@@ -1,0 +1,115 @@
+﻿@model IPagedList<Notes_MarketPlace.Models.Buyer>
+@using PagedList;
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "My Sold Out";
+    Layout = "~/Views/Shared/_MemberLayoutPage.cshtml";
+    int total = ViewBag.Viewpage;
+    int number = Convert.ToInt32(Request.QueryString["i"]);
+    if (number == 0)
+    {
+        number = 1;
+    }
+    int count = total * number;
+    int sub;
+
+    string Base64EncodingMethod(string Data)
+    {
+        byte[] toEncodeAsBytes = System.Text.Encoding.UTF32.GetBytes(Data);
+        string sReturnValues = System.Convert.ToBase64String(toEncodeAsBytes);
+        return sReturnValues;
+    }
+}
+<section id="margin-nav"></section>
+<section id="my_download">
+    <div id="content-box">
+        <div class="container">
+            <div class="progress-heading my_download_heading">
+                <div class="row">
+                    <div class="col-md-4 col-12">
+                        <h5>My Sold Notes</h5>
+                    </div>
+                    <div class="col-md-8 col-12">
+                        <div action="/Profile/SoldOut" method="get" class="progess-search float-right">
+                            <form class="form-inline ml-auto">
+                                <div class="form-group ">
+                                    <input type="text"
+                                           class="form-control"
+                                           placeholder=" &#xF002; &nbsp;&nbsp;Search"
+                                           id="search"
+                                           name="search"
+                                           style="font-family: Open Sans,FontAwesome" />
+                                    <input type="submit" class="btn btn-primary " value="SEARCH" />
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="my-download-table sold_table table-responsive-lg">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <td>Sr No.</td>
+                        <td style="width:200px;">@Html.ActionLink("Note Title", "SoldOut", new { sortBy = ViewBag.SortTitle, search = Request.QueryString["search"], i = Request.QueryString["i"] })</td>
+                        <td>@Html.ActionLink("Category", "SoldOut", new { sortBy = ViewBag.SortCategory, search = Request.QueryString["search"], i = Request.QueryString["i"] })</td>
+                        <td>@Html.ActionLink("Buyer", "SoldOut", new { sortBy = ViewBag.SortEmail, search = Request.QueryString["search"], i = Request.QueryString["i"] })</td>
+                        <td>@Html.ActionLink("Sell Type", "SoldOut", new { sortBy = ViewBag.SortType, search = Request.QueryString["search"], i = Request.QueryString["i"] })</td>
+                        <td>@Html.ActionLink("Price", "SoldOut", new { sortBy = ViewBag.SortPrice, search = Request.QueryString["search"], i = Request.QueryString["i"] })</td>
+                        <td>Download Date/Time</td>
+                        <td></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var buyes in Model)
+                    {
+                        {
+                            sub = count - total + 1;
+                        }
+                        <tr>
+                            <td>@sub</td>
+                            <td>@buyes.NoteTitle</td>
+                            <td>@buyes.NoteCategory</td>
+                            <td>@buyes.Member1.Email</td>
+                            <td>@buyes.Note.SellType</td>
+                            <td>$@buyes.Price</td>
+                            <td>@buyes.ApprovedDate.Value.ToString("dd MMM yyyy H:m:ss")</td>
+                            <td>
+                                <div class="icons">
+                                    <img src="~/images/Dashboard/eye.png" class="img-fluid" id="imgview" style="cursor:pointer" onclick="window.open('/Notes/Notedetails?note=@Base64EncodingMethod(buyes.NoteId.ToString())');" />
+                                    <div class="dropdown dropleftt" style="padding-left:10px">
+                                        <button type="button" class="dropdown-toggle" data-toggle="dropdown">
+                                            <i class="fas fa-ellipsis-v"></i>
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" target="_blank" href="~/UploadFiles/Notes/@buyes.Note.OwnerId/@buyes.AttachmentPath">Download Note</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        {
+                            total = total - 1;
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    </div>
+    </div>
+    <section id="pagination">
+        @Html.PagedListPager(Model, i => Url.Action("SoldOut", "Profile", new { i, search = Request.QueryString["search"], sortBy = Request.QueryString["sortBy"] }), new PagedList.Mvc.PagedListRenderOptions
+        {
+            ContainerDivClasses = null,
+            LiElementClasses = new string[] { "page-item1" },
+            UlElementClasses = new string[] { "pagination justify-content-center" },
+            LinkToNextPageFormat = "<i class='fa fa-chevron-right'></i>",
+            LinkToPreviousPageFormat = "<i class='fa fa-chevron-left'></i>",
+            MaximumPageNumbersToDisplay = 5,
+            DisplayEllipsesWhenNotShowingAllPageNumbers = false,
+            DisplayLinkToFirstPage = PagedListDisplayMode.Never,
+            DisplayLinkToLastPage = PagedListDisplayMode.Never
+        })
+    </section>
+</section>

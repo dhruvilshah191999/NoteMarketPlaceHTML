@@ -96,8 +96,7 @@
     </div>
     </div>
     <section id="pagination">
-        <section id="pagination">
-            @Html.PagedListPager(Model, i => Url.Action("BuyerRequest", "Notes", new { i, search = Request.QueryString["search"], sortBy = Request.QueryString["sortBy"] }), new PagedList.Mvc.PagedListRenderOptions
+       @Html.PagedListPager(Model, i => Url.Action("BuyerRequest", "Notes", new { i, search = Request.QueryString["search"], sortBy = Request.QueryString["sortBy"] }), new PagedList.Mvc.PagedListRenderOptions
        {
            ContainerDivClasses = null,
            LiElementClasses = new string[] { "page-item1" },
@@ -110,7 +109,6 @@
            DisplayLinkToLastPage = PagedListDisplayMode.Never
 
        })
-        </section>
     </section>
 </section>
 

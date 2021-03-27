@@ -13,6 +13,7 @@ namespace Notes_MarketPlace.Models
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
+    using System.Web.Security;
 
     public partial class Member
     {
@@ -30,7 +31,7 @@ namespace Notes_MarketPlace.Models
             this.CreatedDate = DateTime.Now;
             this.IsActive = true;
         }
-    
+
         public int MemberId { get; set; }
         [DisplayName("First Name*")]
         public string FirstName { get; set; }
@@ -46,8 +47,22 @@ namespace Notes_MarketPlace.Models
         [DisplayName("Password*")]
         public string Password { get; set; }
 
+        [MembershipPassword(
+            MinRequiredNonAlphanumericCharacters = 1,
+            MinNonAlphanumericCharactersError = "Your password needs to contain at least one symbol (!, @, #, etc).",
+            ErrorMessage = "Your password must be 6 characters long and contain at least one symbol (!, @, #, etc).",
+            MinRequiredPasswordLength = 6
+        )]
         [DisplayName("Confirm Password*")]
         public string CPassword { get; set; }
+
+        [MembershipPassword(
+            MinRequiredNonAlphanumericCharacters = 1,
+            MinNonAlphanumericCharactersError = "Your password needs to contain at least one symbol (!, @, #, etc).",
+            ErrorMessage = "Your password must be 6 characters long and contain at least one symbol (!, @, #, etc).",
+            MinRequiredPasswordLength = 6
+        )]
+        public string NPassword { get; set; }
         public System.DateTime CreatedDate { get; set; }
         public Nullable<int> CreatedBy { get; set; }
         public Nullable<System.DateTime> ModifiedDate { get; set; }

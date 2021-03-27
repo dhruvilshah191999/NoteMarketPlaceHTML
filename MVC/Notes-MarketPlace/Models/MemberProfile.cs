@@ -24,7 +24,7 @@ namespace Notes_MarketPlace.Models
         public string Gender { get; set; }
         public string CountryCode { get; set; }
 
-        [StringLength(10,MinimumLength =10,ErrorMessage ="Phone number must be 10 digit")]
+        [StringLength(10, MinimumLength = 10, ErrorMessage = "Phone number must be 10 digit")]
         public string PhoneNumber { get; set; }
         public HttpPostedFileBase ImageUrl { get; set; }
 
@@ -32,7 +32,7 @@ namespace Notes_MarketPlace.Models
         public string ProfilePicture { get; set; }
 
         [DisplayName("Address Line 1*")]
-        [Required(ErrorMessage ="This field must not be null")]
+        [Required(ErrorMessage = "This field must not be null")]
         public string AddressLine1 { get; set; }
 
         [DisplayName("Address Line 2*")]
@@ -60,7 +60,7 @@ namespace Notes_MarketPlace.Models
         public Nullable<int> CreatedBy { get; set; }
         public Nullable<System.DateTime> ModifiedDate { get; set; }
         public Nullable<int> ModifiedBy { get; set; }
-    
+
         public virtual Member Member { get; set; }
     }
 }

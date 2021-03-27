@@ -134,10 +134,12 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\NotesController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
+    <Compile Include="Database\AdminDatabase.cs" />
     <Compile Include="Database\DatabaseFile.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -181,6 +183,7 @@
     <Compile Include="Models\Member.cs">
       <DependentUpon>DatabaseModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\MemberData.cs" />
     <Compile Include="Models\MemberProfile.cs">
       <DependentUpon>DatabaseModel.tt</DependentUpon>
     </Compile>
@@ -196,6 +199,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Admin\bootstrap\bootstrap.css" />
+    <Content Include="Content\Admin\bootstrap\bootstrap.min.css" />
+    <Content Include="Content\Admin\responsive.css" />
+    <Content Include="Content\Admin\style.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -1922,6 +1929,10 @@
       <DependentUpon>DatabaseModel.edmx</DependentUpon>
       <LastGenOutput>DatabaseModel.cs</LastGenOutput>
     </Content>
+    <Content Include="Scripts\Admin\bootstrap.min.js" />
+    <Content Include="Scripts\Admin\jquery.js" />
+    <Content Include="Scripts\Admin\popper.min.js" />
+    <Content Include="Scripts\Admin\script.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="fonts\Custom\fontawesome\less\brands.less" />
@@ -1983,6 +1994,12 @@
     <Content Include="fonts\Custom\fonts\fontawesome-webfont.woff" />
     <Content Include="fonts\Custom\fonts\fontawesome-webfont.woff2" />
     <Content Include="fonts\Custom\fonts\FontAwesome.otf" />
+    <Content Include="images\Dashboard\Thumbs.db" />
+    <Content Include="images\DMBI.pdf" />
+    <Content Include="images\home\Thumbs.db" />
+    <Content Include="images\login\Thumbs.db" />
+    <Content Include="images\notesdetails\Thumbs.db" />
+    <Content Include="images\userprofile\Thumbs.db" />
     <EntityDeploy Include="Models\DatabaseModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>DatabaseModel.Designer.cs</LastGenOutput>
@@ -1990,12 +2007,6 @@
     <Content Include="Models\DatabaseModel.edmx.diagram">
       <DependentUpon>DatabaseModel.edmx</DependentUpon>
     </Content>
-    <Content Include="images\Dashboard\Thumbs.db" />
-    <Content Include="images\DMBI.pdf" />
-    <Content Include="images\home\Thumbs.db" />
-    <Content Include="images\login\Thumbs.db" />
-    <Content Include="images\notesdetails\Thumbs.db" />
-    <Content Include="images\userprofile\Thumbs.db" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\Custom\bootstrap.min.js" />
     <Content Include="Scripts\Custom\jquery.js" />
@@ -2012,6 +2023,19 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="UploadFiles\MemberProfile\Default.jpg" />
+    <Content Include="UploadFiles\MemberProfile\Dhruvil_213512791.jpg" />
+    <Content Include="UploadFiles\MemberProfile\Dhruvil_215211621.jpg" />
+    <Content Include="UploadFiles\MemberProfile\Dummy_211218504.jpg" />
+    <Content Include="UploadFiles\MemberProfile\Dummy_211239748.jpg" />
+    <Content Include="UploadFiles\MemberProfile\Sagar_213033555.png" />
+    <Content Include="UploadFiles\Notes\1\215933007\Displaypicture\download_215933017.jpg" />
+    <Content Include="UploadFiles\Notes\3\211341271\Displaypicture\golu_BDA_213211178.jpg" />
+    <Content Include="UploadFiles\Notes\3\211341271\Displaypicture\P_D_Canvas_210843040.jpg" />
+    <Content Include="UploadFiles\Notes\3\211636266\Displaypicture\scanner_20170924_202046_211636276.jpg" />
+    <Content Include="UploadFiles\Notes\3\212202697\Displaypicture\top-logo_212202709.jpg" />
+    <Content Include="UploadFiles\Notes\4\215433571\Displaypicture\download_215433578.jpg" />
+    <Content Include="UploadFiles\Notes\download.png" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -2043,11 +2067,68 @@
     <Content Include="Views\Home\Search.cshtml" />
     <Content Include="Views\Notes\BuyerRequest.cshtml" />
     <Content Include="Views\Notes\EditNote.cshtml" />
+    <Content Include="UploadFiles\Notes\1\215933007\NotesPreview\TSC Training Plan for Batch 2020-2021_215933054.pdf" />
+    <Content Include="UploadFiles\Notes\1\215933007\UploadedNotes\TSC Training Plan for Batch 2020-2021 %281%29_215933028.pdf" />
+    <Content Include="UploadFiles\Notes\3\211341271\NotesPreview\TSC Training Plan for Batch 2020-2021_210843052.pdf" />
+    <Content Include="UploadFiles\Notes\3\211341271\NotesPreview\TSC Training Plan for Batch 2020-2021_211341296.pdf" />
+    <Content Include="UploadFiles\Notes\3\211341271\UploadedNotes\DMBI Chapter 8_211341279.pdf" />
+    <Content Include="UploadFiles\Notes\3\211636266\NotesPreview\ArrangeFilledChoicesN_211636311.pdf" />
+    <Content Include="UploadFiles\Notes\3\211636266\UploadedNotes\170170116049_Practical1_211636292.pdf" />
+    <Content Include="UploadFiles\Notes\3\211819645\NotesPreview\ArrangeFilledChoicesN_211819676.pdf" />
+    <Content Include="UploadFiles\Notes\3\211819645\UploadedNotes\20BE7_170170116019_2_211819653.pdf" />
+    <Content Include="UploadFiles\Notes\3\211919489\NotesPreview\Light-Bill-Sanad_211919543.pdf" />
+    <Content Include="UploadFiles\Notes\3\211919489\UploadedNotes\TSC Training Plan for Batch 2020-2021 %281%29_211919501.pdf" />
+    <Content Include="UploadFiles\Notes\3\211956860\NotesPreview\Unit - 4 Spark_211956887.pdf" />
+    <Content Include="UploadFiles\Notes\3\211956860\UploadedNotes\MIMP_QUE_INS_211956866.pdf" />
+    <Content Include="UploadFiles\Notes\3\212145822\NotesPreview\DMBI IMP_212145859.pdf" />
+    <Content Include="UploadFiles\Notes\3\212145822\UploadedNotes\TSC Training Plan for Batch 2020-2021_212145832.pdf" />
+    <Content Include="UploadFiles\Notes\3\212202697\NotesPreview\J_IMP_Twisted_General Question bank_212202735.pdf" />
+    <Content Include="UploadFiles\Notes\3\212202697\UploadedNotes\DMBI IMP_212202719.pdf" />
+    <Content Include="UploadFiles\Notes\3\212547309\NotesPreview\DMBI IMP_212547351.pdf" />
+    <Content Include="UploadFiles\Notes\3\212547309\UploadedNotes\DMBI_IMP_Questions_212547318.pdf" />
+    <Content Include="UploadFiles\Notes\3\212723961\NotesPreview\TPLDOC_212723986.pdf" />
+    <Content Include="UploadFiles\Notes\3\212723961\UploadedNotes\Trainee Batch 2021 - Training Plan 2021_080a0ba1-4f89-43cd-8a6c-bdc1e2255919_212723967.pdf" />
+    <Content Include="UploadFiles\Notes\3\213224122\NotesPreview\2170709-INS-Frequently Asked Questions_213224142.pdf" />
+    <Content Include="UploadFiles\Notes\3\213224122\UploadedNotes\BE-SEM7WinterExamination-2020_170170116049_213224128.pdf" />
+    <Content Include="UploadFiles\Notes\3\213807966\NotesPreview\DMBI_IMP_Questions_213807989.pdf" />
+    <Content Include="UploadFiles\Notes\3\213807966\UploadedNotes\170170116049_Practical1_213807971.pdf" />
+    <Content Include="UploadFiles\Notes\3\215406701\NotesPreview\100pt_Certificate_170170116049_215406742.pdf" />
+    <Content Include="UploadFiles\Notes\3\215406701\UploadedNotes\BillHTML_215406710.pdf" />
+    <Content Include="UploadFiles\Notes\4\215433571\NotesPreview\TSC Training Plan for Batch 2020-2021_215433598.pdf" />
+    <Content Include="UploadFiles\Notes\4\215433571\UploadedNotes\Light-Bill-Sanad_215433580.pdf" />
+    <Content Include="Views\Auth\ChangePassword.cshtml" />
+    <Content Include="Views\Profile\SoldOut.cshtml" />
+    <Content Include="Views\Profile\MyDownload.cshtml" />
+    <Content Include="Views\Shared\_AdminLayoutPage.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Admin\ManageCountry.cshtml" />
+    <Content Include="Views\Admin\Country.cshtml" />
+    <Content Include="Views\Admin\ManageType.cshtml" />
+    <Content Include="Views\Admin\Type.cshtml" />
+    <Content Include="Views\Admin\ManageCategory.cshtml" />
+    <Content Include="Views\Admin\Category.cshtml" />
+    <Content Include="Views\Admin\SpamReports.cshtml" />
+    <Content Include="Views\Admin\Member.cshtml" />
+    <Content Include="Views\Admin\MemberDetails.cshtml" />
+    <Content Include="Views\Admin\Notedetails.cshtml" />
+    <Content Include="Views\Admin\Rejected.cshtml" />
+    <Content Include="Views\Admin\Download.cshtml" />
+    <Content Include="Views\Admin\Published.cshtml" />
+    <Content Include="Views\Admin\MyProfile.cshtml" />
+    <Content Include="Views\Admin\ChangePassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="UploadFiles\MemberProfile\" />
-    <Folder Include="UploadFiles\Notes\" />
+    <Folder Include="UploadFiles\AdminPhoto\" />
+    <Folder Include="UploadFiles\Notes\3\211819645\Displaypicture\" />
+    <Folder Include="UploadFiles\Notes\3\211919489\Displaypicture\" />
+    <Folder Include="UploadFiles\Notes\3\211956860\Displaypicture\" />
+    <Folder Include="UploadFiles\Notes\3\212145822\Displaypicture\" />
+    <Folder Include="UploadFiles\Notes\3\212547309\Displaypicture\" />
+    <Folder Include="UploadFiles\Notes\3\212723961\Displaypicture\" />
+    <Folder Include="UploadFiles\Notes\3\213224122\Displaypicture\" />
+    <Folder Include="UploadFiles\Notes\3\213807966\Displaypicture\" />
+    <Folder Include="UploadFiles\Notes\3\215406701\Displaypicture\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

@@ -12,6 +12,7 @@ namespace Notes_MarketPlace.Controllers
     {
         private DatabaseFile db = new DatabaseFile();
         private ManageSystem ms= GetManageData.GetData();
+        
         public ActionResult Index()
         {
             return View();
@@ -39,6 +40,7 @@ namespace Notes_MarketPlace.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Contact(Contactu contact)
         {
             bool contactbool = db.contactus(contact);

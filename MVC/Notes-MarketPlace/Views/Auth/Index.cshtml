@@ -25,6 +25,7 @@
                     <p class="success-message"><i class="fa fa-check-circle"></i> @ViewBag.SucessMessage</p>
                 }
                 <form action="/Auth/Index" method="post" class="needs-validation" novalidate>
+                    @Html.AntiForgeryToken()
                     <div class="form-group">
                         <input type="hidden" name="url" value="@Request.QueryString["url"]">
                         @Html.LabelFor(model => model.Email)

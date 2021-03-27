@@ -26,6 +26,7 @@
                 }
 
                 <form action="/Auth/Signup" method="post" class="needs-validation" novalidate>
+                    @Html.AntiForgeryToken()
                     <div class="form-group">
                         @Html.LabelFor(model => model.FirstName)
                         @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter your first name", Required = "true" } })

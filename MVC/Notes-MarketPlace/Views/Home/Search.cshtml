@@ -196,7 +196,7 @@
                                 }
                                 <p><i class="fas fa-book-open"></i> @notes.TotalPages Pages</p>
                                 <p><i class="fas fa-calendar-alt"></i>@notes.CreatedDate.ToString("ddd, MMM d yyyy")</p>
-                                <p><i class="fas fa-flag"></i>5 Users marked this note as inappropriate</p>
+                                <p><i class="fas fa-flag"></i>@notes.report Users marked this note as inappropriate</p>
                             </div>
                             <div class="rate">
                                 <input type="radio" id="@count star5" name="rate @count" value="5" />
@@ -223,14 +223,7 @@
                                     }
                                 </script>
                             </div>
-                            @if (@notes.Avgrate == 5)
-                            {
-                                <div class="rate-label"><label>0 reviews</label></div>
-                            }
-                            else
-                            {
-                                <div class="rate-label"><label>@notes.Avgrate reviews</label></div>
-                            }
+                            <div class="rate-label"><label>@notes.Reviews.Where(e=>e.IsActive==true).ToList().Count() reviews</label></div>
                         </div>
                     </div>
                     {

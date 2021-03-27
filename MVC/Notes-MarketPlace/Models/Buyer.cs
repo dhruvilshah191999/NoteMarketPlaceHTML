@@ -11,7 +11,6 @@ namespace Notes_MarketPlace.Models
 {
     using System;
     using System.Collections.Generic;
-    
     public partial class Buyer
     {
         public Buyer()

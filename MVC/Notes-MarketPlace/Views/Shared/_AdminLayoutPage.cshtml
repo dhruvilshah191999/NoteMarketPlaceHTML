@@ -1,0 +1,179 @@
+﻿@{
+    if (Session["AdminId"] == null)
+    {
+        Response.Redirect("/Admin/Index");
+    }
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap"
+          rel="stylesheet" />
+    @Styles.Render("~/Admin/css")
+    @Styles.Render("~/fonts/css")
+    @Scripts.Render("~/Scripts")
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <header>
+        <nav class="navbar white-nav-top navbar-expand-lg fixed-top">
+            <div class="container container-relative">
+                <span id="mobile-nav-open-btn">&#9776;</span>
+                <a href="#home" class="navbar-brand">
+                    <img src="~/images/login/logo.png" alt="logo" id="user_logo" />
+                </a>
+                <div class="container add-list">
+                    <div class="collapse navbar-collapse remove-padding navbar-dropdown">
+                        <ul class="nav ml-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Dashboard</a>
+                            </li>
+                            <li class="nav-item direct-hover">
+                                <a class="nav-link" href="" data-toggle="dropdown">Notes</a>
+                                <div class="dropdown">
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="#">Notes Under Review</a>
+                                        <a class="dropdown-item" href="#">Published Notes</a>
+                                        <a class="dropdown-item" href="#">Download Notes</a>
+                                        <a class="dropdown-item" href="#">Rejected Notes</a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="nav-item">
+                                @if (ViewBag.NavTitle == "Members")
+                                {
+                                    @Html.ActionLink("Members", "Member", "Admin", null, new { @class = "nav-link checked" })
+                                }
+                                else
+                                {
+                                    @Html.ActionLink("Members", "Member", "Admin", null, new { @class = "nav-link" })
+                                }
+                            </li>
+                            <li class="nav-item">
+                                @if (ViewBag.NavTitle == "Reports")
+                                {
+                                    @Html.ActionLink("Reports", "SpamReports", "Admin", null, new { @class = "nav-link checked" })
+                                }
+                                else
+                                {
+                                    @Html.ActionLink("Reports", "SpamReports", "Admin", null, new { @class = "nav-link" })
+                                }
+                            </li>
+                            <li class="nav-item direct-hover">
+                                <a class="nav-link" data-toggle="dropdown" href="#">Settings</a>
+                                <div class="dropdown">
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="#">Manage System Configuration</a>
+                                        <a class="dropdown-item" href="#">Manage Administrator</a>
+                                        @Html.ActionLink("Manage Category", "ManageCategory", "Admin", null, new { @class = "dropdown-item" })
+                                        @Html.ActionLink("Manage Type", "ManageType", "Admin", null, new { @class = "dropdown-item" })
+                                        @Html.ActionLink("Manage Country", "ManageCountry", "Admin", null, new { @class = "dropdown-item" })
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="nav-item direct-hover">
+                                <img class="image-fluid rounded-circle"
+                                     data-toggle="dropdown"
+                                     src="~/images/home/client-1.jpg" />
+                                <div class="dropdown">
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="#">Update Profile</a>
+                                        <a class="dropdown-item" href="#">Change Password</a>
+                                        <a class="dropdown-item change-color" href="#">LOGOUT</a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link btn-logout" href="#" role="button">Logout</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div id="mobile-nav">
+                    <span id="mobile-nav-close-btn">&times;</span>
+                    <div id="mobile-nav-content">
+                        <ul class="nav navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link checked" href="./dashboard.html">Dashboard</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="" data-toggle="dropdown">Notes</a>
+                                <div class="dropdown">
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="#">Notes Under Review</a>
+                                        <a class="dropdown-item" href="#">Published Notes</a>
+                                        <a class="dropdown-item" href="#">Download Notes</a>
+                                        <a class="dropdown-item" href="#">Rejected Notes</a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Members</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="dropdown" href="#">Reports</a>
+                                <div class="dropdown">
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="#">Spam Reports</a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="dropdown" href="#">Settings</a>
+                                <div class="dropdown">
+                                    <div class="dropdown-menu white-space-remove">
+                                        <a class="dropdown-item" href="#">Manage Configuration</a>
+                                        <a class="dropdown-item" href="#">Manage Administrator</a>
+                                        <a class="dropdown-item" href="#">Manage Category</a>
+                                        <a class="dropdown-item" href="#">Manage Type</a>
+                                        <a class="dropdown-item" href="#">Manage Country</a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="nav-item">
+                                <img class="image-fluid rounded-circle"
+                                     data-toggle="dropdown"
+                                     src="~/images/home/client-1.jpg" />
+                                <div class="dropdown">
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="#">Update Profile</a>
+                                        <a class="dropdown-item" href="#">Change Password</a>
+                                        <a class="dropdown-item change-color" href="#">LOGOUT</a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link btn-logout" href="#" role="button">Logout</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    @RenderBody()
+    <section id="footer">
+        <hr />
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-3 col-3">
+                    <div class="version">
+                        <p>Version:1.1.24</p>
+                    </div>
+                </div>
+                <div class="col-sm-9 col-9">
+                    <div class="copyrigth text-right">
+                        <p>Copyright &copy; Tatvasoft All rights reserved.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    @Scripts.Render("~/Scripts")
+    @Scripts.Render("~/Scripts/Admin")
+    @Scripts.Render("~/bundles/jqueryval")
+</body>
+</html>

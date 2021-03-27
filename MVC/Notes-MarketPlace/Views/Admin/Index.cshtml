@@ -1,0 +1,54 @@
+﻿@model Notes_MarketPlace.Models.Admin
+@{
+    ViewBag.Title = "Admin Login";
+    Layout = "~/Views/Shared/_AuthLayoutPage.cshtml";
+}
+<section id="home">
+    <div class="container" id="container-box">
+        <div class="row">
+            <div class="col-md-12" align="center">
+                <img src="~/images/login/top-logo.png" alt="Top Photo" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6 form-box">
+                <h3>Login</h3>
+                <p>Enter your email address and password to login</p>
+                @if (ViewBag.ErrorStatus)
+                {
+                    <p class="error-message"><i class="fa fa-exclamation-triangle"></i>@ViewBag.ErrorMessage </p>
+                }
+
+                @if (ViewBag.SucessStatus)
+                {
+                    <p class="success-message"><i class="fa fa-check-circle"></i> @ViewBag.SucessMessage</p>
+                }
+                <form action="/Admin/Index" method="post" class="needs-validation" novalidate>
+                    @Html.AntiForgeryToken()
+                    <div class="form-group">
+                        <input type="hidden" name="url" value="@Request.QueryString["url"]">
+                        @Html.LabelFor(model => model.Email)
+                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter your email", Required = "true" } })
+                        <div class="invalid-feedback">The email that you've entered is incorrect.</div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Password)
+                        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @id = "password-field", @class = "form-control", placeholder = "Enter your password", Required = "true", type = "password" } })
+                        <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+                        <div class="invalid-feedback">The password that you've entered is incorrect.</div>
+                    </div>
+                    <div class="form-group form-check">
+                        @Html.CheckBoxFor(model => model.Remember, new { @class = "form-check-input" })
+                        <label class="check-label">Remember Me</label>
+                    </div>
+                    <input type="submit" class="btn-submit" value="LOGIN">
+                </form>
+            </div>
+        </div>
+        <div style="padding-bottom: 100px;"></div>
+    </div>
+</section>
+
+
+

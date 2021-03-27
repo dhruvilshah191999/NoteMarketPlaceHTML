@@ -6,14 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap"
           rel="stylesheet" />
-    <link rel="stylesheet" href="~/Content/Custom/bootstrap/bootstrap.css" />
-    <link rel="stylesheet" href="~/Content/Custom/responsive2.css" />
-    <link rel="stylesheet" href="~/Content/Custom/style2.css" />
-    <link rel="stylesheet" href="~/fonts/Custom/css/font-awesome.css" />
-    <link rel="stylesheet" href="~/fonts/Custom/fontawesome/css/fontawesome.css" />
-    <link rel="stylesheet" href="~/fonts/Custom/fontawesome/css/brands.css" />
-    <link rel="stylesheet" href="~/fonts/Custom/fontawesome/css/solid.css" />
-    <script src="~/Scripts/Custom/jquery.js"></script>
+    @Styles.Render("~/User/css")
+    @Styles.Render("~/fonts/css")
+    @Scripts.Render("~/Scripts")
     <title>@ViewBag.Title</title>
 </head>
 <body>
@@ -157,13 +152,10 @@
         </div>
     </section>
 
-    <script src="~/Scripts/Custom/jquery.js"></script>
-    <script src="~/Scripts/Custom/popper.min.js"></script>
-    <script src="~/Scripts/Custom/bootstrap.min.js"></script>
-    <script src="~/Scripts/jquery.validate.min.js"></script>
-    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
-    <script src="~/Scripts/Custom/script3.js"></script>
-    @RenderSection("scripts", required: false)
+    @Scripts.Render("~/Scripts")
+    @Scripts.Render("~/Scripts/User")
+    @Scripts.Render("~/HomeScript")
+    @Scripts.Render("~/bundles/jqueryval")
 
     @if (ViewBag.NavTitle == "Home")
     {

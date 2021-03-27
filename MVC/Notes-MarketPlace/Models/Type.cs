@@ -11,16 +11,29 @@ namespace Notes_MarketPlace.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Type
     {
+        public Type()
+        {
+            this.IsActive = true;
+            this.CreatedDate = DateTime.Now;
+        }
         public int Id { get; set; }
+        [DisplayName("Type *")]
+        [Required(ErrorMessage = "This field must not be null")]
         public string Name { get; set; }
+        [DisplayName("Description *")]
+        [Required(ErrorMessage = "This field must not be null")]
         public string Description { get; set; }
         public System.DateTime CreatedDate { get; set; }
         public int CreatedBy { get; set; }
         public Nullable<System.DateTime> ModifiedDate { get; set; }
         public Nullable<int> ModifiedBy { get; set; }
         public bool IsActive { get; set; }
+
+        public virtual Admin Admin { get; set; }
     }
 }

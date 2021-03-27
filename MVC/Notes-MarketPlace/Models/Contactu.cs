@@ -14,7 +14,6 @@ namespace Notes_MarketPlace.Models
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
 
-
     public partial class Contactu
     {
         public Contactu()

@@ -22,6 +22,7 @@
     <div id="content-box">
         <div class="container">
             <form action="/Notes/Add" method="post" enctype="multipart/form-data">
+                @Html.AntiForgeryToken()
                 <div class="notes-heading">
                     <h2>Basic Note Details</h2>
                     @if (ViewBag.ErrorStatus)
@@ -87,13 +88,13 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 @Html.LabelFor(model => model.TotalPages)
-                                @Html.EditorFor(model => model.TotalPages, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter your notes total pages" ,type="Number"} })
+                                @Html.EditorFor(model => model.TotalPages, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter your notes total pages", type = "Number" } })
                             </div>
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
                                 @Html.LabelFor(model => model.Description)
-                                @Html.TextAreaFor(model => model.Description, new { @class = "form-control", placeholder = "Enter your description" , @width="100%"})
+                                @Html.TextAreaFor(model => model.Description, new { @class = "form-control", placeholder = "Enter your description", @width = "100%" })
                                 @Html.ValidationMessageFor(model => model.Description, "", new { @class = "error-message" })
                             </div>
                         </div>
@@ -119,7 +120,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 @Html.LabelFor(model => model.InstitutionName)
-                                @Html.EditorFor(model => model.InstitutionName, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter your institution name"} })
+                                @Html.EditorFor(model => model.InstitutionName, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter your institution name" } })
                                 @Html.ValidationMessageFor(model => model.InstitutionName, "", new { @class = "error-message" })
                             </div>
                         </div>
@@ -140,7 +141,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 @Html.LabelFor(model => model.CourseCode)
-                                @Html.EditorFor(model => model.CourseCode, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter your course code",type="Number" } })
+                                @Html.EditorFor(model => model.CourseCode, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter your course code", type = "Number" } })
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -164,13 +165,13 @@
                                     <div class="form-group">
                                         <div class="form-check-inline">
                                             <label class="form-check-label">
-                                                @Html.RadioButtonFor(model => model.SellType, "Free", new { @class = "form-check-input" , @checked="true"})
+                                                @Html.RadioButtonFor(model => model.SellType, "Free", new { @class = "form-check-input", @checked = "true", @id = "selltype" })
                                                 @Html.Label("Free")
                                             </label>
                                         </div>
                                         <div class="form-check-inline">
                                             <label class="form-check-label">
-                                                @Html.RadioButtonFor(model => model.SellType, "Paid", new { @class = "form-check-input" })
+                                                @Html.RadioButtonFor(model => model.SellType, "Paid", new { @class = "form-check-input", @id = "selltype2" })
                                                 @Html.Label("Paid")
                                             </label>
                                         </div>
@@ -179,7 +180,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         @Html.LabelFor(model => model.SellPrice)
-                                        @Html.EditorFor(model => model.SellPrice, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter your price" } })
+                                        @Html.EditorFor(model => model.SellPrice, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter your price" , @id = "price", @readonly = "true" } })
                                         @Html.ValidationMessageFor(model => model.SellPrice, "", new { @class = "error-message" })
                                     </div>
                                 </div>
@@ -210,3 +211,26 @@
         </div>
     </div>
 </section>
+
+<script>
+
+    $(document).ready(function () {
+        var selValue = $('input[name=SellType]:checked').val();
+        if (selValue == "Free") {
+            $("#price").attr("readonly", "true");
+        }
+        else {
+            $("#price").removeAttr("readonly", "true");
+        }
+    });
+
+    $("#selltype").on('change', function () {
+        $("#price").val(0)
+        $("#price").attr("readonly", "true");
+    });
+
+    $("#selltype2").on('change', function () {
+        $("#price").val(0)
+        $("#price").removeAttr("readonly", "true");
+    });
+</script>

@@ -11,7 +11,7 @@ namespace Notes_MarketPlace.Models
 {
     using System;
     using System.Collections.Generic;
-    
+
     public partial class ManageSystem
     {
         public int Id { get; set; }

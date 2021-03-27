@@ -11,9 +11,14 @@ namespace Notes_MarketPlace.Models
 {
     using System;
     using System.Collections.Generic;
-    
+
     public partial class Inappropriate
     {
+        public Inappropriate()
+        {
+            this.Date = DateTime.Now;
+            this.IsActive = true;
+        }
         public int Id { get; set; }
         public int NoteId { get; set; }
         public int OwnerId { get; set; }
@@ -23,7 +28,7 @@ namespace Notes_MarketPlace.Models
         public Nullable<System.DateTime> DeactivateDate { get; set; }
         public Nullable<int> DeactivateBy { get; set; }
         public bool IsActive { get; set; }
-    
+
         public virtual Member Member { get; set; }
         public virtual Member Member1 { get; set; }
         public virtual Note Note { get; set; }

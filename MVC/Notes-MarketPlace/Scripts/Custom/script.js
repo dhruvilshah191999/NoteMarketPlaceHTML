@@ -34,23 +34,6 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
-  showHideNav();
-  $(window).scroll(function () {
-    showHideNav();
-  });
-
-  function showHideNav() {
-    if ($(window).scrollTop() > 55) {
-      $("nav").addClass("white-nav-top");
-      $(".navbar-brand img").attr("src", "./images/login/logo.png");
-    } else {
-      $("nav").removeClass("white-nav-top");
-      $(".navbar-brand img").attr("src", "./images/login/top-logo.png");
-    }
-  }
-});
-
-$(document).ready(function () {
   $("#mobile-nav-open-btn").click(function () {
     $("#mobile-nav").css("height", "80%");
   });
@@ -58,4 +41,20 @@ $(document).ready(function () {
   $("#mobile-nav-close-btn , #mobile-nav a").click(function () {
     $("#mobile-nav").css("height", "0%");
   });
+});
+
+$(document).ready(function () {
+    $(".faq-second-border").hide();
+    for (let i = 1; i <= 8; i++) {
+        $("#faq-" + i).click(function () {
+            $("#faq-" + i).hide(500);
+            $("#faq-part-" + i).slideToggle(500);
+        });
+
+        $("#faq-part-" + i).click(function () {
+            $("#faq-part-" + i).slideUp(500, () => {
+                $("#faq-" + i).show(500);
+            });
+        });
+    }
 });

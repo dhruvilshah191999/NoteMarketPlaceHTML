@@ -1,0 +1,275 @@
+﻿@model Notes_MarketPlace.Models.Note
+@{
+    ViewBag.Title = "Notedetails";
+    Layout = "~/Views/Shared/_AdminLayoutPage.cshtml";
+    int count = 2;
+}
+<section id="margin-nav"></section>
+<section id="note_details">
+    <div id="content-box">
+        <div class="container">
+            <div class="notes-heading">
+                <h4>Notes Details</h4>
+            </div>
+            <div class="row">
+                <div class="col-lg-6 col-12">
+                    <div class="notes-details-1">
+                        <div class="row">
+                            <div class="col-xl-5 col-lg-5 col-sm-4 col-12">
+                                <div class="note-image">
+                                    @if (Model.DisplayPicture == null)
+                                    {
+                                        <img src="~/UploadFiles/Notes/@ViewBag.Photo" alt="Image" />
+                                    }
+                                    else
+                                    {
+                                        <img src="~/UploadFiles/Notes/@Model.OwnerId/@Model.DisplayPicture" alt="Image" />
+                                    }
+
+                                </div>
+                            </div>
+                            <div class="col-xl-7 col-lg-7 col-sm-8 col-12">
+                                <div class="note-names">
+                                    <h3>@Model.NoteTitle</h3>
+                                    <p>@Model.Category</p>
+                                    <p>@Model.Description</p>
+                                    <button class="btn btn-primary" onclick="window.open('/UploadFiles/Notes/@Model.OwnerId/@Model.UploadNotes', '_blank');">DOWNLOAD</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-12">
+                    <div class="notes-details-2">
+                        <div class="row">
+                            <div class="col-lg-1 "></div>
+                            <div class="col-lg-5 col-sm-6 col-5">
+                                <div class="note-headings">
+                                    <p id="institution">Institution:</p>
+                                    <p>Country:</p>
+                                    <p id="course">Course Name:</p>
+                                    <p>Course Code:</p>
+                                    <p id="professor">Professor:</p>
+                                    <p>Number of Pages:</p>
+                                    <p>Approved Date:</p>
+                                    <p>Rating:</p>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-sm-6 col-7">
+                                <div class="note-headings-details">
+                                    @if (Model.InstitutionName != null)
+                                    {
+                                        <p id="institutionvalue">@Model.InstitutionName</p>
+                                    }
+                                    else
+                                    {
+                                        <p id="institutionvalue">---</p>
+                                    }
+
+                                    @if (Model.Country != null)
+                                    {
+                                        <p>@Model.Country</p>
+                                    }
+                                    else
+                                    {
+                                        <p>---</p>
+                                    }
+
+                                    @if (Model.CourseName != null)
+                                    {
+                                        <p id="coursevalue">@Model.CourseName</p>
+                                    }
+                                    else
+                                    {
+                                        <p id="coursevalue">---</p>
+                                    }
+
+                                    @if (Model.CourseCode != null)
+                                    {
+                                        <p>@Model.CourseCode</p>
+                                    }
+                                    else
+                                    {
+                                        <p>---</p>
+                                    }
+
+                                    @if (Model.Professor != null)
+                                    {
+                                        <p id="professorvalue">@Model.Professor</p>
+                                    }
+                                    else
+                                    {
+                                        <p id="professorvalue">---</p>
+                                    }
+
+                                    @if (Model.TotalPages != null)
+                                    {
+                                        <p>@Model.TotalPages</p>
+                                    }
+                                    else
+                                    {
+                                        <p>---</p>
+                                    }
+
+                                    @if (Model.ApprovedDate != null)
+                                    {
+                                        <p>@Model.ApprovedDate.Value.ToString("MMMM dd yyyy")</p>
+                                    }
+                                    else
+                                    {
+                                        <p>---</p>
+                                    }
+                                    <div class="rate" id="getrate">
+                                        <input type="radio" id="star5" name="rate" value="5" />
+                                        <label for="star5" title="text" style="pointer-events: none;">5 stars</label>
+                                        <input type="radio" id="star4" name="rate" value="4" />
+                                        <label for="star4" title="text" style="pointer-events: none;">4 stars</label>
+                                        <input type="radio" id="star3" name="rate" value="3" />
+                                        <label for="star3" title="text" style="pointer-events: none;">3 stars</label>
+                                        <input type="radio" id="star2" name="rate" value="2" checked />
+                                        <label for="star2" title="text" style="pointer-events: none;">2 stars</label>
+                                        <input type="radio" id="star1" name="rate" value="1" />
+                                        <label for="star1" title="text" style="pointer-events: none;">1 star</label>
+                                    </div>
+                                    <p>@Model.Reviews.Where(e => e.IsActive == true).ToList().Count() Reviews</p>
+                                </div>
+                            </div>
+                            <div class="col-lg-1"></div>
+                            <div class="col-11">
+                                <div class="red-paragraph">
+                                    <p>@Model.Inappropriates.Where(e => e.IsActive == true).ToList().Count() Users marked this note as inappropriate</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+        </div>
+    </div>
+</section>
+<section id="notes-preview">
+    <div class="container">
+        <div class="row">
+            @if (Model.Reviews.Where(e => e.IsActive == true).ToList().Count() == 0)
+            {
+                <div class="col-12">
+                    <div class="notes-heading">
+                        <h4>Notes Preview</h4>
+                    </div>
+                    <div class="notes-previews">
+                        <iframe src="~/UploadFiles/Notes/@Model.OwnerId/@Model.NotePreview" class="responsive-iframe" title="description"><p>Your web browser doesn't have a PDF plugin.Instead you can <a href="~/UploadFiles/Notes/@Model.OwnerId/@Model.NotePreview">click here to download the PDF file.</a></p></iframe>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="col-lg-5 col-12">
+                    <div class="notes-heading">
+                        <h4>Notes Preview</h4>
+                    </div>
+                    <div class="notes-previews">
+                        <iframe src="~/UploadFiles/Notes/@Model.OwnerId/@Model.NotePreview" class="responsive-iframe" title="description"><p>Your web browser doesn't have a PDF plugin.Instead you can <a href="~/UploadFiles/Notes/@Model.OwnerId/@Model.NotePreview">click here to download the PDF file.</a></p></iframe>
+                    </div>
+                </div>
+                <div class="col-lg-7 col-12">
+                    <div class="notes-heading">
+                        <h4>Customer Reviews</h4>
+                    </div>
+                    <div class="customer-reviews">
+                        @foreach (Notes_MarketPlace.Models.Review reviews in Model.Reviews.Where(e => e.IsActive == true).ToList())
+                        {
+                            <div class="customers">
+                                <div class="row">
+                                    <div class="col-lg-2 col-2">
+                                        <img class="image-fluid rounded-circle" src="~/UploadFiles/MemberProfile/@reviews.Member1.MemberProfiles.Select(e=>e.ProfilePicture).FirstOrDefault()" alt="Image" />
+                                    </div>
+                                    <div class="col-lg-10 col-10">
+                                        <div class="delete-image">
+                                            <img style="cursor:pointer" onclick="deletefunction('@reviews.Id')" src="~/images/Dashboard/delete.png" />
+                                        </div>
+                                        <script>
+                                            function deletefunction(Id) {
+                                                var result = confirm("Are you sure you want to delete this review?");
+                                                if (result) {
+                                                    window.location.href = '/Admin/RemoveReview?ReviewId=' + Id;
+                                                }
+                                            }
+                                        </script>
+                                        <div class="names">
+                                            <h5>@reviews.Member1.FirstName @reviews.Member1.LastName</h5>
+                                            <div class="rate">
+                                                <input type="radio" id="@count star5" name="rate @count" value="5" />
+                                                <label for="@count star5" title="text">5 stars</label>
+                                                <input type="radio" id="@count star4" name="rate @count" value="4" />
+                                                <label for="@count star4" title="text">4 stars</label>
+                                                <input type="radio" id="@count star3" name="rate @count" value="3" />
+                                                <label for="@count star3" title="text">3 stars</label>
+                                                <input type="radio" id="@count star2" name="rate @count" value="2" />
+                                                <label for="@count star2" title="text">2 stars</label>
+                                                <input type="radio" id="@count star1" name="rate @count" value="1" />
+                                                <label for="@count star1" title="text">1 star</label>
+                                                <script>
+                                                    var value1 =@reviews.Rate;
+                                                    if (value1 == 0)
+                                                        value1 = 5;
+                                                    for (var i = 1; i <= 5; i++) {
+                                                        var input = document.getElementById(@count +" star" + i).value;
+
+                                                        if (value1 == input) {
+                                                            console.log(input);
+                                                            document.getElementById(@count +" star" + i).checked = true;
+                                                        }
+                                                    }
+                                                </script>
+                                            </div>
+                                            <br>
+                                            <p>@reviews.Description</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            if (count != Model.Reviews.Where(e => e.IsActive == true).ToList().Count() + 1)
+                            {
+                                <hr>
+                            }
+
+                            {
+                                count = count + 1;
+                            }
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+@if (Model.Reviews.Where(e => e.IsActive == true).ToList().Count() != 0)
+{
+    <script>
+        var value1 =@Convert.ToInt32(Model.Reviews.Where(e => e.IsActive == true).ToList().Average(e => e.Rate));
+        if (value1 == 0)
+            value1 = 5;
+        for (var i = 1; i <= 5; i++) {
+            var input = document.getElementById("star" + i).value;
+            if (value1 == input) {
+                document.getElementById("star" + i).checked = true;
+            }
+        }
+    </script>
+
+}
+else
+{
+    <script>
+        var value1 = 0;
+        if (value1 == 0)
+            value1 = 5;
+        for (var i = 1; i <= 5; i++) {
+            var input = document.getElementById("star" + i).value;
+            if (value1 == input) {
+                document.getElementById("star" + i).checked = true;
+            }
+        }
+    </script>
+}

@@ -1,0 +1,51 @@
+﻿@model Notes_MarketPlace.Models.Country
+@{
+    ViewBag.Title = "Country";
+    Layout = "~/Views/Shared/_AdminLayoutPage.cshtml";
+}
+<section id="margin-nav"></section>
+<section id="add-section">
+    <div id="content-box">
+        <div class="container">
+            <div class="main-heading">
+                <h2>Country</h2>
+            </div>
+            <div class="add-country-form">
+                <form action="/Admin/Country" method="post">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="countryid" value="@Request.QueryString["countryid"]" />
+                    <div class="row">
+                        <div class="col-lg-6 col-12">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.CountryName)
+                                        @Html.EditorFor(model => model.CountryName, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter the country name" } })
+                                        @Html.ValidationMessageFor(model => model.CountryName, "", new { @class = "error-message" })
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.CountryCode)
+                                        @Html.EditorFor(model => model.CountryCode, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter the country code", id = "code" } })
+                                        @Html.ValidationMessageFor(model => model.CountryCode, "", new { @class = "error-message" })
+                                    </div>
+                                </div>
+                            </div>
+                            <input type="submit" class="btn btn-primary" value="SUBMIT" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+@if (String.IsNullOrEmpty(Request.QueryString["countryid"]))
+{
+    <script>
+        $('#code').click(function () {
+            $('#code').val('');
+        });
+    </script>
+}

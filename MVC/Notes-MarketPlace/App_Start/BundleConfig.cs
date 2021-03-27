@@ -25,6 +25,40 @@ namespace Notes_MarketPlace
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+
+            bundles.Add(new StyleBundle("~/Admin/css").Include(
+                      "~/Content/Admin/bootstrap/bootstrap.css",
+                      "~/Content/Admin/responsive.css",
+                      "~/Content/Admin/style.css"));
+
+            bundles.Add(new StyleBundle("~/User/css").Include(
+                      "~/Content/Custom/bootstrap/bootstrap.css",
+                      "~/Content/Custom/responsive2.css",
+                      "~/Content/Custom/style2.css"));
+
+            bundles.Add(new StyleBundle("~/fonts/css").Include(
+                      "~/fonts/Custom/css/font-awesome.css",
+                      "~/fonts/Custom/fontawesome/css/fontawesome.css",
+                      "~/fonts/Custom/fontawesome/css/brands.css",
+                      "~/fonts/Custom/fontawesome/css/solid.css"));
+
+            bundles.Add(new ScriptBundle("~/Scripts").Include(
+                        "~/Scripts/Admin/jquery.js"));
+
+            bundles.Add(new ScriptBundle("~/Scripts/Admin").Include(
+                        "~/Scripts/Admin/script.js",
+                        "~/Scripts/Admin/popper.min.js",
+                        "~/Scripts/Admin/bootstrap.min.js"));
+
+            bundles.Add(new ScriptBundle("~/Scripts/User").Include(
+                        "~/Scripts/Custom/popper.min.js",
+                        "~/Scripts/Custom/bootstrap.min.js"));
+
+            bundles.Add(new ScriptBundle("~/HomeScript").Include(
+                        "~/Scripts/Custom/script.js"));
+
+            bundles.Add(new ScriptBundle("~/MemberScript").Include(
+                        "~/Scripts/Custom/script3.js"));
         }
     }
 }

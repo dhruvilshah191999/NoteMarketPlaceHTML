@@ -24,6 +24,7 @@
             <div class="contact-input">
                 <form action="/Home/Contact" method="post">
                     @Html.ValidationSummary(true)
+                    @Html.AntiForgeryToken()
                     <div class="row">
                         <div class="col-md-6">
                             <div class="row">

@@ -185,6 +185,7 @@ namespace Notes_MarketPlace.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Add(Note getnote)
         {
             using (DBEntities db = new DBEntities())
@@ -317,6 +318,7 @@ namespace Notes_MarketPlace.Controllers
             int id2 = Convert.ToInt32(Base64DecodingMethod(note));
             ViewBag.Reviews = true;
             ViewBag.reviewcount = 0;
+            ViewBag.reviews = 0;
             ViewBag.CheckOwner = false;
             ViewBag.CheckApproved = false;
 
@@ -355,8 +357,11 @@ namespace Notes_MarketPlace.Controllers
                             re.ProfilePhoto = ms.MemberDisplayPicture;
                         }
                     }
-                    ViewBag.reviewcount = reviews.Average(e => e.Rate);
+                    ViewBag.reviewcount = Convert.ToInt32(reviews.Average(e => e.Rate));
+                    ViewBag.reviews = Convert.ToInt32(reviews.Count());
                 }
+                List<Inappropriate> reports = db.Inappropriates.Where(e => e.NoteId == notedetails.NoteId && e.IsActive == true).ToList<Inappropriate>();
+                notedetails.report = reports.Count;
                 ViewBag.Photo = ms.NoteDisplayPicture;
                 ViewData["Review"] = reviews;
                 return View(notedetails);
@@ -559,6 +564,7 @@ namespace Notes_MarketPlace.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult EditNote(Note note)
         {
             using(DBEntities db = new DBEntities())

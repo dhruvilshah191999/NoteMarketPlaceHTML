@@ -27,7 +27,7 @@ namespace Notes_MarketPlace.Models
             this.IsActive = true;
             this.Status = "Draft";
         }
-    
+
         public int NoteId { get; set; }
         public int OwnerId { get; set; }
         [DisplayName("Title*")]
@@ -68,19 +68,21 @@ namespace Notes_MarketPlace.Models
         [Required(ErrorMessage = "This field must not be null")]
         public int SellPrice { get; set; }
         public int Avgrate { get; set; }
+        public int report { get; set; }
         [DisplayName("Note Preview*")]
         [Required(ErrorMessage = "This field must not be null")]
         public string NotePreview { get; set; }
         public HttpPostedFileBase DisplayPhotoPreview { get; set; }
         public string Status { get; set; }
         public string AdminRemarks { get; set; }
+        public string rejectedName { get; set; }
         public System.DateTime CreatedDate { get; set; }
         public Nullable<System.DateTime> ApprovedDate { get; set; }
         public Nullable<int> ApprovedBy { get; set; }
         public Nullable<System.DateTime> ModifiedDate { get; set; }
         public Nullable<int> ModifiedBy { get; set; }
         public bool IsActive { get; set; }
-    
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Buyer> Buyers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

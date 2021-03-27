@@ -11,20 +11,74 @@ namespace Notes_MarketPlace.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
+    using System.Web;
+    using System.Web.Security;
+
     public partial class Admin
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Admin()
+        {
+            this.Categories = new HashSet<Category>();
+            this.Countries = new HashSet<Country>();
+            this.Types = new HashSet<Type>();
+            this.CreatedDate = DateTime.Now;
+            this.IsActive = true;
+        }
+
         public int AdminId { get; set; }
+        [DisplayName("First Name *")]
+        [Required(ErrorMessage = "This field must not be null")]
         public string FirstName { get; set; }
+        [DisplayName("Last Name *")]
+        [Required(ErrorMessage = "This field must not be null")]
         public string LastName { get; set; }
+        [DisplayName("Secondary Email")]
+        public string SecondaryEmail { get; set; }
+        [DisplayName("Email*")]
+        [Required(ErrorMessage = "This field must not be null")]
+        [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
+        [DisplayName("Password*")]
         public string Password { get; set; }
+
+        [MembershipPassword(
+            MinRequiredNonAlphanumericCharacters = 1,
+            MinNonAlphanumericCharactersError = "Your password needs to contain at least one symbol (!, @, #, etc).",
+            ErrorMessage = "Your password must be 6 characters long and contain at least one symbol (!, @, #, etc).",
+            MinRequiredPasswordLength = 6
+        )]
+        [DisplayName("Confirm Password*")]
+        public string CPassword { get; set; }
+
+        [MembershipPassword(
+            MinRequiredNonAlphanumericCharacters = 1,
+            MinNonAlphanumericCharactersError = "Your password needs to contain at least one symbol (!, @, #, etc).",
+            ErrorMessage = "Your password must be 6 characters long and contain at least one symbol (!, @, #, etc).",
+            MinRequiredPasswordLength = 6
+        )]
+        public string NPassword { get; set; }
         public string Type { get; set; }
+        public Nullable<int> CountryCode { get; set; }
+        [DisplayName("Phone Number")]
+        public string PhoneNumber { get; set; }
+        [DisplayName("Profile Picture")]
         public string ProfilePicture { get; set; }
+        public HttpPostedFileBase ImageUrl { get; set; }
         public System.DateTime CreatedDate { get; set; }
         public Nullable<int> CreatedBy { get; set; }
         public Nullable<System.DateTime> ModifiedDate { get; set; }
         public Nullable<int> ModifiedBy { get; set; }
         public bool IsActive { get; set; }
+        public bool Remember { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Category> Categories { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Country> Countries { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Type> Types { get; set; }
     }
 }

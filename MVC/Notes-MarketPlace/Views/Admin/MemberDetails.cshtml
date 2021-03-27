@@ -1,0 +1,178 @@
+﻿@model Notes_MarketPlace.Models.MemberData
+@using PagedList;
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Member Details";
+    Layout = "~/Views/Shared/_AdminLayoutPage.cshtml";
+    int total = ViewBag.Viewpage;
+    int number = Convert.ToInt32(Request.QueryString["i"]);
+    if (number == 0)
+    {
+        number = 1;
+    }
+    int count = total * number;
+    int sub;
+}
+
+<section id="margin-nav"></section>
+<section id="member_details">
+    <div id="content-box">
+        <div class="container">
+            <div class="main-heading">
+                <h2>Member Details</h2>
+            </div>
+            <div class="row">
+                <div class="col-lg-2 col-12 member-image">
+                    @if (Model.mp.ProfilePicture != null)
+                    {
+                        <img src="~/UploadFiles/MemberProfile/@Model.mp.ProfilePicture" alt="Image" />
+                    }
+                    else
+                    {
+                        <img src="~/UploadFiles/MemberProfile/@Model.manage.MemberDisplayPicture" alt="Image" />
+                    }
+
+                </div>
+                <div class="col-lg-10 col-12">
+                    <div class="row">
+                        <div class="col-xl-6 col-lg-7 col-12">
+                            <div class="member-details border-right">
+                                <div class="member-detail-heading">
+                                    <p>First Name:</p>
+                                    <p>Last Name:</p>
+                                    <p id="Memail">Email:</p>
+                                    <p>DOB:</p>
+                                    <p>Phone Number:</p>
+                                    <p>College/University:</p>
+                                </div>
+                                <div class="member-value">
+                                    <p>@Model.member.FirstName</p>
+                                    <p>@Model.member.LastName</p>
+                                    <p id="MemailValue">@Model.member.Email</p>
+                                    <p>@Model.mp.BirthDate.Value.ToString("d")</p>
+                                    <p>@Model.mp.PhoneNumber</p>
+                                    @if (Model.mp.College != null)
+                                    {
+                                        <p>@Model.mp.College</p>
+                                    }
+                                    else
+                                    {
+                                        <p>---</p>
+                                    }
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="border_right"></div>
+                        <div class="col-lg-5 col-12 margin-right">
+                            <div class="member-details">
+                                <div class="member-detail-heading">
+                                    <p id="Maddress1">Address 1:</p>
+                                    <p id="Maddress2">Address 2:</p>
+                                    <p>City:</p>
+                                    <p>State:</p>
+                                    <p>Country:</p>
+                                    <p>Zip Code:</p>
+                                </div>
+                                <div class="member-value">
+                                    <p id="Maddress1Value">@Model.mp.AddressLine1</p>
+                                    @if (Model.mp.AddressLine2 != null)
+                                    {
+                                        <p id="Maddress2Value">@Model.mp.AddressLine2</p>
+                                    }
+                                    else
+                                    {
+                                        <p id="Maddress2Value">---</p>
+                                    }
+                                    <p>@Model.mp.City</p>
+                                    <p>@Model.mp.State</p>
+                                    <p>@Model.mp.Country</p>
+                                    <p>@Model.mp.Zipcode</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr />
+        </div>
+    </div>
+</section>
+<section id="member-details-table">
+    <div class="container">
+        <div class="notes-heading">
+            <h4>Notes</h4>
+        </div>
+        <div class="members-details-table table-responsive-lg">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <td align="center">Sr No.</td>
+                        <td style="width:200px">@Html.ActionLink("Note Title", "MemberDetails", new { sortBy = ViewBag.SortTitle, MemberId = Request.QueryString["MemberId"], i = Request.QueryString["i"] })</td>
+                        <td>@Html.ActionLink("Category", "MemberDetails", new { sortBy = ViewBag.SortCategory, MemberId = Request.QueryString["MemberId"], i = Request.QueryString["i"] })</td>
+                        <td>@Html.ActionLink("Status", "MemberDetails", new { sortBy = ViewBag.SortStatus, MemberId = Request.QueryString["MemberId"], i = Request.QueryString["i"] })</td>
+                        <td align="center" style="width:100px">@Html.ActionLink("Download Notes", "MemberDetails", new { sortBy = ViewBag.SortDN, MemberId = Request.QueryString["MemberId"], i = Request.QueryString["i"] })</td>
+                        <td align="center">@Html.ActionLink("Total Earnings", "MemberDetails", new { sortBy = ViewBag.SortEarnings, MemberId = Request.QueryString["MemberId"], i = Request.QueryString["i"] })</td>
+                        <td>Date Added</td>
+                        <td>Published Date</td>
+                        <td align="center"></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (Notes_MarketPlace.Models.Note n in Model.notes)
+                    {
+                        {
+                            sub = count - total + 1;
+                        }
+                        <tr>
+                            <td align="center">@sub</td>
+                            <td style="cursor:pointer" onclick="location.href = '/Admin/NoteDetails?noteId=@n.NoteId';">@n.NoteTitle</td>
+                            <td>@n.Category</td>
+                            <td>@n.Status</td>
+                            <td align="center">@n.Buyers.Where(e=>e.Status==true).ToList().Count()</td>
+                            <td align="center">$@n.Buyers.Where(e => e.Status == true).ToList().Sum(e=>e.Price)</td>
+                            <td>@n.CreatedDate.ToString("dd-MM-yyyy,HH:mm")</td>
+                            @if (n.ApprovedDate != null)
+                            {
+                                <td>@n.ApprovedDate.Value.ToString("dd-MM-yyyy,HH:mm")</td>
+                            }
+                            else
+                            {
+                                <td>NA</td>
+                            }
+                            <td align="center">
+                                <div class="dropdown">
+                                    <button type="button"
+                                            class="dropdown-toggle"
+                                            data-toggle="dropdown">
+                                        <i class="fas fa-ellipsis-v"></i>
+                                    </button>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" target="_blank" href="~/UploadFiles/Notes/@n.OwnerId/@n.UploadNotes">Download Notes</a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        {
+                            total = total - 1;
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+<section id="pagination">
+    @Html.PagedListPager(Model.notes, i => Url.Action("MemberDetails", "Admin", new { i, sortBy = Request.QueryString["sortBy"] , MemberId= Request.QueryString["MemberId"] }), new PagedList.Mvc.PagedListRenderOptions
+    {
+        ContainerDivClasses = null,
+        LiElementClasses = new string[] { "page-item1" },
+        UlElementClasses = new string[] { "pagination justify-content-center" },
+        LinkToNextPageFormat = "<i class='fa fa-chevron-right'></i>",
+        LinkToPreviousPageFormat = "<i class='fa fa-chevron-left'></i>",
+        MaximumPageNumbersToDisplay = 5,
+        DisplayEllipsesWhenNotShowingAllPageNumbers = false,
+        DisplayLinkToFirstPage = PagedListDisplayMode.Never,
+        DisplayLinkToLastPage = PagedListDisplayMode.Never
+    })
+</section>

@@ -18,6 +18,7 @@
     <div id="content-box">
         <div class="container">
             <form action="/Profile/Index" method="post" enctype="multipart/form-data">
+                @Html.AntiForgeryToken()
                 <div class="user-profile-heading">
                     <h2>Basic Profile Details</h2>
                     @if (ViewBag.ErrorStatus)
@@ -35,7 +36,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 @Html.LabelFor(model => model.Member.FirstName)
-                                @Html.EditorFor(model => model.Member.FirstName, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter your first name"} })
+                                @Html.EditorFor(model => model.Member.FirstName, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter your first name" } })
                                 @Html.ValidationMessageFor(model => model.Member.FirstName, "", new { @class = "error-message" })
                             </div>
                         </div>
@@ -49,13 +50,13 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 @Html.LabelFor(model => model.Member.Email)
-                                @Html.EditorFor(model => model.Member.Email, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter your last name" ,@Readonly=true } })
+                                @Html.EditorFor(model => model.Member.Email, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter your last name", @Readonly = true } })
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 @Html.LabelFor(model => model.BirthDate)
-                                @Html.EditorFor(model => model.BirthDate, new { htmlAttributes = new { @class = "dateclass placeholderclass form-control", placeholder = "Enter your date of birth", @onClick= "$(this).removeClass('placeholderclass')",type="date" } })
+                                @Html.EditorFor(model => model.BirthDate, new { htmlAttributes = new { @class = "dateclass placeholderclass form-control", placeholder = "Enter your date of birth", @onClick = "$(this).removeClass('placeholderclass')", type = "date" } })
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -121,7 +122,7 @@
                                             </select>
                                         </div>
                                         <div class="col-md-8 col-lg-9">
-                                            @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter your phone number", Type="Number" } })
+                                            @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter your phone number", Type = "Number" } })
                                             @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "error-message" })
                                         </div>
                                     </div>

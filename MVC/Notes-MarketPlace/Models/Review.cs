@@ -11,9 +11,15 @@ namespace Notes_MarketPlace.Models
 {
     using System;
     using System.Collections.Generic;
-    
+
     public partial class Review
     {
+        public Review()
+        {
+            this.CreatedDate = DateTime.Now;
+            this.IsActive = true;
+        }
+
         public int Id { get; set; }
         public int NoteId { get; set; }
         public int OwnerId { get; set; }
@@ -25,7 +31,7 @@ namespace Notes_MarketPlace.Models
         public Nullable<System.DateTime> ModifiedDate { get; set; }
         public Nullable<int> ModifiedBy { get; set; }
         public bool IsActive { get; set; }
-    
+
         public virtual Member Member { get; set; }
         public virtual Member Member1 { get; set; }
         public virtual Note Note { get; set; }

@@ -36,6 +36,12 @@ namespace Notes_MarketPlace
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Notes", action = "Index", id = UrlParameter.Optional }
             );
+
+            routes.MapRoute(
+                name: "Admin",
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "Admin", action = "Index", id = UrlParameter.Optional }
+            );
         }
     }
 }

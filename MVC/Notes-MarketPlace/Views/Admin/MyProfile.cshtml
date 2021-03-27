@@ -1,0 +1,102 @@
+﻿@model Notes_MarketPlace.Models.Admin
+@{
+    ViewBag.Title = "Profile";
+    IEnumerable<Notes_MarketPlace.Models.Country> cu = ViewData["Country"] as IEnumerable<Notes_MarketPlace.Models.Country>;
+    Layout = "~/Views/Shared/_AdminLayoutPage.cshtml";
+}
+<section id="margin-nav"></section>
+<section id="profile-section">
+    <div id="content-box">
+        <div class="container">
+            <div class="main-heading">
+                <h2>My Profile</h2>
+                @if (ViewBag.ErrorStatus)
+                {
+                    <p class="error-message2" style="margin-bottom:20px"><i class="fa fa-exclamation-triangle"></i>@ViewBag.ErrorMessage </p>
+                }
+
+                @if (ViewBag.SucessStatus)
+                {
+                    <p class="success-message" style="margin-bottom:20px"><i class="fa fa-check-circle"></i>@ViewBag.SucessMessage</p>
+                }
+            </div>
+            <div class="profile-form">
+                <form action="/Admin/MyProfile" method="post" enctype="multipart/form-data">
+                    @Html.AntiForgeryToken()
+                    <div class="row">
+                        <div class="col-lg-6 col-12">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.FirstName)
+                                        @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter your first name" } })
+                                        @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "error-message" })
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.LastName)
+                                        @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter your last name" } })
+                                        @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "error-message" })
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.Email)
+                                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter your email" , @Readonly = true } })
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.SecondaryEmail)
+                                        @Html.EditorFor(model => model.SecondaryEmail, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter your email address" } })
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label for="phonenumber">Phone Number</label>
+                                        <div class="mobile-number">
+                                            <div class="row">
+                                                <div class="col-4">
+                                                    <select class="form-control" id="country-number" name="CountryCode">
+                                                        @foreach (Notes_MarketPlace.Models.Country country1 in cu)
+                                                        {
+                                                            <option value="@country1.CountryCode">+ @country1.CountryCode</option>
+
+                                                        }
+                                                    </select>
+                                                    @if (!String.IsNullOrEmpty(Model.CountryCode.ToString()))
+                                                    {
+                                                        <script>
+                                                            $("#country-number").val("@Model.CountryCode");
+                                                        </script>
+                                                    }
+
+                                                </div>
+                                                <div class="col-8">
+                                                    @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter your phone number", Type = "Number" } })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    @Html.LabelFor(model => model.ProfilePicture);
+                                    <div class="picture-box">
+                                        <label class="att-each">
+                                            <input type="file" id="file_value" name="ImageUrl" accept="image/*" />
+                                        </label>
+                                    </div>
+                                    <div class="inner-box">
+                                        <label id="upload_picture">Upload a picture</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <input type="submit" class="btn btn-primary" value="SUBMIT" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

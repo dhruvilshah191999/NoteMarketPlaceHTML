@@ -12,14 +12,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap"
           rel="stylesheet" />
-    <link rel="stylesheet" href="~/Content/Custom/bootstrap/bootstrap.css" />
-    <link rel="stylesheet" href="~/Content/Custom/responsive2.css" />
-    <link rel="stylesheet" href="~/Content/Custom/style2.css" />
-    <link rel="stylesheet" href="~/fonts/Custom/css/font-awesome.css" />
-    <link rel="stylesheet" href="~/fonts/Custom/fontawesome/css/fontawesome.css" />
-    <link rel="stylesheet" href="~/fonts/Custom/fontawesome/css/brands.css" />
-    <link rel="stylesheet" href="~/fonts/Custom/fontawesome/css/solid.css" />
-    <script src="~/Scripts/Custom/jquery.js"></script>
+    @Styles.Render("~/User/css")
+    @Styles.Render("~/fonts/css")
+    @Scripts.Render("~/Scripts")
     <title>@ViewBag.Title</title>
 </head>
 <body>
@@ -84,7 +79,7 @@
                                 }
                             </li>
                             <li class="nav-item direct-hover">
-                                @if(Session["Profile"] == null)
+                                @if (Session["Profile"] == null)
                                 {
 
                                 }
@@ -94,21 +89,21 @@
                                          data-toggle="dropdown"
                                          src="../../UploadFiles/MemberProfile/@Session["Profile"].ToString()" />
                                 }
-                                
+
 
                                 <div class="dropdown">
                                     <div class="dropdown-menu">
                                         @Html.ActionLink("My Profile", "Index", "Profile", null, new { @class = "dropdown-item" })
-                                        <a class="dropdown-item" href="#">My Downloads</a>
-                                        <a class="dropdown-item" href="#">My Sold Notes</a>
+                                        @Html.ActionLink("My Downloads", "MyDownload", "Profile", null, new { @class = "dropdown-item" })
+                                        @Html.ActionLink("My Sold Notes", "SoldOut", "Profile", null, new { @class = "dropdown-item" })
                                         @Html.ActionLink("My Rejected Notes", "Rejected", "Profile", null, new { @class = "dropdown-item" })
-                                        <a class="dropdown-item" href="#">Change Password</a>
-                                        @Html.ActionLink("LOGOUT", "Logout", "Auth", null, new { @class = "dropdown-item change-color"})
+                                        @Html.ActionLink("Change Password", "ChangePassword", "Auth", null, new { @class = "dropdown-item" })
+                                        @Html.ActionLink("LOGOUT", "Logout", "Auth", null, new { @class = "dropdown-item change-color" })
                                     </div>
                                 </div>
                             </li>
                             <li class="nav-item">
-                                @Html.ActionLink("Logout", "Logout", "Auth", null, new { @class = "nav-link btn-logout", role="button" })
+                                @Html.ActionLink("Logout", "Logout", "Auth", null, new { @class = "nav-link btn-logout", role = "button" })
                             </li>
                         </ul>
                     </div>
@@ -174,11 +169,11 @@
                                 <div class="dropdown">
                                     <div class="dropdown-menu">
                                         @Html.ActionLink("My Profile", "Index", "Profile", null, new { @class = "dropdown-item" })
-                                        <a class="dropdown-item" href="">My Downloads</a>
-                                        <a class="dropdown-item" href="#">My Sold Notes</a>
-                                        <a class="dropdown-item" href="#">My Rejected Notes</a>
-                                        <a class="dropdown-item" href="#">Change Password</a>
-                                        <a class="dropdown-item change-color" href="#">LOGOUT</a>
+                                        @Html.ActionLink("My Downloads", "MyDownload", "Profile", null, new { @class = "dropdown-item" })
+                                        @Html.ActionLink("My Sold Notes", "SoldOut", "Profile", null, new { @class = "dropdown-item" })
+                                        @Html.ActionLink("My Rejected Notes", "Rejected", "Profile", null, new { @class = "dropdown-item" })
+                                        @Html.ActionLink("Change Password", "ChangePassword", "Auth", null, new { @class = "dropdown-item" })
+                                        @Html.ActionLink("LOGOUT", "Logout", "Auth", null, new { @class = "dropdown-item change-color" })
                                     </div>
                                 </div>
                             </li>
@@ -215,11 +210,9 @@
             </div>
         </div>
     </section>
-    <script src="~/Scripts/Custom/jquery.js"></script>
-    <script src="~/Scripts/Custom/popper.min.js"></script>
-    <script src="~/Scripts/Custom/bootstrap.min.js"></script>
-    <script src="~/Scripts/jquery.validate.min.js"></script>
-    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
-    <script src="~/Scripts/Custom/script3.js"></script>
+    @Scripts.Render("~/Scripts")
+    @Scripts.Render("~/Scripts/User")
+    @Scripts.Render("~/MemberScript")
+    @Scripts.Render("~/bundles/jqueryval")
 </body>
 </html>

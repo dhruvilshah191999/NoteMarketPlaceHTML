@@ -7,15 +7,21 @@
     <Property Name="AdminId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="SecondaryEmail" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
     <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="Password" Type="String" MaxLength="24" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="Type" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CountryCode" Type="Int32" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
     <Property Name="ProfilePicture" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
     <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="CreatedBy" Type="Int32" />
     <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
     <Property Name="ModifiedBy" Type="Int32" />
     <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Categories" Relationship="Self.FK_Category_Admin1" FromRole="Admin" ToRole="Category" />
+    <NavigationProperty Name="Countries" Relationship="Self.FK_Country_Admin1" FromRole="Admin" ToRole="Country" />
+    <NavigationProperty Name="Types" Relationship="Self.FK_Type_Admin1" FromRole="Admin" ToRole="Type" />
   </EntityType>
   <EntityType Name="Buyer">
     <Key>
@@ -32,7 +38,7 @@
     <Property Name="NoteTitle" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="NoteCategory" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="RequestDate" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="ApprovedDate" Type="DateTime" Precision="3" Nullable="false" />
+    <Property Name="ApprovedDate" Type="DateTime" Precision="3" />
     <Property Name="IsActive" Type="Boolean" Nullable="false" />
     <NavigationProperty Name="Member" Relationship="Self.FK_Buyer_Member" FromRole="Buyer" ToRole="Member" />
     <NavigationProperty Name="Member1" Relationship="Self.FK_Buyer_Member1" FromRole="Buyer" ToRole="Member" />
@@ -50,6 +56,7 @@
     <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
     <Property Name="ModifiedBy" Type="Int32" />
     <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Admin" Relationship="Self.FK_Category_Admin1" FromRole="Category" ToRole="Admin" />
   </EntityType>
   <EntityType Name="Contactu">
     <Key>
@@ -70,10 +77,11 @@
     <Property Name="CountryName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="CountryCode" Type="Int32" Nullable="false" />
     <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+    <Property Name="CreatedBy" Type="Int32" />
     <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
     <Property Name="ModifiedBy" Type="Int32" />
     <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Admin" Relationship="Self.FK_Country_Admin1" FromRole="Country" ToRole="Admin" />
   </EntityType>
   <EntityType Name="Inappropriate">
     <Key>
@@ -179,7 +187,7 @@
     <Property Name="Professor" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
     <Property Name="SellType" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="SellPrice" Type="Int32" Nullable="false" />
-    <Property Name="NotePreview" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="NotePreview" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
     <Property Name="Status" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="AdminRemarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
     <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
@@ -223,7 +231,44 @@
     <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
     <Property Name="ModifiedBy" Type="Int32" />
     <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Admin" Relationship="Self.FK_Type_Admin1" FromRole="Type" ToRole="Admin" />
   </EntityType>
+  <Association Name="FK_Category_Admin1">
+    <End Role="Admin" Type="Self.Admin" Multiplicity="1" />
+    <End Role="Category" Type="Self.Category" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Admin">
+        <PropertyRef Name="AdminId" />
+      </Principal>
+      <Dependent Role="Category">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Country_Admin1">
+    <End Role="Admin" Type="Self.Admin" Multiplicity="0..1" />
+    <End Role="Country" Type="Self.Country" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Admin">
+        <PropertyRef Name="AdminId" />
+      </Principal>
+      <Dependent Role="Country">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Type_Admin1">
+    <End Role="Admin" Type="Self.Admin" Multiplicity="1" />
+    <End Role="Type" Type="Self.Type" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Admin">
+        <PropertyRef Name="AdminId" />
+      </Principal>
+      <Dependent Role="Type">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Buyer_Member">
     <End Role="Member" Type="Self.Member" Multiplicity="1" />
     <End Role="Buyer" Type="Self.Buyer" Multiplicity="*" />
@@ -369,6 +414,18 @@
     <EntitySet Name="Notes" EntityType="Self.Note" />
     <EntitySet Name="Reviews" EntityType="Self.Review" />
     <EntitySet Name="Types" EntityType="Self.Type" />
+    <AssociationSet Name="FK_Category_Admin1" Association="Self.FK_Category_Admin1">
+      <End Role="Admin" EntitySet="Admins" />
+      <End Role="Category" EntitySet="Categories" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Country_Admin1" Association="Self.FK_Country_Admin1">
+      <End Role="Admin" EntitySet="Admins" />
+      <End Role="Country" EntitySet="Countries" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Type_Admin1" Association="Self.FK_Type_Admin1">
+      <End Role="Admin" EntitySet="Admins" />
+      <End Role="Type" EntitySet="Types" />
+    </AssociationSet>
     <AssociationSet Name="FK_Buyer_Member" Association="Self.FK_Buyer_Member">
       <End Role="Member" EntitySet="Members" />
       <End Role="Buyer" EntitySet="Buyers" />
