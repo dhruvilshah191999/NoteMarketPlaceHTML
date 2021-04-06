@@ -109,13 +109,14 @@ namespace Notes_MarketPlace.Database
                     }
 
                     HttpContext.Current.Session["AdminId"] = Encrypt(mb.AdminId.ToString());
-                    if (admin.ProfilePicture == null)
+                    HttpContext.Current.Session["Type"] = mb.Type;
+                    if (mb.ProfilePicture == null)
                     {
                         HttpContext.Current.Session["Profile"] = ms.MemberDisplayPicture;
                     }
                     else
                     {
-                        HttpContext.Current.Session["Profile"] = admin.ProfilePicture;
+                        HttpContext.Current.Session["Profile"] = mb.ProfilePicture;
                     }
                     HttpContext.Current.Session.Timeout = 40;
                 }
@@ -135,14 +136,15 @@ namespace Notes_MarketPlace.Database
                         HttpContext.Current.Response.Cookies.Add(myCookie);
                     }
 
+                    HttpContext.Current.Session["Type"] = mb.Type;
                     HttpContext.Current.Session["AdminId"] = Encrypt(mb.AdminId.ToString());
-                    if (admin.ProfilePicture == null)
+                    if (mb.ProfilePicture == null)
                     {
                         HttpContext.Current.Session["Profile"] = ms.MemberDisplayPicture;
                     }
                     else
                     {
-                        HttpContext.Current.Session["Profile"] = admin.ProfilePicture;
+                        HttpContext.Current.Session["Profile"] = mb.ProfilePicture;
                     }
                     HttpContext.Current.Session.Timeout = 40;
                 }
@@ -834,6 +836,7 @@ namespace Notes_MarketPlace.Database
                 string lname = db.Admins.Where(e => e.AdminId == n.ApprovedBy).Select(e => e.LastName).FirstOrDefault();
                 n.rejectedName = fname + " " + lname;
             }
+
             if (!String.IsNullOrEmpty(name))
             {
                 notes = notes.Where(e => e.Member.FirstName.ToLower().Contains(name.ToLower())).ToList();
@@ -932,7 +935,7 @@ namespace Notes_MarketPlace.Database
                     getadmin.ProfilePicture = filename;
                     filename = System.IO.Path.Combine(HttpContext.Current.Server.MapPath("~/UploadFiles/AdminPhoto/"), filename);
                     admin.ImageUrl.SaveAs(filename);
-                    HttpContext.Current.Session["Profile"] = admin.ProfilePicture;
+                    HttpContext.Current.Session["Profile"] = getadmin.ProfilePicture;
                 }
             }
             getadmin.FirstName = admin.FirstName;
@@ -966,6 +969,375 @@ namespace Notes_MarketPlace.Database
             {
                 return "OldPasswordException";
             }
+        }
+
+        public List<String> getNoteUnderReview()
+        {
+            return db.Notes.Where(e => e.Status != "Published" && e.Status != "Rejected" && e.IsActive == true).Select(e => e.Member.FirstName).Distinct().ToList();
+        }
+
+        public List<Note> getUnderReview(string sortBy, string search, string name)
+        {
+            List<Note> notes = db.Notes.Where(e => e.Status != "Published" && e.Status != "Draft" && e.Status != "Rejected" && e.IsActive == true).ToList();
+            foreach (Note n in notes)
+            {
+                string fname = db.Admins.Where(e => e.AdminId == n.ApprovedBy).Select(e => e.FirstName).FirstOrDefault();
+                string lname = db.Admins.Where(e => e.AdminId == n.ApprovedBy).Select(e => e.LastName).FirstOrDefault();
+                n.rejectedName = fname + " " + lname;
+            }
+            if (!String.IsNullOrEmpty(name))
+            {
+                notes = notes.Where(e => e.Member.FirstName.ToLower().Contains(name.ToLower())).ToList();
+            }
+            if (!String.IsNullOrEmpty(search))
+            {
+                notes = notes.Where(e => e.NoteTitle.ToLower().Contains(search.ToLower()) || e.Category.ToLower().Contains(search.ToLower()) || e.Member.FirstName.ToLower().Contains(search.ToLower()) || e.Member.LastName.ToLower().Contains(search.ToLower()) || e.Status.ToLower().Contains(search.ToLower())).ToList();
+            }
+
+            switch (sortBy)
+            {
+                case "Title asc":
+                    notes = notes.OrderBy(e => e.NoteTitle).ToList();
+                    break;
+                case "Title desc":
+                    notes = notes.OrderByDescending(e => e.NoteTitle).ToList();
+                    break;
+                case "Category asc":
+                    notes = notes.OrderBy(e => e.Category).ToList();
+                    break;
+                case "Category desc":
+                    notes = notes.OrderByDescending(e => e.Category).ToList();
+                    break;
+                case "Seller asc":
+                    notes = notes.OrderBy(e => e.Member.FirstName).ToList();
+                    break;
+                case "Seller desc":
+                    notes = notes.OrderByDescending(e => e.Member.FirstName).ToList();
+                    break;
+                case "Status asc":
+                    notes = notes.OrderBy(e => e.Status).ToList();
+                    break;
+                case "Status desc":
+                    notes = notes.OrderByDescending(e => e.Status).ToList();
+                    break;
+                default:
+                    notes = notes.OrderByDescending(e => e.CreatedDate).ToList();
+                    break;
+            }
+            return notes;
+        }
+
+        public bool changetoReview(int noteId,int id)
+        {
+            Note note = db.Notes.Where(e => e.NoteId == noteId && e.IsActive == true).FirstOrDefault();
+            note.Status = "In Review";
+            note.ModifiedDate = DateTime.Now;
+            note.ModifiedBy = id;
+            db.SaveChanges();
+            return true;
+        }
+
+        public bool ApproveNote(int noteId, int id)
+        {
+            Note note = db.Notes.Where(e => e.NoteId == noteId && e.IsActive == true).FirstOrDefault();
+            note.Status = "Published";
+            note.ApprovedBy = id;
+            note.ApprovedDate = DateTime.Now;
+            db.SaveChanges();
+            return true;
+        }
+
+        public bool notereject(string remarks,int NoteId,int id)
+        {
+            Note note = db.Notes.Where(e => e.NoteId == NoteId && e.IsActive == true).FirstOrDefault();
+            note.Status = "Rejected";
+            note.ModifiedBy = id;
+            note.AdminRemarks = remarks;
+            note.ModifiedDate = DateTime.Now;
+            db.SaveChanges();
+            return true;
+        }
+
+        public bool unPublish(int noteId, int id, string remarks)
+        {
+            Note note = db.Notes.Where(e => e.NoteId == noteId && e.IsActive == true).FirstOrDefault();
+            note.IsActive = false;
+            note.ModifiedBy = id;
+            note.AdminRemarks = remarks;
+            note.ModifiedDate = DateTime.Now;
+            db.SaveChanges();
+            MailMessage mm = new MailMessage(ms.SupportEmail, note.Member.Email);
+            mm.Subject = " Sorry! We need to remove your notes from our portal.";
+            mm.Body = "Hello " + note.Member.FirstName + " " + note.Member.LastName + "<br/><br/>We want to inform you that, your note " + note.NoteTitle + " has been removed from the portal.Please find our remarks as below -<br/>"+remarks+"<br/><br/>Regards,<br>Notes Marketplace";
+            mm.IsBodyHtml = true;
+
+            SmtpClient smtp = new SmtpClient();
+            smtp.Host = "smtp.gmail.com";
+            smtp.Port = 587;
+            smtp.UseDefaultCredentials = false;
+
+            NetworkCredential nc = new NetworkCredential(ms.SupportEmail, ms.EmailPassword);
+            smtp.EnableSsl = true;
+            smtp.Credentials = nc;
+            smtp.Send(mm);
+            return true;
+        }
+
+        public int getReviewnote()
+        {
+            return db.Notes.Where(e => e.Status != "Published" && e.Status != "Draft" && e.Status != "Rejected" && e.IsActive == true).ToList().Count();
+        }
+
+        public int getDownloadNotes()
+        {
+            DateTime date = DateTime.Now.AddDays(-7.0);
+            return db.Buyers.Where(e => e.ApprovedDate > date && e.Status==true).ToList().Count();
+        }
+
+        public int getaddMember()
+        {
+            DateTime date = DateTime.Now.AddDays(-7.0);
+            return db.Members.Where(e=> e.CreatedDate > date && e.IsActive==true).ToList().Count();
+        }
+
+        public List<Note> DashboardPublished(string sortBy, string search, string month)
+        {
+            DateTime date = DateTime.Now.AddMonths(-6);
+            List<Note> notes = db.Notes.Where(e => e.Status == "Published" && e.IsActive == true && e.ApprovedDate>date).ToList();
+            foreach (Note n in notes)
+            {
+                string fullPath = HttpContext.Current.Request.MapPath("~/UploadFiles/Notes/" + n.OwnerId + "/" + n.UploadNotes);
+                FileInfo fileInfo = new FileInfo(fullPath);
+                n.FileSize = Convert.ToInt32(fileInfo.Length * 0.000977);
+            }
+
+            if (!String.IsNullOrEmpty(month))
+            {
+                notes = notes.Where(e => e.ApprovedDate.Value.ToString("MMMM yyyy")== month).ToList();
+            }
+            if (!String.IsNullOrEmpty(search))
+            {
+                notes = notes.Where(e => e.NoteTitle.ToLower().Contains(search.ToLower()) || e.Category.ToLower().Contains(search.ToLower()) || e.Member.FirstName.ToLower().Contains(search.ToLower()) || e.Member.LastName.ToLower().Contains(search.ToLower()) || e.SellType.ToLower().Contains(search.ToLower()) || e.SellPrice.ToString() == search || e.FileSize.ToString() == search || e.Buyers.Where(e1 => e1.Status == true).ToList().Count().ToString() == search).ToList();
+            }
+
+            switch (sortBy)
+            {
+                case "Title asc":
+                    notes = notes.OrderBy(e => e.NoteTitle).ToList();
+                    break;
+                case "Title desc":
+                    notes = notes.OrderByDescending(e => e.NoteTitle).ToList();
+                    break;
+                case "Category asc":
+                    notes = notes.OrderBy(e => e.Category).ToList();
+                    break;
+                case "Category desc":
+                    notes = notes.OrderByDescending(e => e.Category).ToList();
+                    break;
+                case "Seller asc":
+                    notes = notes.OrderBy(e => e.Member.FirstName).ToList();
+                    break;
+                case "Seller desc":
+                    notes = notes.OrderByDescending(e => e.Member.FirstName).ToList();
+                    break;
+                case "SellType asc":
+                    notes = notes.OrderBy(e => e.SellType).ToList();
+                    break;
+                case "SellType desc":
+                    notes = notes.OrderByDescending(e => e.SellType).ToList();
+                    break;
+                case "Price asc":
+                    notes = notes.OrderBy(e => e.SellPrice).ToList();
+                    break;
+                case "Price desc":
+                    notes = notes.OrderByDescending(e => e.SellPrice).ToList();
+                    break;
+                case "Filesize asc":
+                    notes = notes.OrderBy(e => e.FileSize).ToList();
+                    break;
+                case "Filesize desc":
+                    notes = notes.OrderByDescending(e => e.FileSize).ToList();
+                    break;
+                case "Download asc":
+                    notes = notes.OrderBy(e => e.Buyers.Where(e1 => e1.Status == true).ToList().Count()).ToList();
+                    break;
+                case "Download desc":
+                    notes = notes.OrderByDescending(e => e.Buyers.Where(e1 => e1.Status == true).ToList().Count()).ToList();
+                    break;
+                default:
+                    notes = notes.OrderByDescending(e => e.ApprovedDate).ToList();
+                    break;
+            }
+            return notes;
+        }
+
+        public List<Admin> TypeAdminData(string sortBy, string search)
+        {
+            List<Admin> admin = db.Admins.Where(e=>e.Type!="SuperAdmin").ToList<Admin>();
+            if (!String.IsNullOrEmpty(search))
+            {
+                admin = admin.Where(e => e.FirstName.ToLower().Contains(search.ToLower()) || e.LastName.ToLower().Contains(search.ToLower()) || e.Email.ToLower().Contains(search.ToLower()) || (e.PhoneNumber!=null && e.PhoneNumber.ToLower().Contains(search.ToLower()))).ToList();
+            }
+
+            switch (sortBy)
+            {
+                case "FName asc":
+                    admin = admin.OrderBy(e => e.FirstName).ToList();
+                    break;
+                case "FName desc":
+                    admin = admin.OrderByDescending(e => e.FirstName).ToList();
+                    break;
+                case "LName asc":
+                    admin = admin.OrderBy(e => e.LastName).ToList();
+                    break;
+                case "LName desc":
+                    admin = admin.OrderByDescending(e => e.LastName).ToList();
+                    break;
+                case "Email asc":
+                    admin = admin.OrderBy(e => e.Email).ToList();
+                    break;
+                case "Email desc":
+                    admin = admin.OrderByDescending(e => e.Email).ToList();
+                    break;
+                case "Phone asc":
+                    admin = admin.OrderBy(e => e.PhoneNumber).ToList();
+                    break;
+                case "Phone desc":
+                    admin = admin.OrderByDescending(e => e.PhoneNumber).ToList();
+                    break;
+                case "Active asc":
+                    admin = admin.OrderBy(e => e.IsActive).ToList();
+                    break;
+                case "Active desc":
+                    admin = admin.OrderByDescending(e => e.IsActive).ToList();
+                    break;
+                default:
+                    admin = admin.OrderByDescending(e => e.CreatedDate).ToList();
+                    break;
+            }
+            return admin;
+        }
+
+        public bool addadmin(Admin admin,int id)
+        {
+            admin.Password = "12345";
+            admin.CreatedBy = id;
+            admin.Type = "Admin";
+            db.Admins.Add(admin);
+            db.SaveChanges();
+            return true;
+        }
+
+        public Admin getadmin(int adminId)
+        {
+            return db.Admins.Where(e => e.AdminId == adminId).FirstOrDefault();
+        }
+
+        public bool updateadmin(int adminId, Admin admin,int id)
+        {
+            Admin getadmin= db.Admins.Where(e => e.AdminId == adminId).FirstOrDefault();
+            getadmin.FirstName = admin.FirstName;
+            getadmin.LastName = admin.LastName;
+            getadmin.Email = admin.Email;
+            getadmin.CountryCode = admin.CountryCode;
+            getadmin.PhoneNumber = admin.PhoneNumber;
+            getadmin.ModifiedBy = id;
+            getadmin.ModifiedDate = DateTime.Now;
+            getadmin.IsActive = true;
+            db.SaveChanges();
+            return true;
+        }
+
+        public bool deleteadmin(int adminId,int id)
+        {
+            Admin getadmin = db.Admins.Where(e => e.AdminId == adminId && e.IsActive == true).FirstOrDefault();
+            getadmin.ModifiedBy = id;
+            getadmin.ModifiedDate = DateTime.Now;
+            getadmin.IsActive = false;
+            db.SaveChanges();
+            return true;
+        }
+
+        public ManageSystem getconfig()
+        {
+            return db.ManageSystems.Where(e => e.Id == 1).FirstOrDefault();
+        }
+
+        public bool updateconfig(ManageSystem ms,int id)
+        {
+            ManageSystem manage = getconfig();
+            manage.SupportEmail = ms.SupportEmail;
+            manage.SupportContactNumber = ms.SupportContactNumber;
+            manage.EmailAddress = ms.EmailAddress;
+            manage.FacebookLink = ms.FacebookLink;
+            manage.TwitterLink = ms.TwitterLink;
+            manage.LinkedlnLink = ms.LinkedlnLink;
+
+            if (ms.ImageUrl != null)
+            {
+                var supportedTypes = new[] { ".jpg", ".jpeg", ".png" };
+                string extension = System.IO.Path.GetExtension(ms.ImageUrl.FileName);
+                if (!supportedTypes.Contains(extension) || ms.ImageUrl.ContentLength > 10485760)
+                {
+                    return false;
+                }
+                else
+                {
+                    if (manage.NoteDisplayPicture != null)
+                    {
+                        string fullPath = HttpContext.Current.Request.MapPath("~/UploadFiles/Notes/" + manage.NoteDisplayPicture);
+                        if (System.IO.File.Exists(fullPath))
+                        {
+                            System.IO.File.Delete(fullPath);
+                        }
+                    }
+
+                    string filename = ms.ImageUrl.FileName;
+                    manage.NoteDisplayPicture = filename;
+                    filename = System.IO.Path.Combine(HttpContext.Current.Server.MapPath("~/UploadFiles/Notes/"), filename);
+                    ms.ImageUrl.SaveAs(filename);
+                }
+            }
+
+            if (ms.ProfileUrl != null)
+            {
+                var supportedTypes = new[] { ".jpg", ".jpeg", ".png" };
+                string extension = System.IO.Path.GetExtension(ms.ProfileUrl.FileName);
+                if (!supportedTypes.Contains(extension) || ms.ProfileUrl.ContentLength > 10485760)
+                {
+                    return false;
+                }
+                else
+                {
+                    if (manage.MemberDisplayPicture != null)
+                    {
+                        string fullPath = HttpContext.Current.Request.MapPath("~/UploadFiles/MemberProfile/" + manage.MemberDisplayPicture);
+                        string fullPath2 = HttpContext.Current.Request.MapPath("~/UploadFiles/AdminPhoto/" + manage.MemberDisplayPicture);
+                        if (System.IO.File.Exists(fullPath))
+                        {
+                            System.IO.File.Delete(fullPath);
+                        }
+
+                        if (System.IO.File.Exists(fullPath2))
+                        {
+                            System.IO.File.Delete(fullPath2);
+                        }
+                    }
+
+                    string filename = ms.ProfileUrl.FileName;
+                    string filename2 = ms.ProfileUrl.FileName;
+                    manage.MemberDisplayPicture = filename;
+                    filename = System.IO.Path.Combine(HttpContext.Current.Server.MapPath("~/UploadFiles/MemberProfile/"), filename);
+                    filename2 = System.IO.Path.Combine(HttpContext.Current.Server.MapPath("~/UploadFiles/AdminPhoto/"), filename2);
+                    ms.ProfileUrl.SaveAs(filename);
+                    ms.ProfileUrl.SaveAs(filename2);
+                }
+            }
+
+            manage.ModifiedDate = DateTime.Now;
+            manage.ModifiedBy = id;
+            db.SaveChanges();
+            return true;
         }
     }
 }

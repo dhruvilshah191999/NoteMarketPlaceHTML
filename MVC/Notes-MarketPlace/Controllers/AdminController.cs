@@ -49,7 +49,7 @@ namespace Notes_MarketPlace.Controllers
                 }
                 else
                 {
-                    return RedirectToAction("Index", "Admin");
+                    return RedirectToAction("DashBoard", "Admin");
                 }
             }
         }
@@ -584,6 +584,260 @@ namespace Notes_MarketPlace.Controllers
         {
             Session.Clear();
             return RedirectToAction("Index", "Admin");
+        }
+
+        [HttpGet]
+        public ActionResult UnderReview(int? i, string name, string search, string sortBy)
+        {
+            ViewBag.SortTitle = String.IsNullOrEmpty(sortBy) ? "Title desc" : sortBy.Equals("Title asc") ? "Title desc" : "Title asc";
+            ViewBag.SortCategory = String.IsNullOrEmpty(sortBy) ? "Category desc" : sortBy.Equals("Category asc") ? "Category desc" : "Category asc";
+            ViewBag.SortSeller = String.IsNullOrEmpty(sortBy) ? "Seller desc" : sortBy.Equals("Seller asc") ? "Seller desc" : "Seller asc";
+            ViewBag.SortStatus = String.IsNullOrEmpty(sortBy) ? "Status desc" : sortBy.Equals("Status asc") ? "Status desc" : "Status asc";
+
+            int id = db.GetId();
+            if (id == 0)
+            {
+                string path = Request.Url.PathAndQuery;
+                return RedirectToAction("Index", "Admin", new { url = path });
+            }
+            ViewBag.Viewpage = 5;
+            ViewData["Name"] = db.getNoteUnderReview();
+            List<Note> notes = db.getUnderReview(sortBy, search, name);
+            return View(notes.ToList().ToPagedList(i ?? 1, 5));
+        }
+
+        public ActionResult ChangeToReview(int noteId)
+        {
+            int id = db.GetId();
+            if (id == 0)
+            {
+                string path = Request.Url.PathAndQuery;
+                return RedirectToAction("Index", "Admin", new { url = path });
+            }
+            bool check = db.changetoReview(noteId,id);
+            return RedirectToAction("UnderReview", "Admin");
+        }
+
+        public ActionResult ApproveNote(int noteId)
+        {
+            int id = db.GetId();
+            if (id == 0)
+            {
+                string path = Request.Url.PathAndQuery;
+                return RedirectToAction("Index", "Admin", new { url = path });
+            }
+            bool check = db.ApproveNote(noteId,id);
+            return RedirectToAction("UnderReview", "Admin");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult RejectNote(int Id,string remarks)
+        {
+            int id = db.GetId();
+            if (id == 0)
+            {
+                string path = Request.Url.PathAndQuery;
+                return RedirectToAction("Index", "Admin", new { url = path });
+            }
+            bool check = db.notereject(remarks, Id, id);
+            return RedirectToAction("UnderReview", "Admin");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult UnPublish(int Id, string remarks)
+        {
+            int id = db.GetId();
+            if (id == 0)
+            {
+                string path = Request.Url.PathAndQuery;
+                return RedirectToAction("Index", "Admin", new { url = path });
+            }
+            bool check = db.unPublish(Id, id,remarks);
+            return RedirectToAction("UnderReview", "Admin");
+        }
+
+        [HttpGet]
+        public ActionResult DashBoard(int? i, string month, string search, string sortBy)
+        {
+            ViewBag.SortTitle = String.IsNullOrEmpty(sortBy) ? "Title desc" : sortBy.Equals("Title asc") ? "Title desc" : "Title asc";
+            ViewBag.SortCategory = String.IsNullOrEmpty(sortBy) ? "Category desc" : sortBy.Equals("Category asc") ? "Category desc" : "Category asc";
+            ViewBag.SortSeller = String.IsNullOrEmpty(sortBy) ? "Seller desc" : sortBy.Equals("Seller asc") ? "Seller desc" : "Seller asc";
+            ViewBag.SortSellType = String.IsNullOrEmpty(sortBy) ? "SellType desc" : sortBy.Equals("SellType asc") ? "SellType desc" : "SellType asc";
+            ViewBag.SortPrice = String.IsNullOrEmpty(sortBy) ? "Price desc" : sortBy.Equals("Price asc") ? "Price desc" : "Price asc";
+            ViewBag.SortFile = String.IsNullOrEmpty(sortBy) ? "Filesize desc" : sortBy.Equals("Filesize asc") ? "Filesize desc" : "Filesize asc";
+            ViewBag.SortDownload = String.IsNullOrEmpty(sortBy) ? "Download desc" : sortBy.Equals("Download asc") ? "Download desc" : "Download asc";
+
+            int id = db.GetId();
+            if (id == 0)
+            {
+                string path = Request.Url.PathAndQuery;
+                return RedirectToAction("Index", "Admin", new { url = path });
+            }
+            ViewBag.Viewpage = 5;
+            ViewBag.ReviewNote = db.getReviewnote();
+            ViewBag.DownloadNote = db.getDownloadNotes();
+            ViewBag.AddMember = db.getaddMember();
+            List<Note> notes = db.DashboardPublished(sortBy, search, month);
+            return View(notes.ToList().ToPagedList(i ?? 1, 5));
+        }
+
+        [HttpGet]
+        public ActionResult ManageAdmin(int? i, string search, string sortBy)
+        {
+            ViewBag.SortFName = String.IsNullOrEmpty(sortBy) ? "FName desc" : sortBy.Equals("FName asc") ? "FName desc" : "FName asc";
+            ViewBag.SortLName = String.IsNullOrEmpty(sortBy) ? "LName desc" : sortBy.Equals("LName asc") ? "LName desc" : "LName asc";
+            ViewBag.SortEmail = String.IsNullOrEmpty(sortBy) ? "Email desc" : sortBy.Equals("Email asc") ? "Email desc" : "Email asc";
+            ViewBag.SortPhone = String.IsNullOrEmpty(sortBy) ? "Phone desc" : sortBy.Equals("Phone asc") ? "Phone desc" : "Phone asc";
+            ViewBag.SortActive = String.IsNullOrEmpty(sortBy) ? "Active desc" : sortBy.Equals("Active asc") ? "Active desc" : "Active asc";
+            int id = db.GetId();
+            if (id == 0)
+            {
+                string path = Request.Url.PathAndQuery;
+                return RedirectToAction("Index", "Admin", new { url = path });
+            }
+            else if (Session["Type"].ToString() != "SuperAdmin")
+            {
+                return RedirectToAction("DashBoard", "Admin");
+            }
+            ViewBag.Viewpage = 5;
+            List<Admin> admin = db.TypeAdminData(sortBy, search);
+            return View(admin.ToList().ToPagedList(i ?? 1, 5));
+        }
+
+        [HttpGet]
+        public ActionResult Administrator(int? adminId)
+        {
+            int id = db.GetId();
+            if (id == 0)
+            {
+                string path = Request.Url.PathAndQuery;
+                return RedirectToAction("Index", "Admin", new { url = path });
+            }
+            else if (Session["Type"].ToString() != "SuperAdmin")
+            {
+                return RedirectToAction("DashBoard", "Admin");
+            }
+            ViewData["Country"] = db.CountryData();
+            Admin admin=new Admin();
+
+            if (String.IsNullOrEmpty(adminId.ToString()))
+            {
+                admin = new Admin();
+            }
+            else
+            {
+                admin = db.getadmin(adminId.Value);
+            }
+            return View(admin);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Administrator(string adminId, Admin admin)
+        {
+            int id = db.GetId();
+            if (id == 0)
+            {
+                string path = Request.Url.PathAndQuery;
+                return RedirectToAction("Index", "Admin", new { url = path });
+            }
+            else if (Session["Type"].ToString() != "SuperAdmin")
+            {
+                return RedirectToAction("DashBoard", "Admin");
+            }
+            bool check;
+            if (String.IsNullOrEmpty(adminId))
+            {
+                check = db.addadmin(admin, id);
+            }
+            else
+            {
+                check = db.updateadmin(Convert.ToInt32(adminId), admin, id);
+            }
+            return RedirectToAction("ManageAdmin", "Admin");
+        }
+
+        [HttpGet]
+        public ActionResult DeleteAdmin(int adminId)
+        {
+            int id = db.GetId();
+            if (id == 0)
+            {
+                string path = Request.Url.PathAndQuery;
+                return RedirectToAction("Index", "Admin", new { url = path });
+            }
+            else if (Session["Type"].ToString() != "SuperAdmin")
+            {
+                return RedirectToAction("DashBoard", "Admin");
+            }
+            bool check = db.deleteadmin(adminId, id);
+            return RedirectToAction("ManageAdmin", "Admin");
+        }
+
+        [HttpGet]
+        public ActionResult ManageConfig()
+        {
+            int id = db.GetId();
+            if (id == 0)
+            {
+                string path = Request.Url.PathAndQuery;
+                return RedirectToAction("Index", "Admin", new { url = path });
+            }
+            else if (Session["Type"].ToString() != "SuperAdmin")
+            {
+                return RedirectToAction("DashBoard", "Admin");
+            }
+
+            if (TempData["ErrorMessage"] != null)
+            {
+                ViewBag.ErrorStatus = true;
+                ViewBag.SucessStatus = false;
+                ViewBag.ErrorMessage = TempData["ErrorMessage"];
+            }
+            else if (TempData["SucessMessage"] != null)
+            {
+                ViewBag.ErrorStatus = false;
+                ViewBag.SucessStatus = true;
+                ViewBag.SucessMessage = TempData["SucessMessage"];
+            }
+            else
+            {
+                ViewBag.ErrorStatus = false;
+                ViewBag.SucessStatus = false;
+            }
+            ManageSystem ms = db.getconfig();
+            return View(ms);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ManageConfig(ManageSystem ms)
+        {
+            int id = db.GetId();
+            if (id == 0)
+            {
+                string path = Request.Url.PathAndQuery;
+                return RedirectToAction("Index", "Admin", new { url = path });
+            }
+            else if (Session["Type"].ToString() != "SuperAdmin")
+            {
+                return RedirectToAction("DashBoard", "Admin");
+            }
+
+            bool check = db.updateconfig(ms, id);
+            if (!check)
+            {
+                TempData["ErrorMessage"] = "Profile Photo less than 10MB or Only image are accepted";
+                return RedirectToAction("ManageConfig", "Admin");
+            }
+            else
+            {
+                TempData["SucessMessage"] = "Your Profile has been updated";
+                return RedirectToAction("ManageConfig", "Admin");
+            }
+
         }
     }
 }

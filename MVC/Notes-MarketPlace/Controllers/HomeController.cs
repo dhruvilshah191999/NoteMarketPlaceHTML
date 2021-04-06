@@ -65,7 +65,7 @@ namespace Notes_MarketPlace.Controllers
         {
             DBEntities mdb = new DBEntities();
             ManageSystem mb = mdb.ManageSystems.FirstOrDefault(x => x.Id == 1);
-            mb.EmailPassword = "Digi5vgec@2021";
+            mb.EmailPassword = "Note@123";
             return mb;
         }
     }

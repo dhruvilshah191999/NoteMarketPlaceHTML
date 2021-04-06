@@ -1,0 +1,199 @@
+﻿@model IPagedList<Notes_MarketPlace.Models.Note>
+@using PagedList;
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Notes Under Review";
+    Layout = "~/Views/Shared/_AdminLayoutPage.cshtml";
+    var names = ViewData["Name"] as List<String>;
+    int total = ViewBag.Viewpage;
+    int number = Convert.ToInt32(Request.QueryString["i"]);
+    if (number == 0)
+    {
+        number = 1;
+    }
+    int count = total * number;
+    int sub;
+}
+
+<section id="margin-nav"></section>
+<section id="administrator-box note-under-box">
+    <div id="content-box">
+        <div class="container">
+            <div class="administrator-box note-under-box">
+                <div class="main-heading">
+                    <h2>Notes Under Review</h2>
+                </div>
+                <label for="seller">Seller</label>
+                <div class="row">
+                    <div class="col-lg-6 col-12">
+                        <div class="form-group note-select">
+                            <form id="search_from" method="get">
+                                <input type="hidden" name="search" value="@Request.QueryString["search"]" />
+                                <select onchange="submit()" class="form-control" id="name" name="name">
+                                    <option value="">Select Name</option>
+                                    @foreach (var n in names)
+                                    {
+                                        <option value="@n">@n</option>
+                                    }
+                                </select>
+                                <script>
+                                    $("#name").val("@Request.QueryString["name"]");
+                                </script>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-12">
+                        <div class="search-form">
+                            <form action="/Admin/UnderReview" method="get" class="form-inline">
+                                <div class="form-group">
+                                    <input type="text"
+                                           class="form-control"
+                                           placeholder=" &#xF002; &nbsp;&nbsp;Search"
+                                           id="search"
+                                           name="search"
+                                           style="font-family: Open Sans, FontAwesome" />
+                                    <input type="submit"
+                                           class="btn btn-primary"
+                                           value="SEARCH" />
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="note-under-review-table table-responsive-xl">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <td align="center">Sr No.</td>
+                            <td style="width:140px">@Html.ActionLink("Note Title", "UnderReview", new { sortBy = ViewBag.SortTitle, search = Request.QueryString["search"], i = Request.QueryString["i"], name = Request.QueryString["name"] })</td>
+                            <td>@Html.ActionLink("Category", "UnderReview", new { sortBy = ViewBag.SortCategory, search = Request.QueryString["search"], i = Request.QueryString["i"], name = Request.QueryString["name"] })</td>
+                            <td>@Html.ActionLink("Seller", "UnderReview", new { sortBy = ViewBag.SortSeller, search = Request.QueryString["search"], i = Request.QueryString["i"], name = Request.QueryString["name"] })</td>
+                            <td></td>
+                            <td style="width:100px">Data Added</td>
+                            <td style="width:80px">@Html.ActionLink("Status", "UnderReview", new { sortBy = ViewBag.SortStatus, search = Request.QueryString["search"], i = Request.QueryString["i"], name = Request.QueryString["name"] })</td>
+                            <td align="center">Action</td>
+                            <td align="center"></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (Notes_MarketPlace.Models.Note n in Model)
+                        {
+                            {
+                                sub = count - total + 1;
+                            }
+                            <tr>
+                                <td align="center">@sub</td>
+                                <td>@n.NoteTitle</td>
+                                <td>@n.Category</td>
+                                <td>@n.Member.FirstName @n.Member.LastName</td>
+                                <td align="center">
+                                    <img src="~/images/Dashboard/eye.png" style="cursor:pointer" onclick="location.href = '/Admin/MemberDetails?MemberId=@n.OwnerId';" />
+                                </td>
+                                <td>@n.CreatedDate.ToString("dd-MM-yyyy,HH:mm")</td>
+                                <td>@n.Status</td>
+                                <td align="center">
+                                    <div class="buttons">
+                                        <button class="btn btn-primary" onclick="approvefunction('@n.NoteId')">Approve</button>
+                                        <button class="btn btn-primary" data-toggle="modal" data-target="#report_@n.NoteId">Reject</button>
+                                        <button class="btn btn-primary" onclick="reviewfunction('@n.NoteId')">InReview</button>
+                                        <script>
+                                            function reviewfunction(Id) {
+                                                var result = confirm("Via marking the note In Review System will let user know that review process has been initiated. Please press yes to continue.");
+                                                if (result) {
+                                                    window.location.href = '/Admin/ChangeToReview?noteId=' + Id;
+                                                }
+                                            }
+                                            function approvefunction(Id) {
+                                                var result = confirm("If you approve the notes System will publish the notes over portal. Please press yes to continue.");
+                                                if (result) {
+                                                    window.location.href = '/Admin/ApproveNote?noteId=' + Id;
+                                                }
+                                            }
+                                        </script>
+                                    </div>
+                                </td>
+                                <td align="center">
+                                    <div class="dropdown">
+                                        <button type="button"
+                                                class="dropdown-toggle"
+                                                data-toggle="dropdown">
+                                            <i class="fas fa-ellipsis-v"></i>
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" href="/Admin/NoteDetails?noteId=@n.NoteId">View More Details</a>
+                                            <a class="dropdown-item" target="_blank" href="~/UploadFiles/Notes/@n.OwnerId/@n.UploadNotes">Download Notes</a>
+                                        </div>
+                                    </div>
+                                </td>
+                                <div class="modal fade" id="report_@n.NoteId">
+                                    <div class="modal-dialog review-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-body">
+                                                <button type="button" class="close" data-dismiss="modal">
+                                                    &times;
+                                                </button>
+                                                <div class="review-model">
+                                                    <div class="model-heading">
+                                                        <h3>@n.NoteTitle</h3>
+                                                    </div>
+                                                    <div class="review-content">
+                                                        <form action="/Admin/RejectNote" method="post">
+                                                            @Html.AntiForgeryToken()
+                                                            <div class="row">
+                                                                <div class="col-12">
+                                                                    <div class="form-group">
+                                                                        <label for="page">Remarks*</label>
+                                                                        <input type="hidden" name="Id" value="@n.NoteId" />
+                                                                        <textarea class="form-control" placeholder="Remarks....." id="comments" name="remarks" required></textarea>
+                                                                    </div>
+                                                                    <div class="marging-top">
+                                                                        <input type="submit" class="btn btn-red" value="Reject" />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </tr>
+                            {
+                                total = total - 1;
+                            }
+                        }
+                        @if (Model.Count() == 0)
+                        {
+                            <tr>
+                                <td colspan="9" align="center">No Record Found</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+<section id="pagination-2">
+    @Html.PagedListPager(Model, i => Url.Action("UnderReview", "Admin", new { i, search = Request.QueryString["search"], sortBy = Request.QueryString["sortBy"], name = Request.QueryString["name"] }), new PagedList.Mvc.PagedListRenderOptions
+    {
+        ContainerDivClasses = null,
+        LiElementClasses = new string[] { "page-item1" },
+        UlElementClasses = new string[] { "pagination justify-content-center" },
+        LinkToNextPageFormat = "<i class='fa fa-chevron-right'></i>",
+        LinkToPreviousPageFormat = "<i class='fa fa-chevron-left'></i>",
+        MaximumPageNumbersToDisplay = 5,
+        DisplayEllipsesWhenNotShowingAllPageNumbers = false,
+        DisplayLinkToFirstPage = PagedListDisplayMode.Never,
+        DisplayLinkToLastPage = PagedListDisplayMode.Never
+
+    })
+</section>
+
+<script>
+    function submit() {
+        document.getElementById('search_from').submit();
+    }
+</script>

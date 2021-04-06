@@ -49,7 +49,14 @@
                                     <p>@Model.member.FirstName</p>
                                     <p>@Model.member.LastName</p>
                                     <p id="MemailValue">@Model.member.Email</p>
-                                    <p>@Model.mp.BirthDate.Value.ToString("d")</p>
+                                    @if (Model.mp.BirthDate != null)
+                                    {
+                                        <p>@Model.mp.BirthDate.Value.ToString("d")</p>
+                                    }
+                                    else
+                                    {
+                                        <p>NA</p>
+                                    }
                                     <p>@Model.mp.PhoneNumber</p>
                                     @if (Model.mp.College != null)
                                     {
@@ -129,8 +136,8 @@
                             <td style="cursor:pointer" onclick="location.href = '/Admin/NoteDetails?noteId=@n.NoteId';">@n.NoteTitle</td>
                             <td>@n.Category</td>
                             <td>@n.Status</td>
-                            <td align="center">@n.Buyers.Where(e=>e.Status==true).ToList().Count()</td>
-                            <td align="center">$@n.Buyers.Where(e => e.Status == true).ToList().Sum(e=>e.Price)</td>
+                            <td align="center">@n.Buyers.Where(e => e.Status == true).ToList().Count()</td>
+                            <td align="center">$@n.Buyers.Where(e => e.Status == true).ToList().Sum(e => e.Price)</td>
                             <td>@n.CreatedDate.ToString("dd-MM-yyyy,HH:mm")</td>
                             @if (n.ApprovedDate != null)
                             {
@@ -156,6 +163,12 @@
                         {
                             total = total - 1;
                         }
+                    }
+                    @if (Model.notes.Count() == 0)
+                    {
+                        <tr>
+                            <td colspan="9" align="center">No Record Found</td>
+                        </tr>
                     }
                 </tbody>
             </table>

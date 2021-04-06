@@ -25,6 +25,7 @@ namespace Notes_MarketPlace.Models
         public string CountryCode { get; set; }
 
         [StringLength(10, MinimumLength = 10, ErrorMessage = "Phone number must be 10 digit")]
+        [Required(ErrorMessage = "This field must not be null")]
         public string PhoneNumber { get; set; }
         public HttpPostedFileBase ImageUrl { get; set; }
 
@@ -36,6 +37,7 @@ namespace Notes_MarketPlace.Models
         public string AddressLine1 { get; set; }
 
         [DisplayName("Address Line 2*")]
+        [Required(ErrorMessage = "This field must not be null")]
         public string AddressLine2 { get; set; }
 
         [DisplayName("City*")]

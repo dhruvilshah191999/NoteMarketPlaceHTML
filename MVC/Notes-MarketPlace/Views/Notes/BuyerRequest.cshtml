@@ -13,6 +13,13 @@
     }
     int count = total * number;
     int sub;
+
+    string Base64EncodingMethod(string Data)
+    {
+        byte[] toEncodeAsBytes = System.Text.Encoding.UTF32.GetBytes(Data);
+        string sReturnValues = System.Convert.ToBase64String(toEncodeAsBytes);
+        return sReturnValues;
+    }
 }
 <section id="margin-nav"></section>
 <section id="my_download">
@@ -50,13 +57,13 @@
                         <td style="width:100px;">@Html.ActionLink("Buyer", "BuyerRequest", new { sortBy = ViewBag.SortEmail, search = Request.QueryString["search"], i = Request.QueryString["i"] })</td>
                         <td>Phone No.</td>
                         <td>Sell Type</td>
-                        <td>Price</td>
+                        <td>@Html.ActionLink("Price", "BuyerRequest", new { sortBy = ViewBag.SortPrice, search = Request.QueryString["search"], i = Request.QueryString["i"] })</td>
                         <td style="width:100px">Download Date/Time</td>
                         <td></td>
                     </tr>
                 </thead>
                 <tbody>
-                    
+
                     @foreach (var buyes in Model)
                     {
                         {
@@ -73,13 +80,13 @@
                             <td>@buyes.RequestDate.ToString("dd MMM yyyy H:m:ss")</td>
                             <td>
                                 <div class="icons">
-                                    <img src="~/images/Dashboard/eye.png" class="img-fluid" id="imgview" style="cursor:pointer" onclick="window.open('/UploadFiles/Notes/@buyes.OwnerId/@buyes.AttachmentPath', '_blank');"/>
+                                    <img src="~/images/Dashboard/eye.png" class="img-fluid" id="imgview" style="cursor:pointer" onclick="window.open('/Notes/Notedetails?note=@Base64EncodingMethod(buyes.NoteId.ToString())');" />
                                     <div class="dropdown dropleftt" style="padding-left:10px">
                                         <button type="button" class="dropdown-toggle" data-toggle="dropdown">
                                             <i class="fas fa-ellipsis-v"></i>
                                         </button>
                                         <div class="dropdown-menu">
-                                            @Html.ActionLink("Allow Download","Accept","Notes",new { id=buyes.Id},new { @class= "dropdown-item" })
+                                            @Html.ActionLink("Allow Download", "Accept", "Notes", new { id = buyes.Id }, new { @class = "dropdown-item" })
                                         </div>
                                     </div>
                                 </div>
@@ -88,6 +95,13 @@
                         {
                             total = total - 1;
                         }
+                    }
+
+                    @if (Model.Count() == 0)
+                    {
+                        <tr>
+                            <td colspan="9" align="center">No Record Found</td>
+                        </tr>
                     }
                 </tbody>
             </table>

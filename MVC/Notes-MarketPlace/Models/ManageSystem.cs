@@ -11,19 +11,35 @@ namespace Notes_MarketPlace.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
+    using System.Web;
+    using System.Web.Security;
 
     public partial class ManageSystem
     {
         public int Id { get; set; }
+        [DisplayName("Support emails address *")]
+        [DataType(DataType.EmailAddress)]
+        [Required(ErrorMessage = "This field must not be null")]
         public string SupportEmail { get; set; }
+        [DisplayName("Support phone number *")]
+        [Required(ErrorMessage = "This field must not be null")]
         public string SupportContactNumber { get; set; }
+        [DataType(DataType.EmailAddress)]
+        [Required(ErrorMessage = "This field must not be null")]
         public string EmailAddress { get; set; }
         public string EmailPassword { get; set; }
         public string NoteDisplayPicture { get; set; }
         public string MemberDisplayPicture { get; set; }
+        [DisplayName("Facebook URL")]
         public string FacebookLink { get; set; }
+        [DisplayName("Twitter URL")]
         public string TwitterLink { get; set; }
+        [DisplayName("Linkedin URL")]
         public string LinkedlnLink { get; set; }
+        public HttpPostedFileBase ImageUrl { get; set; }
+        public HttpPostedFileBase ProfileUrl { get; set; }
         public Nullable<System.DateTime> ModifiedDate { get; set; }
         public Nullable<int> ModifiedBy { get; set; }
     }

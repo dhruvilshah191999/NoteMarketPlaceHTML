@@ -1,0 +1,10 @@
+--Dummny MailId and Password (For check,send and receive admin Mail)
+  Email:notemarketplace44@gmail.com
+  password:Note@123
+
+--Admin Login Link: /Admin or /Admin/Index
+
+--In
+	Display_photo (Note), Profile_photo (Member) :accept only this format .jpg,.png,.jpeg and max size is 10 MB
+	Note_Preview (Note) :accept only this format .pdf,.zip and max size is 10 MB
+	Upload_Note (Note) :accept only this format .pdf,.zip and max size is 20 MB

@@ -104,23 +104,22 @@ namespace Notes_MarketPlace.Database
 
         public List<Note> search(string search, string rating, string country, string category, string type, string course, string university)
         {
-            List<Note> notes = db.Notes.Where(e => e.IsActive == true).ToList();
+            List<Note> notes = db.Notes.Where(e => e.Status=="Published" && e.IsActive == true).ToList();
             foreach (Note n in notes)
             {
-                if (n.DisplayPicture == null)
+                
+                List<Review> reviews = db.Reviews.Where(e => e.IsActive == true && e.NoteId == n.NoteId).ToList<Review>();
+                List<Inappropriate> reports = db.Inappropriates.Where(e => e.NoteId == n.NoteId && e.IsActive == true).ToList<Inappropriate>();
+                n.report = reports.Count;
+                if (reviews.Count != 0)
                 {
-                    List<Review> reviews = db.Reviews.Where(e => e.IsActive == true && e.NoteId == n.NoteId).ToList<Review>();
-                    List<Inappropriate> reports = db.Inappropriates.Where(e => e.NoteId == n.NoteId && e.IsActive == true).ToList<Inappropriate>();
-                    n.report = reports.Count;
-                    if (reviews.Count != 0)
-                    {
-                        n.Avgrate = Convert.ToInt32(reviews.Average(e => e.Rate));
-                    }
-                    else
-                    {
-                        n.Avgrate = 0;
-                    }
+                    n.Avgrate = Convert.ToInt32(reviews.Average(e => e.Rate));
                 }
+                else
+                {
+                    n.Avgrate = 0;
+                }
+     
             }
             if (search != null)
             {
@@ -187,11 +186,23 @@ namespace Notes_MarketPlace.Database
             }
             switch (sortBy)
             {
-                case "Title desc":
+                case "Title asc":
                     notes = notes.OrderBy(e => e.NoteTitle).ToList();
                     break;
-                case "Category desc":
+                case "Title desc":
+                    notes = notes.OrderByDescending(e => e.NoteTitle).ToList();
+                    break;
+                case "Category asc":
                     notes = notes.OrderBy(e => e.Category).ToList();
+                    break;
+                case "Category desc":
+                    notes = notes.OrderByDescending(e => e.Category).ToList();
+                    break;
+                case "Remarks asc":
+                    notes = notes.OrderBy(e => e.AdminRemarks).ToList();
+                    break;
+                case "Remarks desc":
+                    notes = notes.OrderByDescending(e => e.AdminRemarks).ToList();
                     break;
                 default:
                     notes = notes.OrderByDescending(e => e.CreatedDate).ToList();
@@ -424,47 +435,39 @@ namespace Notes_MarketPlace.Database
 
         public String Signup(Member loginModel)
         {
-            if (loginModel.CPassword.Equals(loginModel.Password))
+            if (db.Members.Any(x => x.Email == loginModel.Email))
             {
-                if (db.Members.Any(x => x.Email == loginModel.Email))
-                {
-                    return "EmailException";
-                }
-                else
-                {
-                    try
-                    {
-                        var verifyUrl = "/Auth/Verify?Email=" + loginModel.Email;
-                        var link = HttpContext.Current.Request.Url.AbsoluteUri.Replace(HttpContext.Current.Request.Url.PathAndQuery, verifyUrl);
-
-                        db.Members.Add(loginModel);
-                        db.SaveChanges();
-                        MailMessage mm = new MailMessage(ms.SupportEmail, loginModel.Email);
-                        mm.Subject = "Note Marketplace -Email Verification";
-                        mm.Body = "Hello " + loginModel.FirstName + " " + loginModel.LastName + "<br/><br/>Thank you for signing up with us. Please click on below link to verify your email address and to do login.<br/><br/>Link:<a href='" + link + "'>" + link + "</a><br/><br/>Regards,<br>Notes Marketplace";
-                        mm.IsBodyHtml = true;
-
-                        SmtpClient smtp = new SmtpClient();
-                        smtp.Host = "smtp.gmail.com";
-                        smtp.Port = 587;
-                        smtp.UseDefaultCredentials = false;
-
-                        NetworkCredential nc = new NetworkCredential(ms.SupportEmail, ms.EmailPassword);
-                        smtp.EnableSsl = true;
-                        smtp.Credentials = nc;
-                        smtp.Send(mm);
-                    }
-                    catch (Exception e)
-                    {
-                        Console.WriteLine(e.Message);
-                    }
-                }
+                return "EmailException";
             }
             else
             {
-                return "PasswordException";
-            }
+                try
+                {
+                    var verifyUrl = "/Auth/Verify?Email=" + loginModel.Email;
+                    var link = HttpContext.Current.Request.Url.AbsoluteUri.Replace(HttpContext.Current.Request.Url.PathAndQuery, verifyUrl);
+                    loginModel.Password = loginModel.NPassword;
+                    db.Members.Add(loginModel);
+                    db.SaveChanges();
+                    MailMessage mm = new MailMessage(ms.SupportEmail, loginModel.Email);
+                    mm.Subject = "Note Marketplace -Email Verification";
+                    mm.Body = "Hello " + loginModel.FirstName + " " + loginModel.LastName + "<br/><br/>Thank you for signing up with us. Please click on below link to verify your email address and to do login.<br/><br/>Link:<a href='" + link + "'>" + link + "</a><br/><br/>Regards,<br>Notes Marketplace";
+                    mm.IsBodyHtml = true;
 
+                    SmtpClient smtp = new SmtpClient();
+                    smtp.Host = "smtp.gmail.com";
+                    smtp.Port = 587;
+                    smtp.UseDefaultCredentials = false;
+
+                    NetworkCredential nc = new NetworkCredential(ms.SupportEmail, ms.EmailPassword);
+                    smtp.EnableSsl = true;
+                    smtp.Credentials = nc;
+                    smtp.Send(mm);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+            }
             return "Success";
         }
 
@@ -499,12 +502,12 @@ namespace Notes_MarketPlace.Database
 
                         if (HttpContext.Current.Request.Cookies["Username"].Value != member.Email)
                         {
-                            HttpContext.Current.Request.Cookies["Username"].Value = member.Email;
+                            HttpContext.Current.Response.Cookies["Username"].Value = member.Email;
                         }
 
                         if (HttpContext.Current.Request.Cookies["Password"].Value != member.Password)
                         {
-                            HttpContext.Current.Request.Cookies["Password"].Value = member.Password;
+                            HttpContext.Current.Response.Cookies["Password"].Value = member.Password;
                         }
                         HttpContext.Current.Session["MemberId"] = Encrypt(mb.MemberId.ToString());
                         HttpContext.Current.Session["Profile"] = ms.MemberDisplayPicture;
@@ -782,7 +785,7 @@ namespace Notes_MarketPlace.Database
         {
             DBEntities mdb = new DBEntities();
             ManageSystem mb = mdb.ManageSystems.FirstOrDefault(x => x.Id == 1);
-            mb.EmailPassword = "Digi5vgec@2021";
+            mb.EmailPassword = "Note@123";
             return mb;
         }
     }

@@ -207,20 +207,26 @@ ul.nav > li > a:focus {
   background-size: 80% 2px;
 }
 
+.btn-login:hover,
+.btn-login:focus {
+    background: none !important;
+    background-color:white !important;
+}
+
 .btn-login {
-  background-color: #fff !important;
-  width: 89px;
-  height: 40px;
-  border-radius: 3px;
-  border: 1px solid #000;
-  color: #6255a5 !important;
-  font-family: "Open Sans";
-  padding: 8px 23px;
-  margin-left: 15px;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  -ms-border-radius: 3px;
-  -o-border-radius: 3px;
+    background-color: #fff !important;
+    width: 89px;
+    height: 40px;
+    border-radius: 3px;
+    border: 1px solid #000;
+    color: #6255a5 !important;
+    font-family: "Open Sans";
+    padding: 8px 23px;
+    margin-left: 15px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
 }
 
 .btn-logout {

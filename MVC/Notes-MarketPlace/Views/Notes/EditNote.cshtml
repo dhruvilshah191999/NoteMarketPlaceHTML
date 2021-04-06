@@ -38,7 +38,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                @Html.HiddenFor(model => model.NoteId);
+                                @Html.HiddenFor(model => model.NoteId)
                                 @Html.LabelFor(model => model.NoteTitle)
                                 @Html.EditorFor(model => model.NoteTitle, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter your notes title" } })
                                 @Html.ValidationMessageFor(model => model.NoteTitle, "", new { @class = "error-message" })
@@ -195,13 +195,14 @@
                                 <label id="upload_note_preview">Upload a file</label>
                             </div>
                         </div>
+                        <input type="hidden" name="button" id="buttonvalue" />
                         <div class="col-md-6">
                             <div class="two-button">
                                 <div class="marging-top">
-                                    <input type="submit" class="btn btn-primary " value="SAVE" />
+                                    <input type="submit" class="btn btn-primary " value="SAVE" id="save" />
                                 </div>
                                 <div class="marging-top">
-                                    <input type="submit" class="btn btn-primary " value="PUBLISH" readonly style="cursor:not-allowed" />
+                                    <input type="submit" class="btn btn-primary " value="PUBLISH" value="PUBLISH" id="publish" />
                                 </div>
                             </div>
                         </div>
@@ -238,4 +239,11 @@
         $("#price").removeAttr("readonly", "true");
     });
 
+    $("#save").on('click', function () {
+        $("#buttonvalue").val("Draft")
+    });
+
+    $("#publish").on('click', function () {
+        $("#buttonvalue").val("Submitted for Review")
+    });
 </script>

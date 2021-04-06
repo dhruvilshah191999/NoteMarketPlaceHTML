@@ -84,8 +84,9 @@ namespace Notes_MarketPlace.Controllers
 
         public ActionResult Rejected(string search,int ? i,string sortBy)
         {
-            ViewBag.SortTitle = String.IsNullOrEmpty(sortBy) ? "Title desc" : "";
-            ViewBag.SortCategory = String.IsNullOrEmpty(sortBy) ? "Category desc" : "";
+            ViewBag.SortTitle = String.IsNullOrEmpty(sortBy) ? "Title desc" : sortBy.Equals("Title asc") ? "Title desc" : "Title asc";
+            ViewBag.SortCategory = String.IsNullOrEmpty(sortBy) ? "Category desc" : sortBy.Equals("Category asc") ? "Category desc" : "Category asc";
+            ViewBag.SortRemarks = String.IsNullOrEmpty(sortBy) ? "Remarks desc" : sortBy.Equals("Remarks asc") ? "Remarks desc" : "Remarks asc";
             ViewBag.Viewpage = 5;
             int id=GetId();
             if (id == 0) 

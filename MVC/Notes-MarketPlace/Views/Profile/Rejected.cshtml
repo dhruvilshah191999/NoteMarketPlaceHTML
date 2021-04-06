@@ -54,7 +54,7 @@
                         <td>Sr No.</td>
                         <td>@Html.ActionLink("Note Title","Rejected",new { sortBy = ViewBag.SortTitle, search = Request.QueryString["search"] , i = Request.QueryString["i"] })</td>
                         <td>@Html.ActionLink("Category", "Rejected", new { sortBy = ViewBag.SortCategory, search = Request.QueryString["search"], i = Request.QueryString["i"] })</td>
-                        <td>Remarks</td>
+                        <td>@Html.ActionLink("Remarks", "Rejected", new { sortBy = ViewBag.SortRemarks, search = Request.QueryString["search"], i = Request.QueryString["i"] })</td>
                         <td>Clone</td>
                         <td></td>
                     </tr>
@@ -70,7 +70,7 @@
                             <td>@sub</td>
                             <td><a href="/Notes/Notedetails?note=@Base64EncodingMethod(notes.NoteId.ToString())" style="text-decoration:none;color:#6255a5;">@notes.NoteTitle</a></td>
                             <td>@notes.Category</td>
-                            <td>Lorem Ipsum is simply dummy test</td>
+                            <td>@notes.AdminRemarks</td>
                             <td>Clone</td>
                             <td align="center">
                                 <div class="dropdown dropleftt">
@@ -86,6 +86,12 @@
                         {
                             total = total - 1;
                         }
+                    }
+                    @if (Model.Count() == 0)
+                    {
+                        <tr>
+                            <td colspan="6" align="center">No Record Found</td>
+                        </tr>
                     }
                 </tbody>
             </table>

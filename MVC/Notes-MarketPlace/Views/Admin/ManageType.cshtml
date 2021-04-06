@@ -61,7 +61,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach(Notes_MarketPlace.Models.Type c in Model)
+                        @foreach (Notes_MarketPlace.Models.Type c in Model)
                         {
                             {
                                 sub = count - total + 1;
@@ -82,8 +82,8 @@
                                 }
                                 <td align="center">
                                     <div class="icons">
-                                        <img src="~/images/Dashboard/edit.png" style="cursor:pointer" onclick="location.href = '/Admin/Type?typeid=@c.Id';"/>
-                                        <img src="~/images/Dashboard/delete.png" style="cursor:pointer" onclick="deletefunction('@c.Id')"/>
+                                        <img src="~/images/Dashboard/edit.png" style="cursor:pointer" onclick="location.href = '/Admin/Type?typeid=@c.Id';" />
+                                        <img src="~/images/Dashboard/delete.png" style="cursor:pointer" onclick="deletefunction('@c.Id')" />
                                     </div>
                                 </td>
                                 <script>
@@ -98,6 +98,12 @@
                             {
                                 total = total - 1;
                             }
+                        }
+                        @if (Model.Count() == 0)
+                        {
+                            <tr>
+                                <td colspan="7" align="center">No Record Found</td>
+                            </tr>
                         }
                     </tbody>
                 </table>

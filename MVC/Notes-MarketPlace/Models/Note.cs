@@ -46,7 +46,8 @@ namespace Notes_MarketPlace.Models
         [DisplayName("Type*")]
         [Required(ErrorMessage = "This field must not be null")]
         public string Type { get; set; }
-        [DisplayName("Number of Pages")]
+        [DisplayName("Number of Pages*")]
+        [Required(ErrorMessage = "This field must not be null")]
         public Nullable<int> TotalPages { get; set; }
         [DisplayName("Description*")]
         [Required(ErrorMessage = "This field must not be null")]
@@ -82,6 +83,7 @@ namespace Notes_MarketPlace.Models
         public Nullable<System.DateTime> ModifiedDate { get; set; }
         public Nullable<int> ModifiedBy { get; set; }
         public bool IsActive { get; set; }
+        public int FileSize { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Buyer> Buyers { get; set; }

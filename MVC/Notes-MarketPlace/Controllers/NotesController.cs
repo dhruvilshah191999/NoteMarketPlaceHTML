@@ -86,10 +86,11 @@ namespace Notes_MarketPlace.Controllers
             {
                 return RedirectToAction("Index", "Auth");
             }
-            ViewBag.SortTitle = String.IsNullOrEmpty(sortBy) ? "Title desc" : "";
-            ViewBag.SortCategory = String.IsNullOrEmpty(sortBy) ? "Category desc" : "";
-            ViewBag.SortStatus= String.IsNullOrEmpty(sortBy) ? "Status desc" : "";
 
+            ViewBag.SortTitle = String.IsNullOrEmpty(sortBy) ? "Title desc" : sortBy.Equals("Title asc") ? "Title desc" : "Title asc";
+            ViewBag.SortCategory = String.IsNullOrEmpty(sortBy) ? "Category desc" : sortBy.Equals("Category asc") ? "Category desc" : "Category asc";
+            ViewBag.SortStatus = String.IsNullOrEmpty(sortBy) ? "Status desc" : sortBy.Equals("Status asc") ? "Status desc" : "Status asc";
+            
             DBEntities db = new DBEntities();
             List<Note> notes=db.Notes.Where(e=>(e.Status!="Rejected" && e.Status!="Published") && e.OwnerId==id && e.IsActive==true).ToList();
             if (!String.IsNullOrEmpty(search))
@@ -100,12 +101,21 @@ namespace Notes_MarketPlace.Controllers
             switch (sortBy)
             {
                 case "Title desc":
+                    notes = notes.OrderByDescending(e => e.NoteTitle).ToList();
+                    break;
+                case "Title asc":
                     notes = notes.OrderBy(e => e.NoteTitle).ToList();
                     break;
                 case "Category desc":
+                    notes = notes.OrderByDescending(e => e.Category).ToList();
+                    break;
+                case "Category asc":
                     notes = notes.OrderBy(e => e.Category).ToList();
                     break;
                 case "Status desc":
+                    notes = notes.OrderByDescending(e => e.Status).ToList();
+                    break;
+                case "Status asc":
                     notes = notes.OrderBy(e => e.Status).ToList();
                     break;
                 default:
@@ -124,10 +134,10 @@ namespace Notes_MarketPlace.Controllers
                 return RedirectToAction("Index", "Auth");
             }
 
-            ViewBag.SortTitle = String.IsNullOrEmpty(sortBy2) ? "Title desc" : "";
-            ViewBag.SortCategory = String.IsNullOrEmpty(sortBy2) ? "Category desc" : "";
-            ViewBag.SortType = String.IsNullOrEmpty(sortBy2) ? "Type desc" : "";
-            ViewBag.SortPrice = String.IsNullOrEmpty(sortBy2) ? "Price desc" : "";
+            ViewBag.SortTitle = String.IsNullOrEmpty(sortBy2) ? "Title desc" : sortBy2.Equals("Title asc") ? "Title desc" : "Title asc";
+            ViewBag.SortCategory = String.IsNullOrEmpty(sortBy2) ? "Category desc" : sortBy2.Equals("Category asc") ? "Category desc" : "Category asc";
+            ViewBag.SortType = String.IsNullOrEmpty(sortBy2) ? "Type desc" : sortBy2.Equals("Type asc") ? "Type desc" : "Type asc";
+            ViewBag.SortPrice = String.IsNullOrEmpty(sortBy2) ? "Price desc" : sortBy2.Equals("Price asc") ? "Price desc" : "Price asc";
 
             DBEntities db = new DBEntities();
             List<Note> notes = db.Notes.Where(e => e.Status == "Published" && e.OwnerId == id && e.IsActive == true).ToList();
@@ -138,15 +148,27 @@ namespace Notes_MarketPlace.Controllers
             switch (sortBy2)
             {
                 case "Title desc":
+                    notes = notes.OrderByDescending(e => e.NoteTitle).ToList();
+                    break;
+                case "Title asc":
                     notes = notes.OrderBy(e => e.NoteTitle).ToList();
                     break;
                 case "Category desc":
+                    notes = notes.OrderByDescending(e => e.Category).ToList();
+                    break;
+                case "Category asc":
                     notes = notes.OrderBy(e => e.Category).ToList();
                     break;
                 case "Type desc":
+                    notes = notes.OrderByDescending(e => e.SellType).ToList();
+                    break;
+                case "Type asc":
                     notes = notes.OrderBy(e => e.SellType).ToList();
                     break;
                 case "Price desc":
+                    notes = notes.OrderByDescending(e => e.SellPrice).ToList();
+                    break;
+                case "Price asc":
                     notes = notes.OrderBy(e => e.SellPrice).ToList();
                     break;
                 default:
@@ -159,6 +181,12 @@ namespace Notes_MarketPlace.Controllers
         [HttpGet]
         public ActionResult Add()
         {
+            int id = GetId();
+            if (id == 0)
+            {
+                return RedirectToAction("Index", "Auth");
+            }
+
             if (TempData["ErrorMessage"] != null)
             {
                 ViewBag.ErrorStatus = true;
@@ -186,7 +214,7 @@ namespace Notes_MarketPlace.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Add(Note getnote)
+        public ActionResult Add(Note getnote, string button)
         {
             using (DBEntities db = new DBEntities())
             {
@@ -239,7 +267,7 @@ namespace Notes_MarketPlace.Controllers
                         {
                             var supportedTypes = new[] { ".pdf", ".zip" };
                             string extension = Path.GetExtension(getnote.DisplayNote.FileName);
-                            if (!supportedTypes.Contains(extension) || getnote.DisplayNote.ContentLength > 10485760)
+                            if (!supportedTypes.Contains(extension) || getnote.DisplayNote.ContentLength > 20971520)
                             {
                                 TempData["ErrorMessage"] = "Note must be less than 10MB or Only pdf and zip file are accepted";
                                 return RedirectToAction("Add", "Notes");
@@ -273,28 +301,34 @@ namespace Notes_MarketPlace.Controllers
                             }
                         }
 
+                        getnote.Status = button;
                         db.Notes.Add(getnote);
                         db.SaveChanges();
 
+                        if (getnote.Status != "Draft")
+                        {
+                            Member member = db.Members.Where(m => m.MemberId == id).FirstOrDefault();
+                            ManageSystem ms = GetManageData.GetData();
+                            MailMessage mm = new MailMessage(ms.SupportEmail, ms.EmailAddress);
+                            mm.Subject = member.FirstName + " " + member.LastName + " sent his note for review";
+                            mm.Body = "Hello Admins,<br/><br/>We Want to inform you that," + member.FirstName + " " + member.LastName + " sent his note<br/><br/>" + getnote.NoteTitle + " for review.Please look at the notes and take required actions.<br/><br/>Regards,<br/>Notes Marketplace";
+                            mm.IsBodyHtml = true;
 
-                        Member member = db.Members.Where(m => m.MemberId == id).FirstOrDefault();
-                        ManageSystem ms = GetManageData.GetData();
-                        MailMessage mm = new MailMessage(ms.SupportEmail, ms.EmailAddress);
-                        mm.Subject = member.FirstName+" "+ member.LastName + " sent his note for review";
-                        mm.Body = "Hello Admins,<br/><br/>We Want to inform you that,"+ member.FirstName + " " + member.LastName + " sent his note<br/><br/>"+getnote.NoteTitle+" for review.Please look at the notes and take required actions.<br/><br/>Regards,<br/>Notes Marketplace"; 
-                        mm.IsBodyHtml = true;
+                            SmtpClient smtp = new SmtpClient();
+                            smtp.Host = "smtp.gmail.com";
+                            smtp.Port = 587;
+                            smtp.UseDefaultCredentials = false;
 
-                        SmtpClient smtp = new SmtpClient();
-                        smtp.Host = "smtp.gmail.com";
-                        smtp.Port = 587;
-                        smtp.UseDefaultCredentials = false;
-
-                        NetworkCredential nc = new NetworkCredential(ms.SupportEmail, ms.EmailPassword);
-                        smtp.EnableSsl = true;
-                        smtp.Credentials = nc;
-                        smtp.Send(mm);
-
-                        TempData["SucessMessage"] = "Notes Send to the admin for review .We will inform you.";
+                            NetworkCredential nc = new NetworkCredential(ms.SupportEmail, ms.EmailPassword);
+                            smtp.EnableSsl = true;
+                            smtp.Credentials = nc;
+                            smtp.Send(mm);
+                            TempData["SucessMessage"] = "Note Send to the admin for review .We will inform you.";
+                        }
+                        else
+                        {
+                            TempData["SucessMessage"] = "Note Saved Successfully.";
+                        }
                         return RedirectToAction("Add", "Notes");
                     }
                     catch (Exception e)
@@ -315,7 +349,16 @@ namespace Notes_MarketPlace.Controllers
                 string path = Request.Url.PathAndQuery;
                 return RedirectToAction("Index", "Auth", new { url = path });
             }
-            int id2 = Convert.ToInt32(Base64DecodingMethod(note));
+            int id2;
+            try
+            {
+                id2 = Convert.ToInt32(Base64DecodingMethod(note));
+            }
+            catch(Exception e)
+            {
+                return RedirectToAction("Index", "Notes");
+            }
+            
             ViewBag.Reviews = true;
             ViewBag.reviewcount = 0;
             ViewBag.reviews = 0;
@@ -344,6 +387,7 @@ namespace Notes_MarketPlace.Controllers
                 if (reviews.Count == 0)
                 {
                     ViewBag.Reviews = false;
+                    ViewBag.reviews = 0;
                 }
                 else
                 {
@@ -363,6 +407,7 @@ namespace Notes_MarketPlace.Controllers
                 List<Inappropriate> reports = db.Inappropriates.Where(e => e.NoteId == notedetails.NoteId && e.IsActive == true).ToList<Inappropriate>();
                 notedetails.report = reports.Count;
                 ViewBag.Photo = ms.NoteDisplayPicture;
+                ViewBag.SellerName = notedetails.Member.FirstName + " " + notedetails.Member.LastName;
                 ViewData["Review"] = reviews;
                 return View(notedetails);
             }
@@ -454,9 +499,10 @@ namespace Notes_MarketPlace.Controllers
             {
                 return RedirectToAction("Index", "Auth");
             }
-            ViewBag.SortTitle = String.IsNullOrEmpty(sortBy) ? "Title desc" : "";
-            ViewBag.SortCategory = String.IsNullOrEmpty(sortBy) ? "Category desc" : "";
-            ViewBag.SortEmail = String.IsNullOrEmpty(sortBy) ? "Email desc" : "";
+            ViewBag.SortTitle = String.IsNullOrEmpty(sortBy) ? "Title desc" : sortBy.Equals("Title asc") ? "Title desc" : "Title asc";
+            ViewBag.SortCategory = String.IsNullOrEmpty(sortBy) ? "Category desc" : sortBy.Equals("Category asc") ? "Category desc" : "Category asc";
+            ViewBag.SortEmail = String.IsNullOrEmpty(sortBy) ? "Email desc" : sortBy.Equals("Email asc") ? "Email desc" : "Email asc";
+            ViewBag.SortPrice = String.IsNullOrEmpty(sortBy) ? "Price desc" : sortBy.Equals("Price asc") ? "Price desc" : "Price asc";
             DBEntities db = new DBEntities();
             List<Buyer> buyer= db.Buyers.Where(e => e.OwnerId == id && e.Status == false).ToList();
 
@@ -474,14 +520,29 @@ namespace Notes_MarketPlace.Controllers
 
             switch (sortBy)
             {
-                case "Title desc":
+                case "Title asc":
                     buyer = buyer.OrderBy(e => e.NoteTitle).ToList();
                     break;
-                case "Category desc":
+                case "Title desc":
+                    buyer = buyer.OrderByDescending(e => e.NoteTitle).ToList();
+                    break;
+                case "Category asc":
                     buyer = buyer.OrderBy(e => e.NoteCategory).ToList();
                     break;
-                case "Email desc":
+                case "Category desc":
+                    buyer = buyer.OrderByDescending(e => e.NoteCategory).ToList();
+                    break;
+                case "Email asc":
                     buyer = buyer.OrderBy(e => e.Member1.Email).ToList();
+                    break;
+                case "Email desc":
+                    buyer = buyer.OrderByDescending(e => e.Member1.Email).ToList();
+                    break;
+                case "Price asc":
+                    buyer = buyer.OrderBy(e => e.Price).ToList();
+                    break;
+                case "Price desc":
+                    buyer = buyer.OrderByDescending(e => e.Price).ToList();
                     break;
                 default:
                     buyer = buyer.OrderByDescending(e => e.RequestDate).ToList();
@@ -565,84 +626,113 @@ namespace Notes_MarketPlace.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditNote(Note note)
+        public ActionResult EditNote(Note note, string button)
         {
             using(DBEntities db = new DBEntities())
             {
-                Note newnote = db.Notes.Where(e => e.NoteId == note.NoteId && e.IsActive == true).FirstOrDefault();
-                newnote.NoteTitle = note.NoteTitle;
-                newnote.Category = note.Category;
-                newnote.Type = note.Type;
-                newnote.TotalPages = note.TotalPages;
-                newnote.Description = note.Description;
-                newnote.Country = note.Country;
-                newnote.InstitutionName = note.InstitutionName;
-                newnote.CourseName = note.CourseName;
-                newnote.CourseCode = note.CourseCode;
-                newnote.Professor = note.Professor;
-                newnote.SellType = note.SellType;
-                newnote.SellPrice = note.SellPrice;
-                string path = newnote.UploadNotes.Split('/')[0].ToString();
-
-                if (note.DisplayPhoto != null)
+                try
                 {
-                    var supportedTypes = new[] { ".jpg", ".jpeg", ".png" };
-                    string extension = Path.GetExtension(note.DisplayPhoto.FileName);
-                    if (!supportedTypes.Contains(extension) || note.DisplayPhoto.ContentLength > 10485760)
+                    Note newnote = db.Notes.Where(e => e.NoteId == note.NoteId && e.IsActive == true).FirstOrDefault();
+                    newnote.NoteTitle = note.NoteTitle;
+                    newnote.Category = note.Category;
+                    newnote.Type = note.Type;
+                    newnote.TotalPages = note.TotalPages;
+                    newnote.Description = note.Description;
+                    newnote.Country = note.Country;
+                    newnote.InstitutionName = note.InstitutionName;
+                    newnote.CourseName = note.CourseName;
+                    newnote.CourseCode = note.CourseCode;
+                    newnote.Professor = note.Professor;
+                    newnote.SellType = note.SellType;
+                    newnote.SellPrice = note.SellPrice;
+                    newnote.Status = button;
+                    string path = newnote.UploadNotes.Split('/')[0].ToString();
+
+                    if (note.DisplayPhoto != null)
                     {
-                        TempData["ErrorMessage"] = "Profile Photo must be less than 10MB or Only image are accepted";
-                        return RedirectToAction("EditNote", "Notes");
+                        var supportedTypes = new[] { ".jpg", ".jpeg", ".png" };
+                        string extension = Path.GetExtension(note.DisplayPhoto.FileName);
+                        if (!supportedTypes.Contains(extension) || note.DisplayPhoto.ContentLength > 10485760)
+                        {
+                            TempData["ErrorMessage"] = "Profile Photo must be less than 10MB or Only image are accepted";
+                            return RedirectToAction("EditNote", "Notes");
+                        }
+                        else
+                        {
+                            string filename = Path.GetFileNameWithoutExtension(note.DisplayPhoto.FileName);
+                            filename = filename + "_" + DateTime.Now.ToString("yymmssfff") + extension;
+                            newnote.DisplayPicture = path + "/Displaypicture/" + filename;
+                            filename = Path.Combine(Server.MapPath("~/UploadFiles/Notes/") + newnote.OwnerId + "/" + path + ("/Displaypicture"), filename);
+                            note.DisplayPhoto.SaveAs(filename);
+                        }
                     }
-                    else
+
+                    if (note.DisplayNote != null)
                     {
-                        string filename = Path.GetFileNameWithoutExtension(note.DisplayPhoto.FileName);
-                        filename = filename + "_" + DateTime.Now.ToString("yymmssfff") + extension;
-                        newnote.DisplayPicture = path + "/Displaypicture/" + filename;
-                        filename = Path.Combine(Server.MapPath("~/UploadFiles/Notes/") + newnote.OwnerId + "/" + path + ("/Displaypicture"), filename);
-                        note.DisplayPhoto.SaveAs(filename);
+                        var supportedTypes = new[] { ".pdf", ".zip" };
+                        string extension = Path.GetExtension(note.DisplayNote.FileName);
+                        if (!supportedTypes.Contains(extension) || note.DisplayNote.ContentLength > 20971520)
+                        {
+                            TempData["ErrorMessage"] = "Note must be less than 10MB or Only pdf and zip file are accepted";
+                            return RedirectToAction("EditNote", "Notes");
+                        }
+                        else
+                        {
+                            string filename = Path.GetFileNameWithoutExtension(note.DisplayNote.FileName);
+                            filename = filename + "_" + DateTime.Now.ToString("yymmssfff") + extension;
+                            newnote.UploadNotes = path + "/UploadedNotes/" + filename;
+                            filename = Path.Combine(Server.MapPath("~/UploadFiles/Notes/") + newnote.OwnerId + "/" + path + ("/UploadedNotes"), filename);
+                            note.DisplayNote.SaveAs(filename);
+                        }
+                    }
+
+                    if (note.DisplayPhotoPreview != null)
+                    {
+                        var supportedTypes = new[] { ".pdf", ".zip" };
+                        string extension = Path.GetExtension(note.DisplayPhotoPreview.FileName);
+                        if (!supportedTypes.Contains(extension) || note.DisplayPhotoPreview.ContentLength > 10485760)
+                        {
+                            TempData["ErrorMessage"] = "Note must be less than 10MB or Only pdf and zip file are accepted";
+                            return RedirectToAction("EditNote", "Notes");
+                        }
+                        else
+                        {
+                            string filename = Path.GetFileNameWithoutExtension(note.DisplayPhotoPreview.FileName);
+                            filename = filename + "_" + DateTime.Now.ToString("yymmssfff") + extension;
+                            newnote.NotePreview = path + "/NotesPreview/" + filename;
+                            filename = Path.Combine(Server.MapPath("~/UploadFiles/Notes/") + newnote.OwnerId + "/" + path + ("/NotesPreview"), filename);
+                            note.DisplayPhotoPreview.SaveAs(filename);
+                        }
+                    }
+
+                    newnote.ModifiedDate = DateTime.Now;
+                    db.SaveChanges();
+
+                    if (newnote.Status != "Draft")
+                    {
+                        Member member = newnote.Member;
+                        ManageSystem ms = GetManageData.GetData();
+                        MailMessage mm = new MailMessage(ms.SupportEmail, ms.EmailAddress);
+                        mm.Subject = member.FirstName + " " + member.LastName + " sent his note for review";
+                        mm.Body = "Hello Admins,<br/><br/>We Want to inform you that," + member.FirstName + " " + member.LastName + " sent his note<br/><br/>" + newnote.NoteTitle + " for review.Please look at the notes and take required actions.<br/><br/>Regards,<br/>Notes Marketplace";
+                        mm.IsBodyHtml = true;
+
+                        SmtpClient smtp = new SmtpClient();
+                        smtp.Host = "smtp.gmail.com";
+                        smtp.Port = 587;
+                        smtp.UseDefaultCredentials = false;
+
+                        NetworkCredential nc = new NetworkCredential(ms.SupportEmail, ms.EmailPassword);
+                        smtp.EnableSsl = true;
+                        smtp.Credentials = nc;
+                        smtp.Send(mm);
                     }
                 }
-
-                if (note.DisplayNote != null)
+                catch(Exception e)
                 {
-                    var supportedTypes = new[] { ".pdf", ".zip" };
-                    string extension = Path.GetExtension(note.DisplayNote.FileName);
-                    if (!supportedTypes.Contains(extension) || note.DisplayNote.ContentLength > 10485760)
-                    {
-                        TempData["ErrorMessage"] = "Note must be less than 10MB or Only pdf and zip file are accepted";
-                        return RedirectToAction("EditNote", "Notes");
-                    }
-                    else
-                    {
-                        string filename = Path.GetFileNameWithoutExtension(note.DisplayNote.FileName);
-                        filename = filename + "_" + DateTime.Now.ToString("yymmssfff") + extension;
-                        newnote.UploadNotes = path + "/UploadedNotes/" + filename;
-                        filename = Path.Combine(Server.MapPath("~/UploadFiles/Notes/") + newnote.OwnerId + "/" + path + ("/UploadedNotes"), filename);
-                        note.DisplayNote.SaveAs(filename);
-                    }
+                    TempData["ErrorMessage"] = "Something is wrong. Please try again.";
+                    return RedirectToAction("EditNote", "Notes");
                 }
-
-                if (note.DisplayPhotoPreview != null)
-                {
-                    var supportedTypes = new[] { ".pdf", ".zip" };
-                    string extension = Path.GetExtension(note.DisplayPhotoPreview.FileName);
-                    if (!supportedTypes.Contains(extension) || note.DisplayPhotoPreview.ContentLength > 10485760)
-                    {
-                        TempData["ErrorMessage"] = "Note must be less than 10MB or Only pdf and zip file are accepted";
-                        return RedirectToAction("EditNote", "Notes");
-                    }
-                    else
-                    {
-                        string filename = Path.GetFileNameWithoutExtension(note.DisplayPhotoPreview.FileName);
-                        filename = filename + "_" + DateTime.Now.ToString("yymmssfff") + extension;
-                        newnote.NotePreview = path + "/NotesPreview/" + filename;
-                        filename = Path.Combine(Server.MapPath("~/UploadFiles/Notes/") + newnote.OwnerId + "/" + path + ("/NotesPreview"), filename);
-                        note.DisplayPhotoPreview.SaveAs(filename);
-                    }
-                }
-
-                newnote.ModifiedDate = DateTime.Now;
-                db.SaveChanges();
             }
             return RedirectToAction("Index","Notes");
         }

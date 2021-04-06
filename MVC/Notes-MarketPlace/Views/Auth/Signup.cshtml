@@ -7,7 +7,7 @@
     <div class="container" id="container-box">
         <div class="row">
             <div class="col-md-12" align="center">
-                <img src="~/images/login/top-logo.png" alt="Top Photo" />
+                <img src="~/images/login/top-logo.png" alt="Top Photo" onclick="location.href = '/';"  style="cursor:pointer"/>
             </div>
         </div>
         <div class="row">
@@ -44,15 +44,15 @@
                     </div>
                     <div class="form-group">
                         @Html.LabelFor(model => model.Password, new { @class = "margin-label" })
-                        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @id = "password-field", @class = "form-control", placeholder = "Enter your password", Required = "true" , type="password" } })
+                        @Html.EditorFor(model => model.NPassword, new { htmlAttributes = new { @id = "password-field", @class = "form-control", placeholder = "Enter your password", Required = "true", type = "password" } })
                         <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
-                        <div class="invalid-feedback">The password that you've entered is incorrect.</div>
+                        @Html.ValidationMessageFor(model => model.NPassword, "", new { @class = "error-message" })
                     </div>
                     <div class="form-group">
                         @Html.LabelFor(model => model.CPassword, new { @class = "margin-label" })
                         @Html.EditorFor(model => model.CPassword, new { htmlAttributes = new { @id = "password-field1", @class = "form-control", placeholder = "Re-Enter your password", Required = "true", type = "password" } })
                         <span toggle="#password-field1" class="fa fa-fw fa-eye field-icon toggle-password"></span>
-                        <div class="invalid-feedback">The password that you've entered is incorrect.</div>
+                        @Html.ValidationMessageFor(model => model.CPassword, "", new { @class = "error-message" })
                     </div>
                     <input type="submit" class="btn-submit margin-label" value="SIGN UP">
                 </form>

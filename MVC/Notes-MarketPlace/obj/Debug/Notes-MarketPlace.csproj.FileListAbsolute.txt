@@ -1,4 +1,3 @@
-C:\Users\Dell\Desktop\Notes-MarketPlace\Notes-MarketPlace\obj\Debug\Notes-MarketPlace.csprojAssemblyReference.cache
 C:\Users\Dell\Desktop\Notes-MarketPlace\Notes-MarketPlace\obj\Debug\Notes-MarketPlace.csproj.CoreCompileInputs.cache
 C:\Users\Dell\Desktop\Notes-MarketPlace\Notes-MarketPlace\bin\Notes-MarketPlace.dll.config
 C:\Users\Dell\Desktop\Notes-MarketPlace\Notes-MarketPlace\bin\Notes-MarketPlace.dll
@@ -85,3 +84,4 @@ C:\Users\Dell\Desktop\Notes-MarketPlace\Notes-MarketPlace\bin\PagedList.dll
 C:\Users\Dell\Desktop\Notes-MarketPlace\Notes-MarketPlace\bin\PagedList.Mvc.dll
 C:\Users\Dell\Desktop\Notes-MarketPlace\Notes-MarketPlace\bin\PagedList.xml
 C:\Users\Dell\Desktop\Notes-MarketPlace\Notes-MarketPlace\bin\PagedList.Mvc.xml
+C:\Users\Dell\Desktop\Notes-MarketPlace\Notes-MarketPlace\obj\Debug\Notes-MarketPlace.csprojAssemblyReference.cache

@@ -84,8 +84,8 @@
                                 }
                                 <td align="center">
                                     <div class="icons">
-                                        <img src="~/images/Dashboard/edit.png" style="cursor:pointer" onclick="location.href = '/Admin/Country?countryid=@c.Id';"/>
-                                        <img src="~/images/Dashboard/delete.png" style="cursor:pointer" onclick="deletefunction('@c.Id')"/>
+                                        <img src="~/images/Dashboard/edit.png" style="cursor:pointer" onclick="location.href = '/Admin/Country?countryid=@c.Id';" />
+                                        <img src="~/images/Dashboard/delete.png" style="cursor:pointer" onclick="deletefunction('@c.Id')" />
                                     </div>
                                 </td>
                                 <script>
@@ -100,6 +100,12 @@
                             {
                                 total = total - 1;
                             }
+                        }
+                        @if (Model.Count() == 0)
+                        {
+                            <tr>
+                                <td colspan="7" align="center">No Record Found</td>
+                            </tr>
                         }
                     </tbody>
                 </table>

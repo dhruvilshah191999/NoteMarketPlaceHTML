@@ -94,9 +94,17 @@ namespace Notes_MarketPlace.Controllers
         [HttpGet]
         public ActionResult Signup()
         {
+            if (TempData["Sucess"] != null)
+            {
+                ViewBag.ErrorStatus = false;
+                ViewBag.SucessStatus = true;
+            }
+            else
+            {
+                ViewBag.ErrorStatus = false;
+                ViewBag.SucessStatus = false;
+            }
             Member member = new Member();
-            ViewBag.ErrorStatus = false;
-            ViewBag.SucessStatus = false;
             return View(member);
         }
 
@@ -112,19 +120,12 @@ namespace Notes_MarketPlace.Controllers
                 ViewBag.ErrorMessage = "EmailId Already Exits.";
                 return View(loginModel);
             }
-            else if(result == "Success")
+            else
             {
                 ViewBag.ErrorStatus = false;
                 ViewBag.SucessStatus = true;
-                Member m = new Member();
-                return View(m);
-            }
-            else
-            {
-                ViewBag.ErrorStatus = true;
-                ViewBag.SucessStatus = false;
-                ViewBag.ErrorMessage = "Password Not Match";
-                return View(loginModel);
+                TempData["Sucess"] = true;
+                return RedirectToAction("Signup","Auth");
             }
         }
 

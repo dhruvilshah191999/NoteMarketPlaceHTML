@@ -21,5 +21,5 @@ $(document).ready(function () {
 $(document).ready(function () {
     $("#Memail").css("min-height", $("#MemailValue").height());
     $("#Maddress1").css("min-height", $("#Maddress1Value").height());
-    $("#Maddress2").css("min-height", $("#Maddress2value").height());
+    $("#Maddress2").css("min-height", $("#Maddress2Value").height());
 });

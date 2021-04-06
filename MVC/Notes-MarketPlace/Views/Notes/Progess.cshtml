@@ -2,6 +2,15 @@
 @using PagedList;
 @using PagedList.Mvc;
 
+@{ 
+    string Base64EncodingMethod(string Data)
+    {
+        byte[] toEncodeAsBytes = System.Text.Encoding.UTF32.GetBytes(Data);
+        string sReturnValues = System.Convert.ToBase64String(toEncodeAsBytes);
+        return sReturnValues;
+    }
+}
+
 <section id="progress_notes">
     <div class="container">
         <div class="progress-heading">
@@ -47,7 +56,7 @@
                         <td>@notes.Status</td>
                         @if (notes.Status != "Draft")
                         {
-                            <td align="center"><img src="./images/Dashboard/eye.png" style="cursor:pointer" onclick="window.open('/UploadFiles/Notes/@notes.OwnerId/@notes.UploadNotes', '_blank');"/></td>
+                            <td align="center"><img src="~/images/Dashboard/eye.png" style="cursor:pointer" onclick="@("window.location.href='" + @Url.Action("Notedetails", "Notes",new {note=Base64EncodingMethod(notes.NoteId.ToString())}) + "'");"/></td>
                         }
                         else
                         {
@@ -61,6 +70,12 @@
                                 }
                             </script>
                         }
+                    </tr>
+                }
+                @if (Model.Count() == 0)
+                {
+                    <tr>
+                        <td colspan="5" align="center">No Record Found</td>
                     </tr>
                 }
             </tbody>

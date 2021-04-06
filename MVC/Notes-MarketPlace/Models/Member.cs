@@ -53,6 +53,7 @@ namespace Notes_MarketPlace.Models
             ErrorMessage = "Your password must be 6 characters long and contain at least one symbol (!, @, #, etc).",
             MinRequiredPasswordLength = 6
         )]
+        [Compare("NPassword",ErrorMessage ="Password Not Match")]
         [DisplayName("Confirm Password*")]
         public string CPassword { get; set; }
 

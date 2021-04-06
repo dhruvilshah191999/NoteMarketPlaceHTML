@@ -1,0 +1,210 @@
+﻿@model IPagedList<Notes_MarketPlace.Models.Note>
+@using PagedList;
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Dashboard";
+    ViewBag.NavTitle = "Dashboard";
+    Layout = "~/Views/Shared/_AdminLayoutPage.cshtml";
+    int total = ViewBag.Viewpage;
+    int number = Convert.ToInt32(Request.QueryString["i"]);
+    if (number == 0)
+    {
+        number = 1;
+    }
+    int count = total * number;
+    int sub;
+}
+
+<section id="margin-nav"></section>
+<section id="dashboard-box">
+    <div id="content-box">
+        <div class="container">
+            <div class="main-heading">
+                <h2>Dashboard</h2>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="border-box" style="cursor:pointer" onclick="location.href = '/Admin/UnderReview';">
+                        <h4>@ViewBag.ReviewNote</h4>
+                        <p align="center">Number of Notes in Review for Publish</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="border-box" style="cursor:pointer" onclick="location.href = '/Admin/Download';">
+                        <h4>@ViewBag.DownloadNote</h4>
+                        <p align="center">
+                            Number of New Notes Download<br />
+                            (Last 7 days)
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="border-box" style="cursor:pointer" onclick="location.href = '/Admin/Member';">
+                        <h4>@ViewBag.AddMember</h4>
+                        <p align="center">
+                            Number of New Registration<br />
+                            (Last 7 days)
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section id="published_notes">
+    <div class="container">
+        <div class="published_header">
+            <div class="row">
+                <div class="col-xl-5 col-lg-4 col-12">
+                    <div class="p-2 bd-highlight">
+                        <h5>Published Notes</h5>
+                    </div>
+                </div>
+                <div class="col-xl-7 col-lg-8 col-12">
+                    <form action="/Admin/DashBoard" method="get" class="form-inline ml-auto" id="search_from">
+                        <div class="form-group">
+                            <input type="text"
+                                   class="form-control"
+                                   placeholder=" &#xF002; &nbsp;&nbsp;Search"
+                                   id="search"
+                                   name="search"
+                                   value="@Request.QueryString["search"]"
+                                   style="font-family: Open Sans, FontAwesome" />
+                            <input type="submit" class="btn btn-primary" value="SEARCH" />
+                        </div>
+                        <div class="search">
+                            <div class="form-group">
+                                <select class="form-control" onchange="submit()" id="month" name="month" style="text-overflow: ellipsis; padding-right: 35px;">
+                                    <option value="">Select Month</option>
+                                    @{
+                                        for (int i = 0; i < 6; i++)
+                                        {
+                                            <option value="@DateTime.Now.AddMonths(-i).ToString("MMMM yyyy")">@DateTime.Now.AddMonths(-i).ToString("MMMM yyyy")</option>
+                                        }
+                                    }
+                                </select>
+                                <script>
+                                    $("#month").val("@Request.QueryString["month"]");
+                                </script>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="published-table table-responsive-lg">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <td align="center">Sr No.</td>
+                        <td style="width:200px">@Html.ActionLink("Title", "DashBoard", new { sortBy = ViewBag.SortTitle, search = Request.QueryString["search"], i = Request.QueryString["i"], month = Request.QueryString["month"] })</td>
+                        <td>@Html.ActionLink("Category", "DashBoard", new { sortBy = ViewBag.SortCategory, search = Request.QueryString["search"], i = Request.QueryString["i"], month = Request.QueryString["month"] })</td>
+                        <td align="center">@Html.ActionLink("Attachment Size", "DashBoard", new { sortBy = ViewBag.SortFile, search = Request.QueryString["search"], i = Request.QueryString["i"], month = Request.QueryString["month"] })</td>
+                        <td>@Html.ActionLink("Sell Type", "DashBoard", new { sortBy = ViewBag.SortSellType, search = Request.QueryString["search"], i = Request.QueryString["i"], month = Request.QueryString["month"] })</td>
+                        <td>@Html.ActionLink("Price", "DashBoard", new { sortBy = ViewBag.SortPrice, search = Request.QueryString["search"], i = Request.QueryString["i"], month = Request.QueryString["month"] })</td>
+                        <td>@Html.ActionLink("Publisher", "DashBoard", new { sortBy = ViewBag.SortSeller, search = Request.QueryString["search"], i = Request.QueryString["i"], month = Request.QueryString["month"] })</td>
+                        <td>Published Date</td>
+                        <td align="center">@Html.ActionLink("Number of Download", "DashBoard", new { sortBy = ViewBag.SortDownload, search = Request.QueryString["search"], i = Request.QueryString["i"], month = Request.QueryString["month"] })</td>
+                        <td></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (Notes_MarketPlace.Models.Note n in Model)
+                    {
+                        {
+                            sub = count - total + 1;
+                        }
+                        <tr>
+                            <td align="center">@sub</td>
+                            <td>@n.NoteTitle</td>
+                            <td>@n.Category</td>
+                            <td align="center">@n.FileSize KB</td>
+                            <td>@n.SellType</td>
+                            <td>$@n.SellPrice</td>
+                            <td>@n.Member.FirstName @n.Member.LastName</td>
+                            <td>@n.ApprovedDate.Value.ToString("dd-MM-yyyy,HH:mm")</td>
+                            <td align="center">@n.Buyers.Where(e1 => e1.Status == true).ToList().Count()</td>
+                            <td align="center">
+                                <div class="dropdown">
+                                    <button type="button"
+                                            class="dropdown-toggle"
+                                            data-toggle="dropdown">
+                                        <i class="fas fa-ellipsis-v"></i>
+                                    </button>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" target="_blank" href="~/UploadFiles/Notes/@n.OwnerId/@n.UploadNotes">Download Notes</a>
+                                        <a class="dropdown-item" href="/Admin/NoteDetails?noteId=@n.NoteId">View More Details</a>
+                                        <a class="dropdown-item" role="button" data-toggle="modal" data-target="#report_@n.NoteId">Unpublish</a>
+                                    </div>
+                                </div>
+                            </td>
+                            <div class="modal fade" id="report_@n.NoteId">
+                                <div class="modal-dialog review-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-body">
+                                            <button type="button" class="close" data-dismiss="modal">
+                                                &times;
+                                            </button>
+                                            <div class="review-model">
+                                                <div class="model-heading">
+                                                    <h3>@n.NoteTitle</h3>
+                                                </div>
+                                                <div class="review-content">
+                                                    <form action="/Admin/UnPublish" method="post">
+                                                        @Html.AntiForgeryToken()
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="form-group">
+                                                                    <label for="page">Remarks*</label>
+                                                                    <input type="hidden" name="Id" value="@n.NoteId" />
+                                                                    <textarea class="form-control" placeholder="Remarks....." id="comments" name="remarks" required></textarea>
+                                                                </div>
+                                                                <div class="marging-top">
+                                                                    <input type="submit" class="btn btn-red" value="Unpublish" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </tr>
+                        {
+                            total = total - 1;
+                        }
+                    }
+                    @if (Model.Count() == 0)
+                    {
+                        <tr>
+                            <td colspan="10" align="center">No Record Found</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+<section id="pagination">
+    @Html.PagedListPager(Model, i => Url.Action("DashBoard", "Admin", new { i, search = Request.QueryString["search"], sortBy = Request.QueryString["sortBy"], month = Request.QueryString["month"] }), new PagedList.Mvc.PagedListRenderOptions
+    {
+        ContainerDivClasses = null,
+        LiElementClasses = new string[] { "page-item1" },
+        UlElementClasses = new string[] { "pagination justify-content-center" },
+        LinkToNextPageFormat = "<i class='fa fa-chevron-right'></i>",
+        LinkToPreviousPageFormat = "<i class='fa fa-chevron-left'></i>",
+        MaximumPageNumbersToDisplay = 5,
+        DisplayEllipsesWhenNotShowingAllPageNumbers = false,
+        DisplayLinkToFirstPage = PagedListDisplayMode.Never,
+        DisplayLinkToLastPage = PagedListDisplayMode.Never
+
+    })
+</section>
+
+<script>
+    function submit() {
+        document.getElementById('search_from').submit();
+    }
+</script>

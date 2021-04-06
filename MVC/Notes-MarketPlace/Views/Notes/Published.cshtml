@@ -2,6 +2,16 @@
 @using PagedList;
 @using PagedList.Mvc;
 
+@{
+    string Base64EncodingMethod(string Data)
+    {
+        byte[] toEncodeAsBytes = System.Text.Encoding.UTF32.GetBytes(Data);
+        string sReturnValues = System.Convert.ToBase64String(toEncodeAsBytes);
+        return sReturnValues;
+    }
+}
+
+
 <section id="published-notes">
     <div id="content-box">
         <div class="container">
@@ -48,7 +58,13 @@
                             <td>@notes.Category</td>
                             <td>@notes.SellType</td>
                             <td>@notes.SellPrice</td>
-                            <td align="center"><img src="~/images/Dashboard/eye.png" style="cursor:pointer" onclick="window.open('/UploadFiles/Notes/@notes.OwnerId/@notes.UploadNotes', '_blank');"/></td>
+                            <td align="center"><img src="~/images/Dashboard/eye.png" style="cursor:pointer" onclick="@("window.location.href='" + @Url.Action("Notedetails", "Notes",new {note=Base64EncodingMethod(notes.NoteId.ToString())}) + "'");" /></td>
+                        </tr>
+                    }
+                    @if (Model.Count() == 0)
+                    {
+                        <tr>
+                            <td colspan="6" align="center">No Record Found</td>
                         </tr>
                     }
                 </tbody>
@@ -57,7 +73,7 @@
     </div>
     </div>
     <section id="pagination">
-        @Html.PagedListPager(Model, i2 => Url.Action("Index", "Notes", new { i2, search2 = Request.QueryString["search2"], search = Request.QueryString["search"], i = Request.QueryString["i"] , sortBy = Request.QueryString["sortBy"], sortBy2 = Request.QueryString["sortBy2"] }), new PagedList.Mvc.PagedListRenderOptions
+        @Html.PagedListPager(Model, i2 => Url.Action("Index", "Notes", new { i2, search2 = Request.QueryString["search2"], search = Request.QueryString["search"], i = Request.QueryString["i"], sortBy = Request.QueryString["sortBy"], sortBy2 = Request.QueryString["sortBy2"] }), new PagedList.Mvc.PagedListRenderOptions
    {
        ContainerDivClasses = null,
        LiElementClasses = new string[] { "page-item1" },

@@ -22,23 +22,30 @@
         <nav class="navbar white-nav-top navbar-expand-lg fixed-top">
             <div class="container container-relative">
                 <span id="mobile-nav-open-btn">&#9776;</span>
-                <a href="#home" class="navbar-brand">
+                <a href="/Admin/DashBoard" class="navbar-brand">
                     <img src="~/images/login/logo.png" alt="logo" id="user_logo" />
                 </a>
                 <div class="container add-list">
                     <div class="collapse navbar-collapse remove-padding navbar-dropdown">
                         <ul class="nav ml-auto">
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Dashboard</a>
+                                @if (ViewBag.NavTitle == "Dashboard")
+                                {
+                                    @Html.ActionLink("Dashboard", "DashBoard", "Admin", null, new { @class = "nav-link checked" })
+                                }
+                                else
+                                {
+                                    @Html.ActionLink("Dashboard", "DashBoard", "Admin", null, new { @class = "nav-link" })
+                                }
                             </li>
                             <li class="nav-item direct-hover">
                                 <a class="nav-link" href="" data-toggle="dropdown">Notes</a>
                                 <div class="dropdown">
                                     <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="#">Notes Under Review</a>
-                                        <a class="dropdown-item" href="#">Published Notes</a>
-                                        <a class="dropdown-item" href="#">Download Notes</a>
-                                        <a class="dropdown-item" href="#">Rejected Notes</a>
+                                        @Html.ActionLink("Notes Under Review", "UnderReview", "Admin", null, new { @class = "dropdown-item" })
+                                        @Html.ActionLink("Published Notes", "Published", "Admin", null, new { @class = "dropdown-item" })
+                                        @Html.ActionLink("Download Notes", "Download", "Admin", null, new { @class = "dropdown-item" })
+                                        @Html.ActionLink("Rejected Notes", "Rejected", "Admin", null, new { @class = "dropdown-item" })
                                     </div>
                                 </div>
                             </li>
@@ -66,8 +73,11 @@
                                 <a class="nav-link" data-toggle="dropdown" href="#">Settings</a>
                                 <div class="dropdown">
                                     <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="#">Manage System Configuration</a>
-                                        <a class="dropdown-item" href="#">Manage Administrator</a>
+                                        @if (Session["Type"].ToString() == "SuperAdmin")
+                                        {
+                                            @Html.ActionLink("Manage System Configuration", "ManageConfig", "Admin", null, new { @class = "dropdown-item" })
+                                            @Html.ActionLink("Manage Administrator", "ManageAdmin", "Admin", null, new { @class = "dropdown-item" })
+                                        }
                                         @Html.ActionLink("Manage Category", "ManageCategory", "Admin", null, new { @class = "dropdown-item" })
                                         @Html.ActionLink("Manage Type", "ManageType", "Admin", null, new { @class = "dropdown-item" })
                                         @Html.ActionLink("Manage Country", "ManageCountry", "Admin", null, new { @class = "dropdown-item" })
@@ -77,17 +87,17 @@
                             <li class="nav-item direct-hover">
                                 <img class="image-fluid rounded-circle"
                                      data-toggle="dropdown"
-                                     src="~/images/home/client-1.jpg" />
+                                     src="../../UploadFiles/AdminPhoto/@Session["Profile"].ToString()" />
                                 <div class="dropdown">
                                     <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="#">Update Profile</a>
-                                        <a class="dropdown-item" href="#">Change Password</a>
-                                        <a class="dropdown-item change-color" href="#">LOGOUT</a>
+                                        @Html.ActionLink("Update Profile", "MyProfile", "Admin", null, new { @class = "dropdown-item" })
+                                        @Html.ActionLink("Change Password", "ChangePassword", "Admin", null, new { @class = "dropdown-item" })
+                                        @Html.ActionLink("LOGOUT", "Logout", "Admin", null, new { @class = "dropdown-item change-color" })
                                     </div>
                                 </div>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link btn-logout" href="#" role="button">Logout</a>
+                                @Html.ActionLink("Logout", "Logout", "Admin", null, new { @class = "nav-link btn-logout", role = "button" })
                             </li>
                         </ul>
                     </div>
@@ -96,57 +106,74 @@
                     <span id="mobile-nav-close-btn">&times;</span>
                     <div id="mobile-nav-content">
                         <ul class="nav navbar-nav">
-                            <li class="nav-item">
-                                <a class="nav-link checked" href="./dashboard.html">Dashboard</a>
-                            </li>
+                            @if (ViewBag.NavTitle == "Dashboard")
+                            {
+                                @Html.ActionLink("Dashboard", "DashBoard", "Admin", null, new { @class = "nav-link checked" })
+                            }
+                            else
+                            {
+                                @Html.ActionLink("Dashboard", "DashBoard", "Admin", null, new { @class = "nav-link" })
+                            }
                             <li class="nav-item">
                                 <a class="nav-link" href="" data-toggle="dropdown">Notes</a>
                                 <div class="dropdown">
                                     <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="#">Notes Under Review</a>
-                                        <a class="dropdown-item" href="#">Published Notes</a>
-                                        <a class="dropdown-item" href="#">Download Notes</a>
-                                        <a class="dropdown-item" href="#">Rejected Notes</a>
+                                        @Html.ActionLink("Notes Under Review", "UnderReview", "Admin", null, new { @class = "dropdown-item" })
+                                        @Html.ActionLink("Published Notes", "Published", "Admin", null, new { @class = "dropdown-item" })
+                                        @Html.ActionLink("Download Notes", "Download", "Admin", null, new { @class = "dropdown-item" })
+                                        @Html.ActionLink("Rejected Notes", "Rejected", "Admin", null, new { @class = "dropdown-item" })
                                     </div>
                                 </div>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Members</a>
+                                @if (ViewBag.NavTitle == "Members")
+                                {
+                                    @Html.ActionLink("Members", "Member", "Admin", null, new { @class = "nav-link checked" })
+                                }
+                                else
+                                {
+                                    @Html.ActionLink("Members", "Member", "Admin", null, new { @class = "nav-link" })
+                                }
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" data-toggle="dropdown" href="#">Reports</a>
-                                <div class="dropdown">
-                                    <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="#">Spam Reports</a>
-                                    </div>
-                                </div>
+                                @if (ViewBag.NavTitle == "Reports")
+                                {
+                                    @Html.ActionLink("Reports", "SpamReports", "Admin", null, new { @class = "nav-link checked" })
+                                }
+                                else
+                                {
+                                    @Html.ActionLink("Reports", "SpamReports", "Admin", null, new { @class = "nav-link" })
+                                }
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" data-toggle="dropdown" href="#">Settings</a>
                                 <div class="dropdown">
                                     <div class="dropdown-menu white-space-remove">
-                                        <a class="dropdown-item" href="#">Manage Configuration</a>
-                                        <a class="dropdown-item" href="#">Manage Administrator</a>
-                                        <a class="dropdown-item" href="#">Manage Category</a>
-                                        <a class="dropdown-item" href="#">Manage Type</a>
-                                        <a class="dropdown-item" href="#">Manage Country</a>
+                                        @if (Session["Type"].ToString() == "SuperAdmin")
+                                        {
+                                            @Html.ActionLink("Manage System Configuration", "ManageConfig", "Admin", null, new { @class = "dropdown-item" })
+                                            @Html.ActionLink("Manage Administrator", "ManageAdmin", "Admin", null, new { @class = "dropdown-item" })
+                                        }
+                                        @Html.ActionLink("Manage Category", "ManageCategory", "Admin", null, new { @class = "dropdown-item" })
+                                        @Html.ActionLink("Manage Type", "ManageType", "Admin", null, new { @class = "dropdown-item" })
+                                        @Html.ActionLink("Manage Country", "ManageCountry", "Admin", null, new { @class = "dropdown-item" })
                                     </div>
                                 </div>
                             </li>
                             <li class="nav-item">
                                 <img class="image-fluid rounded-circle"
                                      data-toggle="dropdown"
-                                     src="~/images/home/client-1.jpg" />
+                                     src="../../UploadFiles/MemberProfile/@Session["Profile"].ToString()" />
                                 <div class="dropdown">
                                     <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="#">Update Profile</a>
-                                        <a class="dropdown-item" href="#">Change Password</a>
-                                        <a class="dropdown-item change-color" href="#">LOGOUT</a>
+                                        @Html.ActionLink("Update Profile", "MyProfile", "Admin", null, new { @class = "dropdown-item" })
+                                        @Html.ActionLink("Change Password", "ChangePassword", "Admin", null, new { @class = "dropdown-item" })
+                                        @Html.ActionLink("LOGOUT", "Logout", "Admin", null, new { @class = "dropdown-item change-color" })
                                     </div>
                                 </div>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link btn-logout" href="#" role="button">Logout</a>
+                                @Html.ActionLink("Logout", "Logout", "Admin", null, new { @class = "nav-link btn-logout", role = "button" })
                             </li>
                         </ul>
                     </div>

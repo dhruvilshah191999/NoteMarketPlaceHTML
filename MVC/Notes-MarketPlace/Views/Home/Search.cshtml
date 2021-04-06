@@ -180,19 +180,19 @@
                             <div class="book-detail">
                                 @if (notes.InstitutionName != null && notes.Country != null)
                                 {
-                                    <p><i class='fas fa-university'></i>@notes.InstitutionName,@notes.Country</p>
+                                    <p id="place"><i class='fas fa-university'></i>@notes.InstitutionName,@notes.Country</p>
                                 }
                                 else if (notes.InstitutionName == null && notes.Country != null)
                                 {
-                                    <p><i class='fas fa-university'></i>Note MarketPlace,@notes.Country</p>
+                                    <p id="place"><i class='fas fa-university'></i>Note MarketPlace,@notes.Country</p>
                                 }
                                 else if (notes.InstitutionName != null && notes.Country == null)
                                 {
-                                    <p><i class='fas fa-university'></i>@notes.InstitutionName</p>
+                                    <p id="place"><i class='fas fa-university'></i>@notes.InstitutionName</p>
                                 }
                                 else
                                 {
-                                    <p><i class='fas fa-university'></i>Note MarketPlace,India</p>
+                                    <p id="place"><i class='fas fa-university'></i>Note MarketPlace,India</p>
                                 }
                                 <p><i class="fas fa-book-open"></i> @notes.TotalPages Pages</p>
                                 <p><i class="fas fa-calendar-alt"></i>@notes.CreatedDate.ToString("ddd, MMM d yyyy")</p>

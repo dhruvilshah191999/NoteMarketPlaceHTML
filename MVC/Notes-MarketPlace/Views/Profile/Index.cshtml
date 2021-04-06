@@ -96,7 +96,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="phonenumber">Phone Number</label>
+                                <label for="phonenumber">Phone Number*</label>
                                 <div class="mobile-number">
                                     <div class="row">
                                         <div class="col-md-4 col-lg-3">
@@ -130,7 +130,7 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                            @Html.LabelFor(model => model.ProfilePicture);
+                            @Html.LabelFor(model => model.ProfilePicture)
                             <div class="picture-box">
                                 <label class="att-each"><input type="file" id="file_value" name="ImageUrl" accept="image/*"></label>
                             </div>
@@ -165,6 +165,7 @@
                             <div class="form-group">
                                 @Html.LabelFor(model => model.AddressLine2)
                                 @Html.EditorFor(model => model.AddressLine2, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter your address" } })
+                                @Html.ValidationMessageFor(model => model.AddressLine2, "", new { @class = "error-message" })
                             </div>
                         </div>
                         <div class="col-md-6">

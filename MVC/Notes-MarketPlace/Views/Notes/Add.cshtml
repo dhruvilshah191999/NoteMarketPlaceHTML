@@ -21,7 +21,7 @@
 <section id="notes-form">
     <div id="content-box">
         <div class="container">
-            <form action="/Notes/Add" method="post" enctype="multipart/form-data">
+            <form action="/Notes/Add" id="search_from" method="post" enctype="multipart/form-data">
                 @Html.AntiForgeryToken()
                 <div class="notes-heading">
                     <h2>Basic Note Details</h2>
@@ -89,6 +89,7 @@
                             <div class="form-group">
                                 @Html.LabelFor(model => model.TotalPages)
                                 @Html.EditorFor(model => model.TotalPages, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter your notes total pages", type = "Number" } })
+                                @Html.ValidationMessageFor(model => model.TotalPages, "", new { @class = "error-message" })
                             </div>
                         </div>
                         <div class="col-md-12">
@@ -195,13 +196,14 @@
                                 <label id="upload_note_preview">Upload a file</label>
                             </div>
                         </div>
+                        <input type="hidden" name="button" id="buttonvalue"/>
                         <div class="col-md-6">
                             <div class="two-button">
                                 <div class="marging-top">
-                                    <input type="button" class="btn btn-primary " value="SAVE" readonly style="cursor:not-allowed" />
+                                    <input type="submit" class="btn btn-primary " value="SAVE" id="save"/>
                                 </div>
                                 <div class="marging-top">
-                                    <input type="submit" class="btn btn-primary " value="PUBLISH" />
+                                    <input type="submit" class="btn btn-primary " value="PUBLISH" id="publish"/>
                                 </div>
                             </div>
                         </div>
@@ -232,5 +234,13 @@
     $("#selltype2").on('change', function () {
         $("#price").val(0)
         $("#price").removeAttr("readonly", "true");
+    });
+
+    $("#save").on('click', function () {
+        $("#buttonvalue").val("Draft")
+    });
+
+    $("#publish").on('click', function () {
+        $("#buttonvalue").val("Submitted for Review")
     });
 </script>

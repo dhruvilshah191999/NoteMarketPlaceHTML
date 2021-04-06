@@ -8,14 +8,14 @@
         <div class="row">
             <div class="col-md-3"></div>
             <div class="col-md-6 email-context">
-                <img src="~/images/login/logo.png" alt="Top Logo">
+                <img src="~/images/login/logo.png" alt="Top Logo" onclick="location.href = '/';"  style="cursor:pointer">
                 <h3>Email Verification</h3>
                 <h5>Dear @Model.FirstName @Model.LastName</h5>
                 <p>Thanks for signing up!</p>
                 <p>Simply click below for email verification.</p>
                 <form action="/Auth/Verify" method="post">
                     @Html.AntiForgeryToken()
-                    @Html.HiddenFor(model => model.MemberId);
+                    @Html.HiddenFor(model => model.MemberId)
                     <input type="submit" class="btn-verify" value="VERIFY EMAIL ADDRESS">
                 </form>
             </div>
