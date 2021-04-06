@@ -1,8 +1,12 @@
-﻿@{ 
+﻿@using Notes_MarketPlace.Models;
+@{
     if (Session["MemberId"] == null)
     {
         Response.Redirect("/Auth/Index");
     }
+
+    DBEntities mdb = new DBEntities();
+    ManageSystem mb = mdb.ManageSystems.FirstOrDefault(x => x.Id == 1);
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -201,9 +205,15 @@
                     </div>
                     <div class="col-md-6 col-sm-4 col-6">
                         <ul class="social-list">
-                            <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                            <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                            <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+                            <li>
+                                <a href="@mb.FacebookLink" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                            </li>
+                            <li>
+                                <a href="@mb.TwitterLink" target="_blank"><i class="fab fa-twitter"></i></a>
+                            </li>
+                            <li>
+                                <a href="@mb.LinkedlnLink" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                            </li>
                         </ul>
                     </div>
                 </div>
